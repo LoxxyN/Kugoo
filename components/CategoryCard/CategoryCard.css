@@ -1,0 +1,19 @@
+.category-card {
+    img {
+        object-fit: cover;
+    }
+
+    .category-card__description {
+        border-radius: 10px;
+        color: var(--color-white);
+        background: rgba(255,255,255, 0.15);
+        backdrop-filter: blur(10px);
+
+        .category-card__title {
+            font-size: var(--fs-18);
+        }
+        .category-card__price {
+            font-size: var(--fs-12);
+        }
+    }
+}
