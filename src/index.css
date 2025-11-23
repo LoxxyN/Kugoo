@@ -15,7 +15,8 @@
 	-moz-osx-font-smoothing: grayscale;
 
 	/* Variables */
-	--color-gray: #5d6c7b;
+	--color-gray--text: #5d6c7b;
+	--color-gray--block: #f4f7fb;
 	--color-blue: #6f73ee;
 	--color-black: #282739;
 
@@ -232,20 +233,20 @@ svg * {
 @font-face {
 	font-family: 'Jost';
 	font-weight: 400;
-	src: url('../public/font/Jost-Regular.woff2');
+	src: url('../public/font/Jost-Regular.woff2') format('woff2');
 	font-display: swap;
 }
 
 @font-face {
 	font-family: 'Jost';
 	font-weight: 500;
-	src: url('../public/font/Jost-Medium.woff2');
+	src: url('../public/font/Jost-Medium.woff2') format('woff2');
 	font-display: swap;
 }
 
 @font-face {
 	font-family: 'Jost';
 	font-weight: 600;
-	src: url('../public/font/Jost-SemiBold.woff2');
+	src: url('../public/font/Jost-SemiBold.woff2') format('woff2');
 	font-display: swap;
 }

@@ -1,5 +1,10 @@
-import { ProductCardList } from '../components/ProductCardList/ProductCardList'
+import { CategoriesLayout, ProductsLayout } from '@layouts/index'
 
-export const App: React.FC = () => {
-	return <ProductCardList />
+export const App = () => {
+	return (
+		<>
+			<ProductsLayout />
+			<CategoriesLayout />
+		</>
+	)
 }
