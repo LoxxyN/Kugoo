@@ -3,10 +3,11 @@
 :root {
 	font-family: 'Jost', system-ui, Avenir, Helvetica, Arial, sans-serif;
 	line-height: 1.5;
+	font-size: 16px;
 	font-weight: 400;
 
 	color-scheme: light dark;
-	color: #000000;
+	color: #282739;
 	background-color: #ffffff;
 
 	font-synthesis: none;
@@ -233,20 +234,20 @@ svg * {
 @font-face {
 	font-family: 'Jost';
 	font-weight: 400;
-	src: url('../public/font/Jost-Regular.woff2') format('woff2');
+	src: url(../public/font/Jost-Regular.woff2) format('woff2');
 	font-display: swap;
 }
 
 @font-face {
 	font-family: 'Jost';
 	font-weight: 500;
-	src: url('../public/font/Jost-Medium.woff2') format('woff2');
+	src: url(../public/font/Jost-Medium.woff2) format('woff2');
 	font-display: swap;
 }
 
 @font-face {
 	font-family: 'Jost';
 	font-weight: 600;
-	src: url('../public/font/Jost-SemiBold.woff2') format('woff2');
+	src: url(../public/font/Jost-SemiBold.woff2) format('woff2');
 	font-display: swap;
 }

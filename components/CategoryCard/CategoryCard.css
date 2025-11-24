@@ -26,9 +26,11 @@
 
 		.category-card__title {
 			font-size: var(--fs-18);
+			font-weight: 500;
 		}
 		.category-card__price {
-			font-size: var(--fs-12);
+			font-weight: 500;
+			font-size: var(--fs-14);
 		}
 	}
 }

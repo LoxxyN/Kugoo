@@ -1,0 +1,9 @@
+.header__icons {
+	display: flex;
+	gap: 25px;
+
+	.header__icons-cart {
+		display: flex;
+		gap: 10px;
+	}
+}

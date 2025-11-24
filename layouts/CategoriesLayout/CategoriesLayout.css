@@ -12,6 +12,7 @@
 
 		h2 {
 			text-transform: uppercase;
+			font-weight: 600;
 			font-size: var(--fs-35);
 		}
 	}
@@ -44,7 +45,6 @@
 
 	.small-tip__description {
 		p {
-			color: var(--color-black);
 			margin-bottom: 6px;
 		}
 		a {
