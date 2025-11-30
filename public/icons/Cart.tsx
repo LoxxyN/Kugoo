@@ -6,7 +6,7 @@ export const Cart = ({ size = 18, fill }: IIcon) => {
 			width={size}
 			height={size}
 			viewBox='0 0 21 18'
-			fill={fill ? fill : '#000000'}
+			fill={fill ? fill : '#6F73EE'}
 			xmlns='http://www.w3.org/2000/svg'
 		>
 			<g clipPath='url(#clip0_35926_6608)'>
@@ -34,7 +34,7 @@ export const CartActive = ({ size = 18, fill }: IIcon) => {
 			width={size}
 			height={size}
 			viewBox='0 0 21 18'
-			fill={fill ? fill : '#000000'}
+			fill={fill ? fill : '#6F73EE'}
 			xmlns='http://www.w3.org/2000/svg'
 		>
 			<g clipPath='url(#clip0_389_18889)'>

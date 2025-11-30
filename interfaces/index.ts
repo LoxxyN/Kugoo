@@ -1,4 +1,5 @@
 export type { ICartItem } from './ICartItem'
+export type { ICartMenuProps } from './ICartMenuProps'
 export type { ICartStore } from './ICartStore'
 export type { ICategoryCard } from './ICategoryCard'
 export type { IIcon } from './IIcon'

@@ -1,12 +1,13 @@
 .cart-card {
-	padding: 15px 20px;
+	padding: 12px 10px 12px 0;
 	display: flex;
+	justify-content: space-between;
 	gap: 83px;
 
 	> div {
 		display: flex;
 		align-items: center;
-		gap: 15px;
+		gap: 25px;
 	}
 	&:not(:last-child) {
 		border-bottom: 1px solid #eaebed;
@@ -31,12 +32,12 @@
 
 .cart-card__description {
 	.cart-card__name {
-		font-size: var(--fs-14);
+		font-size: var(--fs-16);
 		font-weight: 500;
 	}
 
 	> div {
-		font-size: var(--fs-12);
+		font-size: var(--fs-15);
 
 		display: flex;
 		gap: 13px;

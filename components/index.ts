@@ -1,6 +1,7 @@
 export { Badge } from './Badge/Badge'
-export { CartDropdown } from './Cart/CartMenu'
 export { CartCard } from './CartCard/CartCard'
+export { CartIcon } from './CartIcon/CartIcon'
+export { CartMenu } from './CartMenu/CartMenu'
 export { CategoryCard } from './CategoryCard/CategoryCard'
 export { CategoryCards } from './CategoryCards/CategoryCards'
 export { ProductCard } from './ProductCard/ProductCard'

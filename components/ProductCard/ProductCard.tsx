@@ -13,7 +13,7 @@ import {
 import type { IProductCard } from '@interfaces/index'
 import { useCartStore } from '@store/index'
 import { formatNumber } from '@utils/index'
-import { Card } from 'antd'
+import { Button, Card } from 'antd'
 import { useState } from 'react'
 import './ProductCard.css'
 
@@ -29,7 +29,7 @@ export const ProductCard: React.FC<{ product: IProductCard }> = ({
 		<Card className='card' hoverable>
 			<div className='card__top'>
 				<div className='card__top-actions'>
-					{badge && <Badge type={badge} />}
+					{product.badge && <Badge type={product.badge} />}
 					<ProductCardButton onClick={() => setIsScalesActive(!isScalesActive)}>
 						{isScalesActive ? (
 							<Scales fill='#6F73EE' />
@@ -87,15 +87,16 @@ export const ProductCard: React.FC<{ product: IProductCard }> = ({
 										)
 									}
 									onClick={() => {
+										addItem(product)
 										setCartIsActive(!isCartActive)
 									}}
 								/>
 								<ProductCardButton
 									children={
 										isHeartActive ? (
-											<HeartActive size={20} fill='#6F73EE' />
+											<HeartActive size={20} />
 										) : (
-											<Heart size={20} fill='#6F73EE' />
+											<Heart size={20} />
 										)
 									}
 									onClick={() => {
@@ -104,12 +105,9 @@ export const ProductCard: React.FC<{ product: IProductCard }> = ({
 								/>
 							</div>
 						</div>
-						<button
-							onClick={() => addItem(product)}
-							className='w-full rounded-md'
-						>
+						<Button type='primary' className='w-full rounded-md'>
 							Купить в 1 клик
-						</button>
+						</Button>
 					</div>
 				</div>
 			</div>
