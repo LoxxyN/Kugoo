@@ -1,0 +1,21 @@
+.nav-bar {
+	background-color: var(--color-gray--block);
+	width: 100%;
+	.wrapper {
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+		/* gap: 50px; */
+		padding-block: 10px;
+		.nav-bar__link {
+			color: var(--color-black);
+			font-size: var(--fs-14);
+			font-weight: 500;
+			transition: var(--transition);
+
+			&:is(:hover, :focus-within, :active) {
+				color: var(--color-blue);
+			}
+		}
+	}
+}

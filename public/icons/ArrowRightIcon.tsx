@@ -1,6 +1,6 @@
 import { IIcon } from '@interfaces/index'
 
-export const ArrowRight = ({ size = 18, fill }: IIcon) => {
+export const ArrowRightIcon = ({ size = 18, fill }: IIcon) => {
 	return (
 		<svg
 			xmlns='http://www.w3.org/2000/svg'

@@ -1,6 +1,6 @@
 import { IIcon } from '@interfaces/IIcon'
 
-export const Trash = ({ size = 18, fill }: IIcon) => {
+export const TrashIcon = ({ size = 18, fill }: IIcon) => {
 	return (
 		<svg
 			width={size}

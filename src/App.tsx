@@ -1,11 +1,26 @@
-import { CategoriesLayout, HeaderLayout, ProductsLayout } from '@layouts/index'
+import {
+	CategoriesLayout,
+	HeaderLayout,
+	HeroLayout,
+	ProductsLayout,
+} from '@layouts/index'
+import { ConfigProvider } from 'antd'
 
 export const App = () => {
 	return (
 		<>
-			<HeaderLayout />
-			<ProductsLayout />
-			<CategoriesLayout />
+			<ConfigProvider
+				theme={{
+					token: {
+						colorPrimary: '#6F73EE',
+					},
+				}}
+			>
+				<HeaderLayout />
+				<HeroLayout />
+				<ProductsLayout />
+				<CategoriesLayout />
+			</ConfigProvider>
 		</>
 	)
 }

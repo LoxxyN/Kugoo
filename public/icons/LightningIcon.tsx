@@ -1,6 +1,6 @@
 import { IIcon } from '@interfaces/index'
 
-export const Lightning = ({ size = 18, fill }: IIcon) => {
+export const LightningIcon = ({ size = 18, fill }: IIcon) => {
 	return (
 		<svg
 			width={size}

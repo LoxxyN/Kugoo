@@ -1,7 +1,7 @@
-import { Trash } from '@icons/Trash'
-import { ICartItem } from '@interfaces/ICartItem'
-import { useCartStore } from '@store/useCartStore'
-import { formatNumber } from '@utils/formatNumber'
+import { TrashIcon } from '@icons/index'
+import { ICartItem } from '@interfaces/index'
+import { useCartStore } from '@store/index'
+import { splitNumber } from '@utils/index'
 import { Button } from 'antd'
 import './CartCard.css'
 
@@ -19,7 +19,7 @@ export const CartCard: React.FC<{ product: ICartItem }> = ({ product }) => {
 					<h3 className='cart-card__name'>{product.name}</h3>
 					<div>
 						<span className='cart-card__price'>
-							{formatNumber(product.price)} ₽
+							{splitNumber(product.price)} ₽
 						</span>
 						<span>{quantity} шт.</span>
 					</div>
@@ -32,7 +32,7 @@ export const CartCard: React.FC<{ product: ICartItem }> = ({ product }) => {
 				shape='circle'
 				type='text'
 			>
-				<Trash size={24} />
+				<TrashIcon size={24} />
 			</Button>
 		</div>
 	)

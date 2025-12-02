@@ -1,6 +1,6 @@
 import { IIcon } from '@interfaces/index'
 
-export const Heart = ({ size = 18, fill }: IIcon) => {
+export const HeartIcon = ({ size = 18, fill }: IIcon) => {
 	return (
 		<svg
 			width={size}
@@ -14,7 +14,7 @@ export const Heart = ({ size = 18, fill }: IIcon) => {
 	)
 }
 
-export const HeartActive = ({ size = 18, fill }: IIcon) => {
+export const HeartActiveIcon = ({ size = 18, fill }: IIcon) => {
 	return (
 		<svg
 			width={size}

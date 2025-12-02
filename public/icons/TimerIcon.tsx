@@ -1,6 +1,6 @@
 import { IIcon } from '@interfaces/index'
 
-export const Timer = ({ size = 18, fill }: IIcon) => {
+export const TimerIcon = ({ size = 18, fill }: IIcon) => {
 	return (
 		<svg
 			width={size}

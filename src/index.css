@@ -1,7 +1,8 @@
 @import 'tailwindcss';
 
 :root {
-	font-family: 'Jost', system-ui, Avenir, Helvetica, Arial, sans-serif;
+	font-family: 'Jost', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+		Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 	line-height: 1.5;
 	font-size: 16px;
 	font-weight: 400;
@@ -21,6 +22,10 @@
 	--color-blue: #6f73ee;
 	--color-black: #282739;
 
+	--font-family: 'Jost', system-ui, sans-serif;
+
+	--transition: all 0.15s ease-in-out;
+
 	--fs-12: 12px;
 	--fs-14: 14px;
 	--fs-18: 18px;
@@ -30,12 +35,29 @@
 }
 
 html {
-	width: 1100px;
+	width: 1440px;
 	margin: 0 auto;
 }
 
 .wrapper {
+	width: 1110px;
 	margin: 0 auto;
+}
+
+.button-circle {
+	border-radius: 50%;
+}
+
+.button-white {
+	background-color: #ffffff;
+	color: var(--color-blue);
+	padding: 15px 25px;
+	transition: var(--transition);
+
+	&:is(:hover, :focus-within) {
+		color: #ffffff;
+		background-color: var(--color-blue);
+	}
 }
 
 /**
@@ -181,6 +203,7 @@ label {
  */
 button {
 	-webkit-tap-highlight-color: transparent;
+	border-radius: 5px;
 }
 
 /**
@@ -234,20 +257,20 @@ svg * {
 @font-face {
 	font-family: 'Jost';
 	font-weight: 400;
-	src: url(../public/font/Jost-Regular.woff2) format('woff2');
+	src: url(/font/Jost-Regular.woff2) format('woff2');
 	font-display: swap;
 }
 
 @font-face {
 	font-family: 'Jost';
 	font-weight: 500;
-	src: url(../public/font/Jost-Medium.woff2) format('woff2');
+	src: url(/font/Jost-Medium.woff2) format('woff2');
 	font-display: swap;
 }
 
 @font-face {
 	font-family: 'Jost';
 	font-weight: 600;
-	src: url(../public/font/Jost-SemiBold.woff2) format('woff2');
+	src: url(/font/Jost-SemiBold.woff2) format('woff2');
 	font-display: swap;
 }

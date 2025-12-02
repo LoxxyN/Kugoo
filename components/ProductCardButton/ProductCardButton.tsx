@@ -10,7 +10,7 @@ export const ProductCardButton = ({ children, onClick }: IButtonProps) => {
 	return (
 		<button
 			className={cn(
-				'h-10 w-10 rounded-full border border-[#EAEBED] bg-transparent hover:bg-[#F4F7FB] hover:border-[#F4F7FB] transition-all flex items-center justify-center'
+				'button-circle h-10 w-10 border border-[#EAEBED] bg-transparent hover:bg-[#F4F7FB] hover:border-[#F4F7FB] transition-all flex items-center justify-center'
 			)}
 			onClick={onClick}
 		>

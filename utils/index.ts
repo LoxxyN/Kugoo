@@ -1,2 +1,2 @@
 export { cn } from './className'
-export { formatNumber } from './formatNumber'
+export { splitNumber } from './splitNumber'

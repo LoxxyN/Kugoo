@@ -1,6 +1,6 @@
 import { IIcon } from '@interfaces/index'
 
-export const Speedometer = ({ size = 18, fill }: IIcon) => {
+export const SpeedometerIcon = ({ size = 18, fill }: IIcon) => {
 	return (
 		<svg
 			width={size}

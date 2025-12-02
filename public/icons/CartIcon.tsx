@@ -1,11 +1,11 @@
 import { IIcon } from '@interfaces/index'
 
-export const Cart = ({ size = 18, fill }: IIcon) => {
+export const CartIcon = ({ size = 18, fill }: IIcon) => {
 	return (
 		<svg
 			width={size}
 			height={size}
-			viewBox='0 0 21 18'
+			viewBox='0 0 20 20'
 			fill={fill ? fill : '#6F73EE'}
 			xmlns='http://www.w3.org/2000/svg'
 		>
@@ -28,12 +28,12 @@ export const Cart = ({ size = 18, fill }: IIcon) => {
 	)
 }
 
-export const CartActive = ({ size = 18, fill }: IIcon) => {
+export const CartActiveIcon = ({ size = 18, fill }: IIcon) => {
 	return (
 		<svg
 			width={size}
 			height={size}
-			viewBox='0 0 21 18'
+			viewBox='0 0 20 20'
 			fill={fill ? fill : '#6F73EE'}
 			xmlns='http://www.w3.org/2000/svg'
 		>

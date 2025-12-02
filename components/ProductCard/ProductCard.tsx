@@ -1,19 +1,19 @@
 import { Badge, ProductCardButton } from '@components/index'
 import {
-	Accumulator,
-	Cart,
-	CartActive,
-	Heart,
-	HeartActive,
-	Lightning,
-	Scales,
-	Speedometer,
-	Timer,
+	AccumulatorIcon,
+	CartActiveIcon,
+	CartIcon,
+	HeartActiveIcon,
+	HeartIcon,
+	LightningIcon,
+	ScalesIcon,
+	SpeedometerIcon,
+	TimerIcon,
 } from '@icons/index'
 import type { IProductCard } from '@interfaces/index'
 import { useCartStore } from '@store/index'
-import { formatNumber } from '@utils/index'
-import { Button, Card } from 'antd'
+import { splitNumber } from '@utils/index'
+import { Button, Card, message } from 'antd'
 import { useState } from 'react'
 import './ProductCard.css'
 
@@ -25,6 +25,14 @@ export const ProductCard: React.FC<{ product: IProductCard }> = ({
 	const [isScalesActive, setIsScalesActive] = useState(false)
 	const { addItem } = useCartStore()
 
+	const handleCallMessage = () => {
+		if (!isCartActive) {
+			message.info('Добавлено в корзину')
+		} else {
+			message.info('Удалено из корзины')
+		}
+	}
+
 	return (
 		<Card className='card' hoverable>
 			<div className='card__top'>
@@ -32,9 +40,9 @@ export const ProductCard: React.FC<{ product: IProductCard }> = ({
 					{product.badge && <Badge type={product.badge} />}
 					<ProductCardButton onClick={() => setIsScalesActive(!isScalesActive)}>
 						{isScalesActive ? (
-							<Scales fill='#6F73EE' />
+							<ScalesIcon fill='#6F73EE' />
 						) : (
-							<Scales fill='#5D6C7B' />
+							<ScalesIcon fill='#5D6C7B' />
 						)}
 					</ProductCardButton>
 				</div>
@@ -48,21 +56,21 @@ export const ProductCard: React.FC<{ product: IProductCard }> = ({
 					<div className='card__characteristics'>
 						<div>
 							<div className='card__characteristic'>
-								<Accumulator fill='#5D6C7B' />
+								<AccumulatorIcon fill='#5D6C7B' />
 								<p>{product.battery} mAh</p>
 							</div>
 							<div className='card__characteristic'>
-								<Lightning fill='#5D6C7B' />
+								<LightningIcon fill='#5D6C7B' />
 								<p>{product.power} л.с.</p>
 							</div>
 						</div>
 						<div>
 							<div className='card__characteristic'>
-								<Speedometer fill='#5D6C7B' />
+								<SpeedometerIcon fill='#5D6C7B' />
 								<p>{product.max_speed} км/ч</p>
 							</div>
 							<div className='card__characteristic'>
-								<Timer fill='#5D6C7B' />
+								<TimerIcon fill='#5D6C7B' />
 								<p>{product.time_of_work} часов</p>
 							</div>
 						</div>
@@ -71,32 +79,34 @@ export const ProductCard: React.FC<{ product: IProductCard }> = ({
 						<div>
 							<div className='card__price'>
 								<p className='card__price--old'>
-									{formatNumber(product.old_price)} ₽
+									{splitNumber(product.old_price)} ₽
 								</p>
 								<p className='card__price--actual'>
-									{formatNumber(product.price)} ₽
+									{splitNumber(product.price)} ₽
 								</p>
 							</div>
 							<div className='card__buttons'>
 								<ProductCardButton
 									children={
 										isCartActive ? (
-											<CartActive size={20} fill='#6F73EE' />
+											<CartActiveIcon size={20} />
 										) : (
-											<Cart size={20} fill='#6F73EE' />
+											<CartIcon size={20} />
 										)
 									}
 									onClick={() => {
 										addItem(product)
 										setCartIsActive(!isCartActive)
+										handleCallMessage()
 									}}
 								/>
+
 								<ProductCardButton
 									children={
 										isHeartActive ? (
-											<HeartActive size={20} />
+											<HeartActiveIcon size={20} />
 										) : (
-											<Heart size={20} />
+											<HeartIcon size={20} />
 										)
 									}
 									onClick={() => {

@@ -46,6 +46,13 @@
 		display: flex;
 		justify-content: center;
 	}
+
+	&:hover {
+		h3 {
+			transition: var(--transition);
+			color: var(--color-blue);
+		}
+	}
 }
 
 .card__characteristics {
@@ -98,11 +105,4 @@
 	display: flex;
 	gap: 10px;
 	justify-content: space-between;
-}
-
-.card:hover {
-	h3 {
-		transition: all 0.2s;
-		color: var(--color-blue);
-	}
 }
