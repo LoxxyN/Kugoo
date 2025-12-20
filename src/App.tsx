@@ -3,6 +3,7 @@ import {
 	HeaderLayout,
 	HeroLayout,
 	ProductsLayout,
+	ServiceLayout,
 } from '@layouts/index'
 import { ConfigProvider } from 'antd'
 
@@ -20,6 +21,7 @@ export const App = () => {
 				<HeroLayout />
 				<ProductsLayout />
 				<CategoriesLayout />
+				<ServiceLayout />
 			</ConfigProvider>
 		</>
 	)

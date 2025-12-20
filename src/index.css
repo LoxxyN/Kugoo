@@ -44,6 +44,19 @@ html {
 	margin: 0 auto;
 }
 
+.wrapper > h2 {
+	font-size: var(--fs-35);
+	font-weight: 600;
+}
+
+a {
+	color: var(--color-blue);
+
+	&:is(:hover, :focus) {
+		color: var(--color-blue);
+	}
+}
+
 .button-circle {
 	border-radius: 50%;
 }
@@ -113,17 +126,6 @@ body,
 
 :where(address[class]) {
 	font-style: normal;
-}
-
-/**
-  Обнуляем вертикальные внешние отступы параграфа,
-  объявляем локальную переменную для внешнего отступа вниз,
-  чтобы избежать взаимодействие с более сложным селектором
- */
-p {
-	--paragraphMarginBottom: 24px;
-
-	margin-block: 0;
 }
 
 /**

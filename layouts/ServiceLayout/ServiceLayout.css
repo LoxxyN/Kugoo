@@ -1,0 +1,50 @@
+.service {
+	.wrapper {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+
+		> h2 {
+			text-align: center;
+			text-wrap: balance;
+		}
+
+		> p {
+			margin-block: 1.125rem 3.1875rem;
+			font-size: var(--fs-20);
+		}
+
+		.service-tabs {
+			.ant-tabs-tab {
+				padding: 15px 25px;
+				background-color: var(--color-gray--block);
+				color: var(--color-gray--text);
+				border: 1px solid var(--color-gray--block);
+				border-radius: 5px;
+
+				&:is(.ant-tabs-tab-active) {
+					transition: var(--transition);
+					border: 1px solid var(--color-blue);
+					background-color: #ffffff;
+					border-radius: 5px;
+				}
+			}
+		}
+
+		.ant-tabs-nav {
+			margin-bottom: 58px;
+			&::before {
+				display: none;
+			}
+		}
+
+		.ant-tabs-nav-wrap {
+			justify-content: center;
+		}
+
+		.ant-tabs-nav-list {
+			gap: 20px;
+		}
+	}
+}

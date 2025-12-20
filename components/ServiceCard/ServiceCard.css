@@ -1,0 +1,37 @@
+.service-card {
+	font-family: var(--font-family);
+	position: relative;
+	padding: 26px 20px;
+	display: flex;
+	flex-direction: column;
+	border: 1px solid #eaebed;
+	border-radius: 10px;
+	width: 350px;
+	height: 225px;
+
+	&:last-child {
+		background-color: var(--color-gray--block);
+		border: 1px solid var(--color-gray--block);
+	}
+
+	&:nth-child(n + 4):nth-child(-n + 7) {
+		height: 180px;
+	}
+
+	.service-card__title {
+		margin-block: 20px 8px;
+		font-size: var(--fs-18);
+		font-weight: 500;
+	}
+
+	.service-card__description {
+		font-size: var(--fs-14);
+		line-height: 18px;
+	}
+
+	img {
+		position: absolute;
+		right: 0;
+		top: -10px;
+	}
+}
