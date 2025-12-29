@@ -1,5 +1,4 @@
-import { FooterCallTell } from '@components/FooterCallTell/FooterCallTell'
-import { FooterMailingForm } from '@components/FooterMailingForm/FooterMailingForm'
+import { FooterCallTell, FooterMailingForm } from '@components/index'
 import './FooterLayout.css'
 
 export const FooterLayout = () => {

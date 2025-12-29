@@ -14,7 +14,7 @@ export const CarouselContent = () => {
 				</div>
 				<div className='hero__image'>
 					<img
-						src='../../public/images/hero-scooter.svg'
+						src='/images/hero-scooter.svg'
 						alt='hero-scooter'
 						width={538}
 						height={405}

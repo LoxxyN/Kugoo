@@ -22,7 +22,7 @@ export const ProductsLayout = () => {
 				<div className='help-cards'>
 					<div className='help-card'>
 						<img
-							src='../../public/images/Card-left.svg'
+							src='/images/Card-left.svg'
 							alt='background image'
 							width={540}
 							height={235}
@@ -43,7 +43,7 @@ export const ProductsLayout = () => {
 					</div>
 					<div className='help-card'>
 						<img
-							src='../../public/images/Card-right.svg'
+							src='/images/Card-right.svg'
 							alt='background image'
 							width={540}
 							height={235}

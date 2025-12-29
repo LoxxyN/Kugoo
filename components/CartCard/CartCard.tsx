@@ -12,7 +12,7 @@ export const CartCard: React.FC<{ product: ICartItem }> = ({ product }) => {
 		<div className='cart-card'>
 			<div>
 				<div className='cart-card__image'>
-					<img src='../../public/images/Cart-item.svg' alt='Cart item' />
+					<img src='/images/Cart-item.svg' alt='Cart item' />
 				</div>
 
 				<div className='cart-card__description'>

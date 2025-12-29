@@ -1,4 +1,4 @@
-import { MailingModal } from '@components/MailingModal/MailingModal'
+import { MailingModal } from '@components/index'
 import { Button, Form, Input, message } from 'antd'
 import { useState } from 'react'
 import './FooterMailingForm.css'

@@ -47,7 +47,7 @@ export const ProductCard: React.FC<{ product: IProductCard }> = ({
 					</ProductCardButton>
 				</div>
 				<div className='card__image'>
-					<img src='../../public/images/scooter.svg' alt='moped' />
+					<img src='/images/scooter.svg' alt='moped' />
 				</div>
 			</div>
 			<div className='card__bottom'>
