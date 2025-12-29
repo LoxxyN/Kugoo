@@ -1,0 +1,4 @@
+feat(index.html): Added favicon
+feat(App): Added a section with a choice of maintenance
+refactor(index.css): All links became accent colors, including when pointing and focusing
+refactor(ArrowRightIcon): Centered the icon

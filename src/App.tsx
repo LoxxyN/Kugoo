@@ -1,5 +1,6 @@
 import {
 	CategoriesLayout,
+	FooterLayout,
 	HeaderLayout,
 	HeroLayout,
 	ProductsLayout,
@@ -22,6 +23,7 @@ export const App = () => {
 				<ProductsLayout />
 				<CategoriesLayout />
 				<ServiceLayout />
+				<FooterLayout />
 			</ConfigProvider>
 		</>
 	)

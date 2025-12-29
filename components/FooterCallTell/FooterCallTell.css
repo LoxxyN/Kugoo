@@ -1,0 +1,118 @@
+.tell-modal {
+	display: flex;
+	justify-content: center;
+	font-family: var(--font-family);
+
+	.ant-modal-container {
+		text-align: left;
+		color: #282739;
+		padding: 0;
+		width: 790px;
+		height: 571px;
+
+		.ant-modal-body {
+			display: flex;
+			height: 100%;
+		}
+	}
+}
+
+.modal__heading {
+	h2 {
+		font-size: var(--fs-25);
+		font-weight: 600;
+		text-transform: uppercase;
+	}
+
+	p {
+		margin-block: 14px 30px;
+	}
+
+	span {
+		font-size: var(--fs-12);
+		color: var(--color-gray--text);
+	}
+}
+
+.modal__left {
+	padding: 40px 0 42px 40px;
+	width: 60%;
+}
+
+.modal__right {
+	position: relative;
+	width: 40%;
+
+	img {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+	}
+}
+
+.modal__contact {
+	width: 270px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.modal__social-list {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+	margin-top: 7px;
+
+	.modal__social-item {
+		border: 1px solid var(--color-gray--block);
+
+		padding: 15px 25px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}
+
+.modal__form {
+	display: flex;
+	gap: 20px;
+	flex-direction: column;
+
+	.ant-form-item {
+		margin: 0;
+	}
+
+	.check {
+		font-family: var(--font-family);
+		text-wrap: balance;
+		display: flex;
+		font-size: var(--fs-14);
+	}
+
+	label {
+		width: 245px;
+	}
+
+	input[type='checkbox'] {
+		margin: 5px 9px 0 0;
+		height: 16px;
+		width: 16px;
+		accent-color: var(--color-blue);
+		outline: none;
+		border: none;
+		border-radius: 5px;
+
+		&:hover {
+			outline: none;
+			border: none;
+		}
+	}
+
+	.modal__confirm-button {
+		font-family: var(--font-family);
+
+		width: 270px;
+		height: 53px;
+		padding: 15px 78px;
+	}
+}

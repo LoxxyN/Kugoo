@@ -1,0 +1,45 @@
+.modal {
+	text-align: center;
+	padding: 51px 105px;
+	color: var(--color-gray--text);
+	display: flex;
+	justify-content: center;
+
+	.ant-modal-container {
+		width: 618px;
+		height: 392px;
+	}
+}
+
+.modal__heading {
+	h2 {
+		font-size: var(--fs-25);
+		font-weight: 600;
+	}
+
+	p {
+		font-size: var(--fs-14);
+		margin-block: 15px 26px;
+	}
+
+	span {
+		font-size: var(--fs-12);
+		color: var(--color-gray--text);
+	}
+}
+
+.mailing-modal__mail-list {
+	display: flex;
+	justify-content: center;
+	gap: 15px;
+	margin-block: 10px 22px;
+
+	button {
+		border: 1px solid var(--color-gray--block);
+		height: 53px;
+		width: 53px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}

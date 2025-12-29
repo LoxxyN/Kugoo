@@ -1,0 +1,182 @@
+.mailing {
+	padding-block: 24px 21px;
+	color: #fff;
+	background-color: var(--color-blue);
+
+	.wrapper {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		> h2 {
+			text-transform: uppercase;
+			font-size: var(--fs-18);
+			font-weight: 600;
+		}
+	}
+}
+
+hr {
+	color: rgba(93, 108, 123, 0.3);
+}
+
+.footer__info {
+	padding-block: 46px 49px;
+	display: flex;
+	justify-content: space-between;
+
+	.foooter__buyers-lists {
+		gap: 125px;
+		display: flex;
+		h3 {
+			font-size: var(--fs-18);
+			font-weight: 500;
+			margin-bottom: 17px;
+		}
+	}
+
+	.foooter__buyers-list {
+		li {
+			color: var(--color-gray--text);
+			font-size: var(--fs-14);
+			&:not(:last-child) {
+				margin-bottom: 10px;
+			}
+		}
+		&:nth-child(2) {
+			div {
+				display: flex;
+				gap: 44px;
+			}
+		}
+	}
+
+	.foooter__contacts {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		h3 {
+			font-size: var(--fs-18);
+			font-weight: 500;
+		}
+		button {
+			color: var(--color-blue);
+			font-size: var(--fs-12);
+			font-weight: 500;
+		}
+
+		.foooter__contacts-content__top,
+		.foooter__contacts-content__bottom {
+			display: flex;
+			gap: 40px;
+		}
+
+		.foooter__contacts-content__top {
+			margin-bottom: 28px;
+		}
+
+		.foooter__contacts-card {
+			width: 155px;
+
+			span {
+				font-size: var(--fs-12);
+				color: var(--color-gray--text);
+			}
+
+			p {
+				font-weight: 500;
+				margin-bottom: 5px;
+				&:first-child {
+					font-size: var(--fs-12);
+				}
+			}
+		}
+	}
+
+	.foooter__contacts-heading {
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 17px;
+	}
+}
+
+.footer__socials {
+	padding-block: 36px;
+	display: flex;
+	justify-content: space-around;
+
+	.footer__socials-list {
+		display: flex;
+		gap: 10px;
+	}
+
+	.footer__logo {
+		display: flex;
+		align-items: center;
+	}
+
+	.footer__dowloads {
+		display: flex;
+		gap: 10px;
+	}
+
+	.footer__socials-list-item {
+		padding: 5px 0 5px 13px;
+		display: flex;
+		gap: 12px;
+		div {
+			font-size: var(--fs-14);
+			font-weight: 500;
+			span {
+				font-size: var(--fs-10);
+				color: var(--color-gray--text);
+			}
+		}
+	}
+}
+
+.footer__payments {
+	display: flex;
+	justify-content: space-between;
+	padding-block: 18px;
+
+	.footer__payments-politics {
+		display: flex;
+		gap: 44px;
+		a {
+			color: var(--color-gray--text);
+			font-size: var(--fs-12);
+		}
+	}
+
+	.footer__payments-and-chats {
+		display: flex;
+		gap: 38px;
+	}
+
+	.footer__socials-wallets {
+		display: flex;
+		gap: 15px;
+
+		div {
+			display: flex;
+			align-items: center;
+		}
+	}
+
+	.footer__socials-chats {
+		display: flex;
+		gap: 15px;
+		font-size: var(--fs-14);
+		div {
+			display: flex;
+			gap: 14px;
+			align-items: center;
+
+			img {
+				filter: grayscale(1);
+				height: 16px;
+				width: 16px;
+			}
+		}
+	}
+}

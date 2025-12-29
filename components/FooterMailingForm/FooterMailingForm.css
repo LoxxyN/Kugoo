@@ -1,0 +1,31 @@
+.mailing-form {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 20px;
+
+	/* Убираем базовые отступы снизу для центрирования */
+	.ant-form-item-horizontal {
+		margin-bottom: 0;
+	}
+
+	button {
+		font-family: var(--font-family);
+		height: 100%;
+		font-size: var(--fs-16);
+	}
+
+	input {
+		font-family: var(--font-family);
+
+		font-weight: 400;
+		background-color: rgba(255, 255, 255, 0.2);
+		color: #000;
+		padding: 15px 0 15px 25px;
+		width: 410px;
+
+		&::placeholder {
+			color: #fff;
+		}
+	}
+}

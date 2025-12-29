@@ -5,9 +5,8 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-around;
-		/* gap: 50px; */
 		padding-block: 10px;
-		.nav-bar__link {
+		.nav-bar__link > a {
 			color: var(--color-black);
 			font-size: var(--fs-14);
 			font-weight: 500;

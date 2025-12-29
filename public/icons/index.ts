@@ -15,3 +15,8 @@ export { StarIcon } from './StarIcon'
 export { TimerIcon } from './TimerIcon'
 export { TrashIcon } from './TrashIcon'
 export { WalletIcon } from './WalletIcon'
+
+export { GoogleMailIcon } from './mails/GoogleMailIcon'
+export { OutlookMailIcon } from './mails/OutlookMailIcon'
+export { YahooMailIcon } from './mails/YahooMailIcon'
+export { YandexMailIcon } from './mails/YandexMailIcon'
