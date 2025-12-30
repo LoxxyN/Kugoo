@@ -10,7 +10,7 @@ import {
 	SpeedometerIcon,
 	TimerIcon,
 } from '@icons/index'
-import type { IProductCard } from '@interfaces/index'
+import { IProductCard } from '@interfaces/index'
 import { useCartStore } from '@store/index'
 import { splitNumber } from '@utils/index'
 import { Button, Card, message } from 'antd'
