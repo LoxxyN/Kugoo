@@ -1,10 +1,8 @@
 .card {
-	width: 255px;
+	width: fit-content;
 	display: flex;
-	padding-inline: 8px;
-	padding-block: 16px 24px;
 	flex-direction: column;
-	border: 1.5px solid #eaebed;
+	border: 0 solid var(--color-gray--block);
 	border-radius: 12px;
 
 	.card__title {
@@ -15,8 +13,7 @@
 	}
 
 	.card__bottom {
-		padding-top: 20px;
-		padding-inline: 16px;
+		padding: 20px 16px;
 		color: var(--color-gray--text);
 	}
 
@@ -45,6 +42,12 @@
 	.card__image {
 		display: flex;
 		justify-content: center;
+		border-top-right-radius: inherit;
+		border-top-left-radius: inherit;
+		img {
+			border-top-right-radius: inherit;
+			border-top-left-radius: inherit;
+		}
 	}
 
 	&:hover {

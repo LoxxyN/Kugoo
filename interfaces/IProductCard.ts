@@ -9,6 +9,6 @@ export interface IProductCard {
 	power?: string
 	max_speed?: number
 	time_of_work?: number
-	quantity: number
+	quantity?: number
 	badge?: TBadge
 }

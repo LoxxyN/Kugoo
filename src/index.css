@@ -45,6 +45,10 @@ html {
 	margin: 0 auto;
 }
 
+* {
+	font-family: var(--font-family);
+}
+
 .wrapper > h2 {
 	font-size: var(--fs-35);
 	font-weight: 600;

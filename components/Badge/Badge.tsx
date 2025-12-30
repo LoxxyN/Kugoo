@@ -1,7 +1,7 @@
-import { TBadge } from '@interfaces/index'
+import { IBadge } from '@interfaces/index'
 import clsx from 'clsx'
 
-export const Badge = ({ type }: TBadge) => {
+export const Badge = ({ type }: IBadge) => {
 	return (
 		<div
 			className={clsx('text-white text-xs pt-0.5 pb-1 px-2.5 rounded-md', {
