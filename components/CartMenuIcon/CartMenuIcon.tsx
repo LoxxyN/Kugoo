@@ -1,6 +1,7 @@
 import { CartActiveIcon, CartIcon } from '@icons/index'
 import { useCartStore } from '@store/index'
 import { Badge, Button } from 'antd'
+import { useMemo } from 'react'
 
 interface ButtonProp {
 	onClick: () => void
@@ -8,16 +9,14 @@ interface ButtonProp {
 
 export const CartMenuIcon = ({ onClick }: ButtonProp) => {
 	const { getTotalItems } = useCartStore()
+	const totalItems = useMemo(() => getTotalItems(), [getTotalItems])
 
 	return (
-		<Badge count={getTotalItems()} showZero={false}>
+		<Badge count={totalItems} showZero={false}>
 			<Button
-				style={{
-					fontWeight: '500',
-					fontSize: '14px',
-				}}
+				className='text-sm font-medium'
 				icon={
-					getTotalItems() <= 0 ? (
+					totalItems <= 0 ? (
 						<CartIcon size={20} />
 					) : (
 						<CartActiveIcon size={20} />

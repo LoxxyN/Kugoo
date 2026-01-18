@@ -2,6 +2,23 @@ import { FooterCallTell, FooterMailingForm } from '@components/index'
 import './FooterLayout.css'
 
 export const FooterLayout = () => {
+	const paymentList = [
+		{ src: '/images/google-pay.svg', alt: 'google-pay' },
+		{ src: '/images/apple-pay.svg', alt: 'apple-pay' },
+		{ src: '/images/visa-pay.svg', alt: 'visa-pay' },
+		{ src: '/images/maestro-pay.svg', alt: 'maestro-pay' },
+		{ src: '/images/mastercard-pay.svg', alt: 'mastercard-pay' },
+		{ src: '/images/webmoney-pay.svg', alt: 'webmoney-pay' },
+		{ src: '/images/qiwi-pay.svg', alt: 'qiwi-pay' },
+	]
+
+	const socialList = [
+		{ name: 'Vkontakte', count: '3 300' },
+		{ name: 'Instagram', count: '10 602' },
+		{ name: 'Youtube', count: '3 603' },
+		{ name: 'Telegram', count: '432' },
+	]
+
 	return (
 		<footer>
 			<div className='mailing'>
@@ -95,67 +112,33 @@ export const FooterLayout = () => {
 						</a>
 					</div>
 					<div className='footer__socials-list'>
-						<div className='footer__socials-list-item'>
-							<img src='/images/vk-logo.svg' alt='vk' />
-							<div>
-								<p>Вконтакте</p>
-								<span>3 300</span>
+						{socialList.map((item, i) => (
+							<div key={i} className='footer__socials-list-item'>
+								<img src={`/images/${item.name}-logo.svg`} alt={item.name} />
+								<div>
+									<p>{item.name}</p>
+									<span>{item.count}</span>
+								</div>
 							</div>
-						</div>
-						<div className='footer__socials-list-item'>
-							<img src='/images/instagram-logo.svg' alt='instagram' />
-							<div>
-								<p>Instagram</p>
-								<span>10 602</span>
-							</div>
-						</div>
-						<div className='footer__socials-list-item'>
-							<img src='/images/youtube-logo.svg' alt='youtube' />
-							<div>
-								<p>YouTube</p>
-								<span>3 603</span>
-							</div>
-						</div>
-						<div className='footer__socials-list-item'>
-							<img src='/images/telegram-logo.svg' alt='telegram' />
-							<div>
-								<p>Telegram</p>
-								<span>432</span>
-							</div>
-						</div>
+						))}
 					</div>
 				</div>
 				<hr />
 				<div className='footer__payments'>
 					<div className='footer__payments-politics'>
-						<a href=''>Реквизиты</a>
-						<a href=''>Политика конфиденциальности</a>
+						<a href='#'>Реквизиты</a>
+						<a href='#'>Политика конфиденциальности</a>
 					</div>
 
 					<div className='footer__payments-and-chats'>
 						<div className='footer__socials-wallets'>
-							<div>
-								<img src='/images/google-pay.svg' alt='google-pay' />
-							</div>
-							<div>
-								<img src='/images/apple-pay.svg' alt='apple-pay' />
-							</div>
-							<div>
-								<img src='/images/visa-pay.svg' alt='visa-pay' />
-							</div>
-							<div>
-								<img src='/images/maestro-pay.svg' alt='maestro-pay' />
-							</div>
-							<div>
-								<img src='/images/mastercard-pay.svg' alt='mastercard-pay' />
-							</div>
-							<div>
-								<img src='/images/webmoney-pay.svg' alt='webmoney-pay' />
-							</div>
-							<div>
-								<img src='/images/qiwi-pay.svg' alt='qiwi-pay' />
-							</div>
+							{paymentList.map((item, i) => (
+								<div key={i}>
+									<img src={item.src} alt={item.alt} />
+								</div>
+							))}
 						</div>
+
 						<div className='footer__socials-chats'>
 							Online чат:
 							<div>
