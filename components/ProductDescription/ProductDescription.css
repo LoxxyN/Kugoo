@@ -1,0 +1,128 @@
+.product__description {
+	width: 475px;
+	h2 {
+		margin-top: 12px;
+		text-transform: uppercase;
+		font-size: var(--fs-35);
+		font-weight: 600;
+	}
+}
+
+.product__description-info {
+	display: flex;
+	gap: 20px;
+	span {
+		color: var(--color-gray--text);
+	}
+}
+
+.product__description-actions {
+	margin-block: 20px 30px;
+	display: flex;
+	justify-content: space-between;
+
+	div {
+		display: flex;
+		gap: 11px;
+		align-items: center;
+
+		&:last-child {
+			cursor: pointer;
+		}
+	}
+}
+
+.product__description-pricing {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.product__description-price {
+	span {
+		font-size: var(--fs-12);
+		color: var(--color-gray--text);
+		text-decoration: line-through;
+	}
+	p {
+		font-size: var(--fs-25);
+		font-weight: 600;
+	}
+}
+
+.product__description-installment {
+	background-color: var(--color-gray--block);
+	padding: 7px 14px 6px;
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	border-radius: 5px;
+
+	> div {
+		span {
+			font-size: var(--fs-12);
+			color: var(--color-gray--text);
+		}
+		p {
+			font-size: var(--fs-14);
+			font-weight: 500;
+		}
+	}
+}
+
+.complectation-heading {
+	margin-block: 30px 20px;
+	font-weight: 500;
+	display: flex;
+	gap: 6px;
+	align-items: center;
+}
+
+.product__description-complectation {
+	display: flex;
+	flex-wrap: wrap;
+	margin-bottom: 40px;
+	gap: 20px;
+}
+
+.product__description-buy {
+	background-color: var(--color-gray--block);
+	border-radius: 10px;
+	padding: 27px 30px;
+}
+
+.product__description-buy__heading {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	h3 {
+		font-weight: 600;
+		font-size: var(--fs-35);
+	}
+}
+
+.product__description-buy__delivery {
+	margin-block: 30px;
+
+	display: flex;
+	gap: 17px;
+	> div {
+		p {
+			font-weight: 500;
+		}
+	}
+}
+
+.product__description-buy__buttons {
+	display: flex;
+	gap: 20px;
+	button {
+		height: 53px;
+		width: 197px;
+		&:last-child {
+			border: 1px solid var(--color-blue);
+			color: var(--color-blue);
+		}
+	}
+}

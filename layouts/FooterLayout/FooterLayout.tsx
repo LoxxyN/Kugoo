@@ -1,24 +1,24 @@
 import { FooterCallTell, FooterMailingForm } from '@components/index'
 import './FooterLayout.css'
 
+const paymentList = [
+	{ src: '/images/google-pay.svg', alt: 'google-pay' },
+	{ src: '/images/apple-pay.svg', alt: 'apple-pay' },
+	{ src: '/images/visa-pay.svg', alt: 'visa-pay' },
+	{ src: '/images/maestro-pay.svg', alt: 'maestro-pay' },
+	{ src: '/images/mastercard-pay.svg', alt: 'mastercard-pay' },
+	{ src: '/images/webmoney-pay.svg', alt: 'webmoney-pay' },
+	{ src: '/images/qiwi-pay.svg', alt: 'qiwi-pay' },
+]
+
+const socialList = [
+	{ name: 'Vkontakte', count: '3 300' },
+	{ name: 'Instagram', count: '10 602' },
+	{ name: 'Youtube', count: '3 603' },
+	{ name: 'Telegram', count: '432' },
+]
+
 export const FooterLayout = () => {
-	const paymentList = [
-		{ src: '/images/google-pay.svg', alt: 'google-pay' },
-		{ src: '/images/apple-pay.svg', alt: 'apple-pay' },
-		{ src: '/images/visa-pay.svg', alt: 'visa-pay' },
-		{ src: '/images/maestro-pay.svg', alt: 'maestro-pay' },
-		{ src: '/images/mastercard-pay.svg', alt: 'mastercard-pay' },
-		{ src: '/images/webmoney-pay.svg', alt: 'webmoney-pay' },
-		{ src: '/images/qiwi-pay.svg', alt: 'qiwi-pay' },
-	]
-
-	const socialList = [
-		{ name: 'Vkontakte', count: '3 300' },
-		{ name: 'Instagram', count: '10 602' },
-		{ name: 'Youtube', count: '3 603' },
-		{ name: 'Telegram', count: '432' },
-	]
-
 	return (
 		<footer>
 			<div className='mailing'>

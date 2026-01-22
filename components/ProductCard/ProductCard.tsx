@@ -33,6 +33,10 @@ export const ProductCard: React.FC<{ product: IProductCard }> = ({
 		}
 	}
 
+	const handleAddToFavorite = () => {
+		setHeartIsActive(!isHeartActive)
+	}
+
 	return (
 		<Card className='card' hoverable>
 			<div className='card__top'>
@@ -109,9 +113,7 @@ export const ProductCard: React.FC<{ product: IProductCard }> = ({
 											<HeartIcon size={20} />
 										)
 									}
-									onClick={() => {
-										setHeartIsActive(!isHeartActive)
-									}}
+									onClick={handleAddToFavorite}
 								/>
 							</div>
 						</div>

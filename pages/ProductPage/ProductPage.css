@@ -1,0 +1,35 @@
+.product-wrapper {
+	margin-top: 40px;
+}
+
+.product__images {
+	width: 52%;
+}
+
+.product__current-image {
+	background-color: #f0f1f5;
+	border-radius: 10px;
+	padding: 10px;
+	padding-right: 0;
+	width: 570px;
+	height: 480px;
+
+	img {
+		margin-top: 14px;
+		width: 100%;
+	}
+}
+
+.product__images-list {
+	width: 100%;
+	margin-top: 10px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	div {
+		background-color: #f0f1f5;
+
+		width: 73px;
+		height: 73px;
+	}
+}

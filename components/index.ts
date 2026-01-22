@@ -12,5 +12,8 @@ export { NavBar } from './NavBar/NavBar'
 export { ProductCard } from './ProductCard/ProductCard'
 export { ProductCardButton } from './ProductCardButton/ProductCardButton'
 export { ProductCardList } from './ProductCardList/ProductCardList'
+export { ProductDescription } from './ProductDescription/ProductDescription'
+
+export { ProductOptions } from './ProductOptions/ProductOptions'
 export { ServiceCard } from './ServiceCard/ServiceCard'
 export { ServiceCards } from './ServiceCards/ServiceCards'

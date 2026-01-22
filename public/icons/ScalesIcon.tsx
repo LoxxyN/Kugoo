@@ -6,7 +6,7 @@ export const ScalesIcon = ({ size = 18, fill }: IIcon) => {
 			width={size}
 			height={size}
 			viewBox='0 0 20 20'
-			fill={fill}
+			fill={fill ? fill : '#000000'}
 			xmlns='http://www.w3.org/2000/svg'
 		>
 			<mask id='path-1-inside-1_389_18966' fill='white'>

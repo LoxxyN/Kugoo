@@ -20,7 +20,9 @@ export const HeaderLayout = () => {
 			<div className='wrapper'>
 				<div className='header__wrapper'>
 					<div className='header__logo'>
-						<Logo />
+						<a href='/'>
+							<Logo />
+						</a>
 					</div>
 					<button className='header__catalog-button'>
 						<CatalogIcon size={13} />
