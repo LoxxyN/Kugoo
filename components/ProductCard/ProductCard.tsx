@@ -23,9 +23,21 @@ export const ProductCard: React.FC<{ product: IProductCard }> = ({
 	const [isHeartActive, setHeartIsActive] = useState(false)
 	const [isCartActive, setCartIsActive] = useState(false)
 	const [isScalesActive, setIsScalesActive] = useState(false)
-	const { addItem } = useCartStore()
+	const { addItem, deleteItem, checkItemInCart } = useCartStore()
 
-	const handleCallMessage = () => {
+	const productInCart = checkItemInCart(product.id)
+
+	const handleAddToCart = () => {
+		if (productInCart) {
+			deleteItem(product.id)
+		} else {
+			addItem(product)
+		}
+		handleAddToCartMessage()
+		setCartIsActive(!isCartActive)
+	}
+
+	const handleAddToCartMessage = () => {
 		if (!isCartActive) {
 			message.info('Добавлено в корзину')
 		} else {
@@ -92,17 +104,13 @@ export const ProductCard: React.FC<{ product: IProductCard }> = ({
 							<div className='card__buttons'>
 								<ProductCardButton
 									children={
-										isCartActive ? (
+										productInCart ? (
 											<CartActiveIcon size={20} />
 										) : (
 											<CartIcon size={20} />
 										)
 									}
-									onClick={() => {
-										addItem(product)
-										setCartIsActive(!isCartActive)
-										handleCallMessage()
-									}}
+									onClick={handleAddToCart}
 								/>
 
 								<ProductCardButton

@@ -8,7 +8,7 @@ export const ProductPage = () => {
 				<div className='product__images'>
 					<div className='product__current-image'>
 						<Badge type='new' />
-						<img src='images/scooter.svg' alt='product image' />
+						<img src='/images/scooter.svg' alt='product image' />
 					</div>
 					<div className='product__images-list'>
 						<div></div>

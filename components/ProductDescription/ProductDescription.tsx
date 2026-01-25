@@ -81,7 +81,7 @@ export const ProductDescription = () => {
 					<p>{splitNumber(29900)}₽</p>
 				</div>
 				<div className='product__description-installment'>
-					<img src='images/installment.png' alt='installment' />
+					<img src='/images/installment.png' alt='installment' />
 					<div>
 						<span>Рассрочка:</span>
 						<p>{splitNumber(1760)}₽ в месяц / 24 месяца</p>

@@ -15,9 +15,7 @@ export const useCartStore = create<ICartStore>()(
 					if (existedItem) {
 						return {
 							items: state.items.map(item =>
-								item.id === product.id
-									? { ...item, quantity: item.quantity + 1 }
-									: item
+								item.id === product.id ? { ...item } : { ...item },
 							),
 						}
 					} else {
@@ -45,25 +43,6 @@ export const useCartStore = create<ICartStore>()(
 					}
 				}),
 
-			updateQuantity: (id, quantity) =>
-				set(state => {
-					if (quantity <= 0) {
-						return {
-							items: state.items.filter(item => item.id !== id),
-						}
-					}
-
-					if (quantity > 10) {
-						return state
-					}
-
-					return {
-						items: state.items.map(item =>
-							item.id === id ? { ...item, quantity } : item
-						),
-					}
-				}),
-
 			incrementQuantity: id =>
 				set(state => {
 					const item = state.items.find(item => item.id === id)
@@ -77,7 +56,7 @@ export const useCartStore = create<ICartStore>()(
 
 					return {
 						items: state.items.map(item =>
-							item.id === id ? { ...item, quantity: newQuantity } : item
+							item.id === id ? { ...item, quantity: newQuantity } : item,
 						),
 					}
 				}),
@@ -97,7 +76,7 @@ export const useCartStore = create<ICartStore>()(
 
 					return {
 						items: state.items.map(item =>
-							item.id === id ? { ...item, quantity: newQuantity } : item
+							item.id === id ? { ...item, quantity: newQuantity } : item,
 						),
 					}
 				}),
@@ -115,16 +94,24 @@ export const useCartStore = create<ICartStore>()(
 			getTotalPrice: () => {
 				return get().items.reduce(
 					(total, item) => total + item.price * item.quantity,
-					0
+					0,
 				)
 			},
 
 			getTotalItems: () => {
 				return get().items.reduce((total, item) => total + item.quantity, 0)
 			},
+
+			checkItemInCart: id => {
+				const items = get().items
+				if (!items.find(item => item.id === id)) {
+					return false
+				}
+				return true
+			},
 		}),
 		{
 			name: 'cart-storage',
-		}
-	)
+		},
+	),
 )

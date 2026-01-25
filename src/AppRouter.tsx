@@ -15,7 +15,7 @@ export const AppRouter = () => {
 				<Routes>
 					<Route path='/' element={<Layout />}>
 						<Route index element={<MainPage />} />
-						<Route path='product' element={<ProductPage />} />
+						<Route path='/catalog/:id' element={<ProductPage />} />
 					</Route>
 				</Routes>
 			</BrowserRouter>

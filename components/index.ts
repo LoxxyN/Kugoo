@@ -1,19 +1,24 @@
 export { Badge } from './Badge/Badge'
+export { Breadcrumbs } from './Breadcrumbs/Breadcrumbs'
+
 export { CartCard } from './CartCard/CartCard'
 export { CartMenu } from './CartMenu/CartMenu'
 export { CartMenuIcon } from './CartMenuIcon/CartMenuIcon'
 export { CartMenuList } from './CartMenuList/CartMenuList'
+
 export { CategoryCard } from './CategoryCard/CategoryCard'
 export { CategoryCards } from './CategoryCards/CategoryCards'
+
 export { FooterCallTell } from './FooterCallTell/FooterCallTell'
 export { FooterMailingForm } from './FooterMailingForm/FooterMailingForm'
 export { MailingModal } from './MailingModal/MailingModal'
 export { NavBar } from './NavBar/NavBar'
+
 export { ProductCard } from './ProductCard/ProductCard'
 export { ProductCardButton } from './ProductCardButton/ProductCardButton'
 export { ProductCardList } from './ProductCardList/ProductCardList'
 export { ProductDescription } from './ProductDescription/ProductDescription'
-
 export { ProductOptions } from './ProductOptions/ProductOptions'
+
 export { ServiceCard } from './ServiceCard/ServiceCard'
 export { ServiceCards } from './ServiceCards/ServiceCards'

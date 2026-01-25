@@ -1,3 +1,4 @@
+export type { IBreadcrumbNames } from './IBreadcrumbsName'
 export type { ICartItem } from './ICartItem'
 export type { ICartMenuProps } from './ICartMenuProps'
 export type { ICartStore } from './ICartStore'
