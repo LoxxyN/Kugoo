@@ -2,7 +2,7 @@
 	width: fit-content;
 	display: flex;
 	flex-direction: column;
-	border: 0 solid var(--color-gray--block);
+	border: none;
 	border-radius: 12px;
 
 	.card__title {

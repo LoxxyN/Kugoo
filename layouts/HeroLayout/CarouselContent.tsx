@@ -8,7 +8,11 @@ export const CarouselContent = () => {
 						Электросамокаты Kugoo Kirin <br /> от официального дилера
 					</h1>
 					<p>с бесплатной доставкой по РФ от 1 дня</p>
-					<button type='button' className='button-white'>
+					<button
+						onClick={() => (window.location.href = '/catalog')}
+						type='button'
+						className='button-white'
+					>
 						Перейти в каталог
 					</button>
 				</div>

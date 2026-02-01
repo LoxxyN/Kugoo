@@ -1,6 +1,9 @@
 export { Badge } from './Badge/Badge'
 export { Breadcrumbs } from './Breadcrumbs/Breadcrumbs'
 
+export { AsideFilter } from './AsideFilter/AsideFilter'
+export { FilterPriceSlider } from './FilterPriceSlider/FilterPriceSlider.tsx'
+
 export { CartCard } from './CartCard/CartCard'
 export { CartMenu } from './CartMenu/CartMenu'
 export { CartMenuIcon } from './CartMenuIcon/CartMenuIcon'

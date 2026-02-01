@@ -1,4 +1,5 @@
 import { ProductCardButton, ProductOptions } from '@components/index'
+import { useMessage } from '@hooks/index'
 import {
 	ArrowRightIcon,
 	CircleIcon,
@@ -8,13 +9,16 @@ import {
 	ScalesIcon,
 	ShareIcon,
 } from '@icons/index'
-import { IProductOptions } from '@interfaces/index'
+import { IProductCard, IProductOptions } from '@interfaces/index'
+import { useCartStore } from '@store/index'
 import { splitNumber } from '@utils/index'
 import { Button, Divider, message, notification } from 'antd'
 import { useState } from 'react'
 import './ProductDescription.css'
 
-export const ProductDescription = () => {
+export const ProductDescription: React.FC<{ product: IProductCard }> = ({
+	product,
+}) => {
 	const [isHeartActive, setHeartIsActive] = useState(false)
 	const [options, setOptions] = useState<IProductOptions>({
 		complectation: 'basic',
@@ -23,21 +27,40 @@ export const ProductDescription = () => {
 		packaging: 'none',
 	})
 	const [api, contextHolder] = notification.useNotification()
-	const openNotification = () => {
-		api.info({
-			title: 'Товар добавлен в список избранного!',
-			description: (
-				<div className='flex gap-2 items-center'>
-					<a href='#'>Перейти в избранное</a>
-					<ArrowRightIcon size={12} fill='#6B7AFD' />
-				</div>
-			),
-		})
+	const callFavoriteNotification = () => {
+		if (!isHeartActive) {
+			api.info({
+				title: 'Товар добавлен в список избранного',
+				description: (
+					<div className='flex gap-2 items-center'>
+						<a href='#'>Перейти в избранное</a>
+						<ArrowRightIcon size={12} fill='#6B7AFD' />
+					</div>
+				),
+			})
+		} else {
+			api.info({ title: 'Товар удален из избранного' })
+		}
+	}
+
+	const { addItem, deleteItem, checkItemInCart } = useCartStore()
+	const { cartMessages } = useMessage()
+
+	const productInCart = checkItemInCart(product?.id)
+
+	const handleAddToCart = () => {
+		if (productInCart) {
+			deleteItem(product.id)
+			cartMessages.delete()
+		} else {
+			cartMessages.add()
+			addItem(product)
+		}
 	}
 
 	const handleAddToFavorite = () => {
 		setHeartIsActive(!isHeartActive)
-		openNotification()
+		callFavoriteNotification()
 	}
 
 	const handleCopyLink = () => {
@@ -55,7 +78,7 @@ export const ProductDescription = () => {
 	return (
 		<div className='product__description'>
 			{contextHolder}
-			<h2>kugoo kirin m4</h2>
+			<h2>{product.name}</h2>
 			<div className='product__description-info'>
 				<span>Просмотров 350</span>
 				<span>Купили 196 раз</span>
@@ -77,8 +100,8 @@ export const ProductDescription = () => {
 			</div>
 			<div className='product__description-pricing'>
 				<div className='product__description-price'>
-					<span>{splitNumber(39900)}₽</span>
-					<p>{splitNumber(29900)}₽</p>
+					<span>{splitNumber(product.old_price)}₽</span>
+					<p>{splitNumber(product.price)}₽</p>
 				</div>
 				<div className='product__description-installment'>
 					<img src='/images/installment.png' alt='installment' />
@@ -88,10 +111,12 @@ export const ProductDescription = () => {
 					</div>
 				</div>
 			</div>
+
 			<ProductOptions
 				initialOptions={options}
 				onOptionsChange={handleOptionsChange}
 			/>
+
 			<div className='product__description-buy'>
 				<div className='product__description-buy__heading'>
 					<h3>{splitNumber(45900)} руб.</h3>
@@ -116,7 +141,9 @@ export const ProductDescription = () => {
 				</div>
 				<div className='product__description-buy__buttons'>
 					<Button type='primary'>Купить в 1 клик</Button>
-					<Button>Добавить в корзину</Button>
+					<Button onClick={handleAddToCart}>
+						{productInCart ? 'Удалить из корзины' : 'Добавить в корзину'}
+					</Button>
 				</div>
 			</div>
 		</div>

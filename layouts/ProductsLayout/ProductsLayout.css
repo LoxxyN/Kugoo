@@ -8,17 +8,20 @@
 		justify-content: space-between;
 		margin-bottom: 50px;
 
-		h2 {
+		/* h2 {
 			text-transform: uppercase;
 			font-weight: 600;
 			font-size: var(--fs-35);
-		}
+		} */
 	}
 
 	.show-all__button {
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		> button {
+			border: 1px solid var(--color-blue);
+		}
 	}
 
 	.button {

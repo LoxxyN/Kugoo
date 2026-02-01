@@ -1,6 +1,6 @@
 import { CategoryCard } from '@components/index'
+import { CATEGORY_CARDS_DATA } from '@utils/mocks/CategoryCards.data'
 import './CategoryCards.css'
-import { CATEGORY_CARDS_DATA } from './CategoryCards.data'
 
 export const CategoryCards = () => {
 	return (

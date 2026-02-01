@@ -12,7 +12,9 @@ export const ProductsLayout = () => {
 				</div>
 				<ProductCardList />
 				<div className='show-all__button'>
-					<Button className='button'>Смотреть все</Button>
+					<Button type='link' className='button'>
+						<a href='/catalog'>Смотреть все</a>
+					</Button>
 				</div>
 
 				<div className='help-cards'>

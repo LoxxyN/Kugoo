@@ -1,3 +1,5 @@
+export { CatalogPage } from './CatalogPage/CatalogPage'
 export { Layout } from './Layout/Layout'
 export { MainPage } from './MainPage/MainPage'
+export { NotFoundPage } from './NotFoundPage/NotFoundPage'
 export { ProductPage } from './ProductPage/ProductPage'

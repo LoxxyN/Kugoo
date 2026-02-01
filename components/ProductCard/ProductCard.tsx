@@ -1,4 +1,5 @@
 import { Badge, ProductCardButton } from '@components/index'
+import { useMessage } from '@hooks/useMessage'
 import {
 	AccumulatorIcon,
 	CartActiveIcon,
@@ -13,44 +14,53 @@ import {
 import { IProductCard } from '@interfaces/index'
 import { useCartStore } from '@store/index'
 import { splitNumber } from '@utils/index'
-import { Button, Card, message } from 'antd'
+import { Button, Card } from 'antd'
 import { useState } from 'react'
+import { useNavigate } from 'react-router'
 import './ProductCard.css'
 
 export const ProductCard: React.FC<{ product: IProductCard }> = ({
 	product,
 }) => {
 	const [isHeartActive, setHeartIsActive] = useState(false)
-	const [isCartActive, setCartIsActive] = useState(false)
 	const [isScalesActive, setIsScalesActive] = useState(false)
+
 	const { addItem, deleteItem, checkItemInCart } = useCartStore()
+	const { cartMessages, favoriteMessages } = useMessage()
+	const navigate = useNavigate()
 
-	const productInCart = checkItemInCart(product.id)
+	const productInCart = checkItemInCart(product?.id)
 
-	const handleAddToCart = () => {
+	//При клике на карточку перемещаемся на этот URL
+	const handleClick = () => {
+		navigate(`/catalog/${product.id}`, {
+			state: { fromCatalog: true },
+		})
+	}
+
+	const handleAddToCart = (e: MouseEvent) => {
+		e.stopPropagation()
 		if (productInCart) {
 			deleteItem(product.id)
+			cartMessages.delete()
 		} else {
+			cartMessages.add()
 			addItem(product)
 		}
-		handleAddToCartMessage()
-		setCartIsActive(!isCartActive)
 	}
 
-	const handleAddToCartMessage = () => {
-		if (!isCartActive) {
-			message.info('Добавлено в корзину')
-		} else {
-			message.info('Удалено из корзины')
-		}
-	}
-
-	const handleAddToFavorite = () => {
+	const handleAddToFavorite = (e: MouseEvent) => {
+		e.stopPropagation()
 		setHeartIsActive(!isHeartActive)
+		if (!isHeartActive) {
+			favoriteMessages.add()
+		} else {
+			favoriteMessages.delete()
+		}
 	}
 
 	return (
-		<Card className='card' hoverable>
+		<Card className='card' hoverable onClick={handleClick}>
 			<div className='card__top'>
 				<div className='card__top-actions'>
 					{product.badge && <Badge type={product.badge} />}
@@ -63,7 +73,7 @@ export const ProductCard: React.FC<{ product: IProductCard }> = ({
 					</ProductCardButton>
 				</div>
 				<div className='card__image'>
-					<img src='/images/scooter.svg' alt='moped' />
+					<img src='/images/scooter.svg' alt='scooter' />
 				</div>
 			</div>
 			<div className='card__bottom'>
@@ -110,7 +120,7 @@ export const ProductCard: React.FC<{ product: IProductCard }> = ({
 											<CartIcon size={20} />
 										)
 									}
-									onClick={handleAddToCart}
+									onClick={e => handleAddToCart(e)}
 								/>
 
 								<ProductCardButton
@@ -121,7 +131,7 @@ export const ProductCard: React.FC<{ product: IProductCard }> = ({
 											<HeartIcon size={20} />
 										)
 									}
-									onClick={handleAddToFavorite}
+									onClick={e => handleAddToFavorite(e)}
 								/>
 							</div>
 						</div>

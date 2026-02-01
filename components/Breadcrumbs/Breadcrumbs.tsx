@@ -1,11 +1,14 @@
 import { HomeIcon } from '@icons/index'
 import { breadcrumbNames } from '@utils/index'
+import { PRODUCT_CARD_LIST } from '@utils/mocks/CatalogMock.data'
 import { Breadcrumb } from 'antd'
-import { Link, useLocation } from 'react-router'
+import { Link, useLocation, useParams } from 'react-router'
 import './Breadcrumbs.css'
 
 export const Breadcrumbs = () => {
 	const location = useLocation()
+	const { id } = useParams()
+	const paramsId = typeof id === 'string' && parseInt(id)
 
 	// Получаем массив путей
 	const pathsArray = location.pathname.split('/').filter(i => i)
@@ -51,9 +54,17 @@ export const Breadcrumbs = () => {
 			const isLastSegment = index === pathsArray.length - 1
 			const breadcrumbName = getBreadcrumbName(url, segment)
 
+			const productName = PRODUCT_CARD_LIST.find(
+				item => item.id === parseInt(breadcrumbName),
+			)
+
+			//Проверяем если paramsId равен id товара подставляем название товара иначе название категории
+			const breadcrumbTitle =
+				productName?.id === paramsId ? productName?.name : breadcrumbName
+
 			return {
 				title: isLastSegment ? (
-					breadcrumbName
+					breadcrumbTitle
 				) : (
 					<Link to={url}>{breadcrumbName}</Link>
 				),
@@ -61,5 +72,9 @@ export const Breadcrumbs = () => {
 		}),
 	]
 
-	return <Breadcrumb className='breadcrumb' items={items} />
+	return (
+		<div className='wrapper'>
+			<Breadcrumb className='breadcrumb' items={items} />
+		</div>
+	)
 }

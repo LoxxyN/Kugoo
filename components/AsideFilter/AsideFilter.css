@@ -1,0 +1,61 @@
+.filter {
+	background-color: var(--color-gray--block);
+	height: 633px;
+	width: 255px;
+	border-radius: 10px;
+	margin-bottom: 20px;
+	padding: 20px;
+}
+
+.side-ads__product-of-month {
+	background: radial-gradient(at left bottom, #ffcf71, #f3a812);
+	color: #ffffff;
+	border-radius: 10px;
+	padding: 15px;
+
+	h3 {
+		font-size: var(--fs-18);
+		font-weight: 500;
+	}
+
+	> hr {
+		border: 0.5px solid #fdd078;
+		margin-block: 14px 17px;
+	}
+}
+
+.side-ads__call-to-manager {
+	cursor: pointer;
+	margin-top: 20px;
+	background: radial-gradient(at left top, #8fe865, #49ac1b);
+	border-radius: 10px;
+	width: 255px;
+	height: 90px;
+	color: #ffffff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.side-ads__product-of-month-info {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+}
+
+.side-ads__product-of-month-description {
+	p {
+		font-size: var(--fs-20);
+		font-weight: 500;
+	}
+}
+
+.side-ads__product-of-month-block {
+	background-color: #f0f1f5;
+	height: 61px;
+	width: 61px;
+	border-radius: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
