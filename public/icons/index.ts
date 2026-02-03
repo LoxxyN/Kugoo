@@ -1,3 +1,9 @@
+export { ElectroBicycleIcon } from './catalogDropMenu/ElectroBicycleIcon'
+export { ElectroBikeIcon } from './catalogDropMenu/ElectroBikeIcon'
+export { ElectricScooterIcon } from './catalogDropMenu/ElectroScooterIcon'
+export { FloorScalesIcon } from './catalogDropMenu/FloorScalesIcon'
+export { RobotCleanerIcon } from './catalogDropMenu/RobotCleanerIcon'
+
 export { AccumulatorIcon } from './AccumulatorIcon'
 export { AchivmentIcon } from './AchivmentIcon'
 export { ArrowRightIcon } from './ArrowRightIcon'

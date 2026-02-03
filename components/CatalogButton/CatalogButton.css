@@ -1,0 +1,31 @@
+.header__catalog-button {
+	display: flex;
+	align-items: center;
+	gap: 13px;
+	border-radius: 5px;
+	background-color: var(--color-blue);
+	color: var(--color-white);
+	font-weight: 500;
+	padding: 8px 15px 8px 18px;
+	margin-right: 20px;
+	transition: var(--transition);
+
+	&:hover {
+		background-color: #8185f9;
+	}
+}
+
+a {
+	font-size: var(--fs-16);
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	&:is(:hover, :focus) {
+		span,
+		svg {
+			transition: var(--transition);
+			color: var(--color-blue);
+			fill: var(--color-blue);
+		}
+	}
+}

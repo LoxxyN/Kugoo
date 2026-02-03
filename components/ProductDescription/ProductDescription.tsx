@@ -108,7 +108,7 @@ export const ProductDescription: React.FC<{ product: IProductCard }> = ({
 
 			<div className='product__description-buy'>
 				<div className='product__description-buy__heading'>
-					<h3>{splitNumber(45900)} руб.</h3>
+					<h3>{splitNumber(product.price)} руб.</h3>
 					<ProductCardButton
 						children={
 							isHeartActive ? (

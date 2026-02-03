@@ -1,5 +1,6 @@
+import { CatalogButton } from '@components/CatalogButton/CatalogButton'
 import { CartMenu, CartMenuIcon, NavBar } from '@components/index'
-import { CatalogIcon, HeartIcon, Logo, ScalesIcon } from '@icons/index'
+import { HeartIcon, Logo, ScalesIcon } from '@icons/index'
 import { Button, Input } from 'antd'
 import { useState } from 'react'
 import './HeaderLayout.css'
@@ -24,10 +25,7 @@ export const HeaderLayout = () => {
 							<Logo />
 						</a>
 					</div>
-					<button className='header__catalog-button'>
-						<CatalogIcon size={13} />
-						Каталог
-					</button>
+					<CatalogButton />
 					<Input.Search
 						width={603}
 						className='header__search'
