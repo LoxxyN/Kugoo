@@ -1,19 +1,22 @@
 import { MailingModal } from '@components/index'
-import { Button, Form, Input, message } from 'antd'
+import { useNotifications } from '@hooks/index'
+import { Button, Form, Input } from 'antd'
 import { useState } from 'react'
 import './FooterMailingForm.css'
 
 export const FooterMailingForm = () => {
-	const [isOpen, setIsOpen] = useState(false)
+	const [isModalOpen, setIsModalOpen] = useState(false)
+	const { mailingMessages } = useNotifications()
 	const [form] = Form.useForm()
 
 	const onFinish = () => {
-		setIsOpen(!isOpen)
+		if (!isModalOpen) mailingMessages.mailingComplete()
+		setIsModalOpen(!isModalOpen)
 		form.resetFields()
 	}
 
 	const onFinishFailed = () => {
-		message.error('Неверно введены данные')
+		mailingMessages.mailingFailed()
 	}
 
 	return (
@@ -50,7 +53,9 @@ export const FooterMailingForm = () => {
 					</Button>
 				</Form.Item>
 
-				{isOpen && <MailingModal isModalOpen={isOpen} handleClose={onFinish} />}
+				{isModalOpen && (
+					<MailingModal isModalOpen={isModalOpen} handleClose={onFinish} />
+				)}
 			</Form>
 		</>
 	)

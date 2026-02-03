@@ -1,1 +1,1 @@
-export { useMessage } from './useMessage'
+export { useNotifications } from './useNotifications'

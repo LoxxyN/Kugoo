@@ -1,5 +1,5 @@
 import { Badge, ProductCardButton } from '@components/index'
-import { useMessage } from '@hooks/useMessage'
+import { useNotifications } from '@hooks/index'
 import {
 	AccumulatorIcon,
 	CartActiveIcon,
@@ -26,7 +26,7 @@ export const ProductCard: React.FC<{ product: IProductCard }> = ({
 	const [isScalesActive, setIsScalesActive] = useState(false)
 
 	const { addItem, deleteItem, checkItemInCart } = useCartStore()
-	const { cartMessages, favoriteMessages } = useMessage()
+	const { cartMessages, favoriteMessages } = useNotifications()
 	const navigate = useNavigate()
 
 	const productInCart = checkItemInCart(product?.id)

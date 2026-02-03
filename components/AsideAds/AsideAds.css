@@ -1,0 +1,14 @@
+.side-ads__call-to-manager {
+    cursor: pointer;
+    margin-top: 20px;
+    background: radial-gradient(at left top, #8fe865, #49ac1b);
+    border-radius: 10px;
+    width: 255px;
+    height: 90px;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    font-size: var(--fs-18);
+}

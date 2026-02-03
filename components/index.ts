@@ -1,8 +1,10 @@
 export { Badge } from './Badge/Badge'
 export { Breadcrumbs } from './Breadcrumbs/Breadcrumbs'
+export { NavBar } from './NavBar/NavBar'
 
+export { AsideAds } from './AsideAds/AsideAds'
 export { AsideFilter } from './AsideFilter/AsideFilter'
-export { FilterPriceSlider } from './FilterPriceSlider/FilterPriceSlider.tsx'
+export { FilterPriceSlider } from './FilterPriceSlider/FilterPriceSlider'
 
 export { CartCard } from './CartCard/CartCard'
 export { CartMenu } from './CartMenu/CartMenu'
@@ -12,10 +14,10 @@ export { CartMenuList } from './CartMenuList/CartMenuList'
 export { CategoryCard } from './CategoryCard/CategoryCard'
 export { CategoryCards } from './CategoryCards/CategoryCards'
 
+export { CallTellModal } from './CallTellModal/CallTellModal'
 export { FooterCallTell } from './FooterCallTell/FooterCallTell'
 export { FooterMailingForm } from './FooterMailingForm/FooterMailingForm'
 export { MailingModal } from './MailingModal/MailingModal'
-export { NavBar } from './NavBar/NavBar'
 
 export { ProductCard } from './ProductCard/ProductCard'
 export { ProductCardButton } from './ProductCardButton/ProductCardButton'

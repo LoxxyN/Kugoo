@@ -1,7 +1,6 @@
 import { ProductCardButton, ProductOptions } from '@components/index'
-import { useMessage } from '@hooks/index'
+import { useNotifications } from '@hooks/index'
 import {
-	ArrowRightIcon,
 	CircleIcon,
 	DeliveryTruckIcon,
 	HeartActiveIcon,
@@ -12,7 +11,7 @@ import {
 import { IProductCard, IProductOptions } from '@interfaces/index'
 import { useCartStore } from '@store/index'
 import { splitNumber } from '@utils/index'
-import { Button, Divider, message, notification } from 'antd'
+import { Button, Divider, message } from 'antd'
 import { useState } from 'react'
 import './ProductDescription.css'
 
@@ -26,27 +25,18 @@ export const ProductDescription: React.FC<{ product: IProductCard }> = ({
 		additional: 'none',
 		packaging: 'none',
 	})
-	const [api, contextHolder] = notification.useNotification()
-	const callFavoriteNotification = () => {
-		if (!isHeartActive) {
-			api.info({
-				title: 'Товар добавлен в список избранного',
-				description: (
-					<div className='flex gap-2 items-center'>
-						<a href='#'>Перейти в избранное</a>
-						<ArrowRightIcon size={12} fill='#6B7AFD' />
-					</div>
-				),
-			})
-		} else {
-			api.info({ title: 'Товар удален из избранного' })
-		}
-	}
-
 	const { addItem, deleteItem, checkItemInCart } = useCartStore()
-	const { cartMessages } = useMessage()
+	const { cartMessages, favoriteMessages } = useNotifications()
 
 	const productInCart = checkItemInCart(product?.id)
+
+	const callFavoriteNotification = () => {
+		if (!isHeartActive) {
+			favoriteMessages.add()
+		} else {
+			favoriteMessages.delete()
+		}
+	}
 
 	const handleAddToCart = () => {
 		if (productInCart) {
@@ -68,7 +58,7 @@ export const ProductDescription: React.FC<{ product: IProductCard }> = ({
 		message.info('Ссылка скопирована')
 	}
 
-	const handleOptionsChange = newOptions => {
+	const handleOptionsChange = (newOptions: IProductOptions) => {
 		setOptions(prev => ({
 			...prev,
 			...newOptions,
@@ -77,7 +67,6 @@ export const ProductDescription: React.FC<{ product: IProductCard }> = ({
 
 	return (
 		<div className='product__description'>
-			{contextHolder}
 			<h2>{product.name}</h2>
 			<div className='product__description-info'>
 				<span>Просмотров 350</span>

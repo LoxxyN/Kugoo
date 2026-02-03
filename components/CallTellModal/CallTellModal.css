@@ -8,11 +8,15 @@
 		color: #282739;
 		padding: 0;
 		width: 790px;
-		height: 571px;
+		height: fit-content;
 
 		.ant-modal-body {
 			display: flex;
-			height: 100%;
+			height: fit-content;
+		}
+
+		.ant-modal-footer {
+			display: none;
 		}
 	}
 }
@@ -27,16 +31,12 @@
 	p {
 		margin-block: 14px 30px;
 	}
-
-	span {
-		font-size: var(--fs-12);
-		color: var(--color-gray--text);
-	}
 }
 
 .modal__left {
 	padding: 40px 0 42px 40px;
 	width: 60%;
+	height: fit-content;
 }
 
 .modal__right {
@@ -55,6 +55,17 @@
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
+
+	button {
+		span {
+			color: #ffffff;
+		}
+	}
+
+	span {
+		font-size: var(--fs-12);
+		color: var(--color-gray--text);
+	}
 }
 
 .modal__social-list {
