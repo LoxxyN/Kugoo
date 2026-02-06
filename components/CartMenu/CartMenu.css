@@ -4,6 +4,19 @@
 		justify-content: center;
 		align-items: center;
 	}
+
+	.ant-drawer-body {
+		padding: 15px;
+	}
+
+	.ant-drawer-footer {
+		div {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			font-size: 16px;
+		}
+	}
 }
 
 .cart-menu__delete-all {

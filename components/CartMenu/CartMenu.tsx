@@ -9,6 +9,7 @@ import './CartMenu.css'
 export const CartMenu = ({ isOpen, onClose }: ICartMenuProps) => {
 	const { items, clearCart, getTotalPrice } = useCartStore()
 	const totalPrice = getTotalPrice()
+
 	return (
 		<Drawer
 			title='Ваша корзина'
@@ -17,7 +18,11 @@ export const CartMenu = ({ isOpen, onClose }: ICartMenuProps) => {
 			onClose={onClose}
 			footer={
 				<div>
-					Итого: <span>{splitNumber(totalPrice)} ₽</span>
+					<p>
+						Итого: <span>{splitNumber(totalPrice)} ₽</span>
+					</p>
+
+					{items.length > 0 && <a href='/cart'>Перейти к оформлению</a>}
 				</div>
 			}
 			extra={

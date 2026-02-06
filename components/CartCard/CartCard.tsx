@@ -6,8 +6,20 @@ import { Button } from 'antd'
 import './CartCard.css'
 
 export const CartCard: React.FC<{ product: ICartItem }> = ({ product }) => {
-	const { deleteItem } = useCartStore()
-	const quantity = product.quantity
+	const { deleteItem, incrementQuantity, decrementQuantity } = useCartStore()
+
+	const handleIncrementQuantity = () => {
+		incrementQuantity(product.id)
+	}
+
+	const handleDecrementQuantity = () => {
+		decrementQuantity(product.id)
+	}
+
+	const deleteProduct = () => {
+		deleteItem(product.id)
+	}
+
 	return (
 		<div className='cart-card'>
 			<div>
@@ -21,19 +33,36 @@ export const CartCard: React.FC<{ product: ICartItem }> = ({ product }) => {
 						<span className='cart-card__price'>
 							{splitNumber(product.price)} ₽
 						</span>
-						<span>{quantity} шт.</span>
+						<span>{product.quantity} шт.</span>
 					</div>
 				</div>
 			</div>
 
-			<Button
-				onClick={() => deleteItem(product.id)}
-				className='cart-card__delete-item'
-				shape='circle'
-				type='text'
-			>
-				<TrashIcon size={24} />
-			</Button>
+			<div>
+				<div className='cart-card__buttons'>
+					<Button
+						className='cart-card__buttons-increment'
+						onClick={handleIncrementQuantity}
+					>
+						+
+					</Button>
+					<Button
+						className='cart-card__buttons-decrement'
+						onClick={handleDecrementQuantity}
+					>
+						-
+					</Button>
+				</div>
+
+				<Button
+					onClick={deleteProduct}
+					className='cart-card__delete-item'
+					shape='circle'
+					type='text'
+				>
+					<TrashIcon size={24} />
+				</Button>
+			</div>
 		</div>
 	)
 }

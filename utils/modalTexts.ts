@@ -10,7 +10,7 @@ export const modalTexts: IModalTexts[] = [
 	},
 	{
 		title: 'Менеджер позвонит вам в течение 5 минут',
-		description: 'ответит на все вопросы и проконсультирует по продуктам Kugoo',
+		description: 'Ответит на все вопросы и проконсультирует по продуктам Kugoo',
 		buttonText: 'Да, нужна консультация',
 		hasSocials: false,
 	},

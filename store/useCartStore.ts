@@ -50,10 +50,6 @@ export const useCartStore = create<ICartStore>()(
 
 					const newQuantity = item.quantity + 1
 
-					if (newQuantity > 10) {
-						return state
-					}
-
 					return {
 						items: state.items.map(item =>
 							item.id === id ? { ...item, quantity: newQuantity } : item,
