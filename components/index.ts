@@ -7,9 +7,9 @@ export { AsideAds } from './AsideAds/AsideAds'
 export { AsideFilter } from './AsideFilter/AsideFilter'
 export { FilterPriceSlider } from './FilterPriceSlider/FilterPriceSlider'
 
-export { CartCard } from './CartCard/CartCard'
 export { CartMenu } from './CartMenu/CartMenu'
 export { CartMenuIcon } from './CartMenuIcon/CartMenuIcon'
+export { CartMenuItem } from './CartMenuItem/CartMenuItem'
 export { CartMenuList } from './CartMenuList/CartMenuList'
 
 export { CategoryCard } from './CategoryCard/CategoryCard'

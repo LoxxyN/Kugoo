@@ -3,9 +3,9 @@ import { ICartItem } from '@interfaces/index'
 import { useCartStore } from '@store/index'
 import { splitNumber } from '@utils/index'
 import { Button } from 'antd'
-import './CartCard.css'
+import './CartMenuItem.css'
 
-export const CartCard: React.FC<{ product: ICartItem }> = ({ product }) => {
+export const CartMenuItem: React.FC<{ product: ICartItem }> = ({ product }) => {
 	const { deleteItem, incrementQuantity, decrementQuantity } = useCartStore()
 
 	const handleIncrementQuantity = () => {
