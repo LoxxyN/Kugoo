@@ -1,9 +1,10 @@
-import { AsideFilter, ProductCard } from '@components/index'
-import { PRODUCT_CARD_LIST } from '@utils/mocks/CatalogMock.data'
-import { Button } from 'antd'
+import { AsideFilter, CatalogSorting, ProductCardList } from '@components/index'
+import { useCatalogSorting } from '@hooks/index'
 import './CatalogPage.css'
 
 export const CatalogPage = () => {
+	const { products, sortBy, sortOptions, setSortBy } = useCatalogSorting()
+
 	return (
 		<section>
 			<div className='wrapper'>
@@ -12,18 +13,17 @@ export const CatalogPage = () => {
 					<div className='catalog__sorting'>
 						<span>Сортировать:</span>
 						<div className='catalog__sorting-filters'>
-							<Button type='default'>По цене</Button>
-							<Button type='default'>По дальности хода</Button>
+							<CatalogSorting
+								onSortChange={setSortBy}
+								sortBy={sortBy}
+								sortOptions={sortOptions}
+							/>
 						</div>
 					</div>
 				</div>
 
 				<div className='catalog__products-wrapper'>
-					<div className='catalog__products'>
-						{PRODUCT_CARD_LIST.map(product => (
-							<ProductCard key={product.id} product={product} />
-						))}
-					</div>
+					<ProductCardList isCatalogPage products={products} />
 					<AsideFilter />
 				</div>
 			</div>

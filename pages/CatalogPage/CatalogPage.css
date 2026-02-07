@@ -36,9 +36,3 @@ section {
 	flex-direction: row-reverse;
 	justify-content: space-between;
 }
-
-.catalog__products {
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	gap: 30px;
-}

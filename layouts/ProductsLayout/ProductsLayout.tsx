@@ -1,5 +1,6 @@
 import { ProductCardList } from '@components/index'
 import { ArrowRightIcon } from '@icons/index'
+import { PRODUCT_CARD_LIST } from '@utils/mocks/CatalogMock.data'
 import { Button } from 'antd'
 import './ProductsLayout.css'
 
@@ -10,7 +11,7 @@ export const ProductsLayout = () => {
 				<div className='products__heading'>
 					<h2>Электросамокаты</h2>
 				</div>
-				<ProductCardList />
+				<ProductCardList products={PRODUCT_CARD_LIST} />
 				<div className='show-all__button'>
 					<Button type='link' className='button'>
 						<a href='/catalog'>Смотреть все</a>
