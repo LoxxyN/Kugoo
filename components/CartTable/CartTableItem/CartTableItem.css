@@ -1,0 +1,76 @@
+.table-item {
+	display: flex;
+	align-items: center;
+	width: 759px;
+	justify-content: space-between;
+	padding-block: 10px;
+	border-radius: 10px;
+
+	&:is(:hover, :focus) {
+		transition: var(--transition);
+		cursor: pointer;
+		background-color: var(--color-gray--block);
+	}
+
+	&:not(:last-child) {
+		margin-bottom: 40px;
+	}
+}
+
+.item-info {
+	display: flex;
+	gap: 19px;
+	padding-left: 10px;
+}
+
+.item__description {
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	justify-content: center;
+}
+
+.img-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 75px;
+	width: 75px;
+	border-radius: 10px;
+	background-color: #f0f1f5;
+}
+
+.item__actions {
+	display: flex;
+	justify-content: space-between;
+	height: 100%;
+	gap: 90px;
+	padding-right: 20px;
+}
+
+.item__description-heading {
+	font-size: var(--fs-20);
+	font-weight: 500;
+	margin-bottom: 5px;
+}
+
+.item__description-instok {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.item__delete-button {
+	&:is(:hover, :focus) {
+		svg {
+			transition: var(--transition);
+			fill: #ee685f;
+		}
+	}
+}
+
+.item__price {
+	font-size: var(--fs-20);
+	font-weight: 500;
+	color: var(--color-black);
+}

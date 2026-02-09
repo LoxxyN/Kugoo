@@ -1,3 +1,4 @@
+export { CartLayout } from './CartLayout/CartLayout'
 export { CategoriesLayout } from './CategoriesLayout/CategoriesLayout'
 export { FooterLayout } from './FooterLayout/FooterLayout'
 export { HeaderLayout } from './HeaderLayout/HeaderLayout'

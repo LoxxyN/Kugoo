@@ -29,6 +29,8 @@ export const ProductDescription: React.FC<{ product: IProductCard }> = ({
 	const { cartMessages, favoriteMessages } = useNotifications()
 
 	const productInCart = checkItemInCart(product?.id)
+	const oldPrice =
+		typeof product.old_price !== 'undefined' ? product.old_price : 0
 
 	const callFavoriteNotification = () => {
 		if (!isHeartActive) {
@@ -89,7 +91,7 @@ export const ProductDescription: React.FC<{ product: IProductCard }> = ({
 			</div>
 			<div className='product__description-pricing'>
 				<div className='product__description-price'>
-					<span>{splitNumber(product.old_price)}₽</span>
+					{oldPrice !== 0 && <span>{splitNumber(oldPrice)}₽</span>}
 					<p>{splitNumber(product.price)}₽</p>
 				</div>
 				<div className='product__description-installment'>

@@ -1,0 +1,22 @@
+.ant-empty-description {
+	h3 {
+		font-size: var(--fs-25);
+		color: var(--color-black);
+		font-weight: 600;
+		text-transform: uppercase;
+	}
+
+	p {
+		color: var(--color-black);
+	}
+}
+
+.empty-cart__wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 40px;
+	padding-block: 45px;
+	background-color: var(--color-gray--block);
+	border-radius: 10px;
+}

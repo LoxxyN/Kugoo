@@ -4,4 +4,5 @@ export const breadcrumbNames: IBreadcrumbNames = {
 	'/': { label: 'Главная' },
 	'/catalog': { label: 'Каталог' },
 	'/catalog/:id': { label: 'Главная', dynamic: true },
+	'/catalog/cart': { label: 'Корзина' },
 }

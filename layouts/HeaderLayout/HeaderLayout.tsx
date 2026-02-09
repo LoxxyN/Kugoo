@@ -1,5 +1,9 @@
-import { CatalogButton } from '@components/CatalogButton/CatalogButton'
-import { CartMenu, CartMenuIcon, NavBar } from '@components/index'
+import {
+	CartMenu,
+	CartMenuIcon,
+	CatalogButton,
+	NavBar,
+} from '@components/index'
 import { HeartIcon, Logo, ScalesIcon } from '@icons/index'
 import { Button, Input } from 'antd'
 import { useState } from 'react'

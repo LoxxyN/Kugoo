@@ -30,6 +30,7 @@ export const ProductCard: React.FC<{ product: IProductCard }> = ({
 	const navigate = useNavigate()
 
 	const productInCart = checkItemInCart(product?.id)
+	const oldPrice = typeof product.old_price !== 'undefined' && product.old_price
 
 	//При клике на карточку перемещаемся на этот URL
 	const handleClick = () => {
@@ -104,9 +105,9 @@ export const ProductCard: React.FC<{ product: IProductCard }> = ({
 					<div className='card__bottom-actions'>
 						<div>
 							<div className='card__price'>
-								<p className='card__price--old'>
-									{splitNumber(product.old_price)} ₽
-								</p>
+								{oldPrice && (
+									<p className='card__price--old'>{splitNumber(oldPrice)} ₽</p>
+								)}
 								<p className='card__price--actual'>
 									{splitNumber(product.price)} ₽
 								</p>

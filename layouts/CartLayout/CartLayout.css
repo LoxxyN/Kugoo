@@ -1,0 +1,10 @@
+.cart-layout {
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	gap: 60px;
+}
+
+.cart-layout__total-items {
+	color: var(--color-gray--text);
+	margin-bottom: 40px;
+}

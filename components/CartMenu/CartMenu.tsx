@@ -4,6 +4,7 @@ import { ICartMenuProps } from '@interfaces/index'
 import { useCartStore } from '@store/index'
 import { splitNumber } from '@utils/index'
 import { Button, Drawer, Empty, Tooltip } from 'antd'
+import { Link } from 'react-router'
 import './CartMenu.css'
 
 export const CartMenu = ({ isOpen, onClose }: ICartMenuProps) => {
@@ -22,7 +23,9 @@ export const CartMenu = ({ isOpen, onClose }: ICartMenuProps) => {
 						Итого: <span>{splitNumber(totalPrice)} ₽</span>
 					</p>
 
-					{items.length > 0 && <a href='/cart'>Перейти к оформлению</a>}
+					{items.length > 0 && (
+						<Link to='/catalog/cart'>Перейти к оформлению</Link>
+					)}
 				</div>
 			}
 			extra={

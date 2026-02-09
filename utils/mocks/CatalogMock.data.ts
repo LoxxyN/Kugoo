@@ -15,7 +15,6 @@ export const PRODUCT_CARD_LIST: IProductCard[] = [
 	{
 		id: 2,
 		price: 29990,
-		old_price: 39900,
 		name: 'Kugoo Kirin M4',
 		battery: 2000,
 		power: '1.2',
@@ -47,7 +46,6 @@ export const PRODUCT_CARD_LIST: IProductCard[] = [
 	{
 		id: 5,
 		price: 18990,
-		old_price: 22900,
 		name: 'Kugoo Kirin M2 Lite',
 		battery: 1200,
 		power: '0.8',
@@ -56,8 +54,7 @@ export const PRODUCT_CARD_LIST: IProductCard[] = [
 	},
 	{
 		id: 6,
-		price: 54990,
-		old_price: 64900,
+		price: 64900,
 		name: 'Kugoo S1 Pro',
 		battery: 4200,
 		power: '1.8',

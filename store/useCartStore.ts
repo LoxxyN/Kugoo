@@ -1,5 +1,4 @@
-import { ICartItem } from '@interfaces/ICartItem'
-import { ICartStore } from '@interfaces/ICartStore'
+import { ICartItem, ICartStore } from '@interfaces/index'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
@@ -25,6 +24,7 @@ export const useCartStore = create<ICartStore>()(
 							price: product.price,
 							battery: product.battery,
 							power: product.power,
+							old_price: product.old_price,
 							max_speed: product.max_speed,
 							time_of_work: product.time_of_work,
 							badge: product.badge,
@@ -47,7 +47,7 @@ export const useCartStore = create<ICartStore>()(
 				set(state => {
 					const item = state.items.find(item => item.id === id)
 					if (!item) return state
-
+					if (typeof item.quantity === 'undefined') return state
 					const newQuantity = item.quantity + 1
 
 					return {
@@ -61,6 +61,7 @@ export const useCartStore = create<ICartStore>()(
 				set(state => {
 					const item = state.items.find(item => item.id === id)
 					if (!item) return state
+					if (typeof item.quantity === 'undefined') return state
 
 					const newQuantity = item.quantity - 1
 
@@ -89,13 +90,34 @@ export const useCartStore = create<ICartStore>()(
 
 			getTotalPrice: () => {
 				return get().items.reduce(
-					(total, item) => total + item.price * item.quantity,
+					(total, item) =>
+						typeof item.quantity !== 'undefined'
+							? total + item.price * item.quantity
+							: 0,
 					0,
 				)
 			},
 
+			getTotalDiscount: () => {
+				return get().items.reduce((total, item) => {
+					const quantity = item.quantity
+					if (
+						typeof item.old_price === 'undefined' ||
+						typeof quantity === 'undefined'
+					) {
+						return total + 0
+					} else {
+						return total + item.old_price * quantity
+					}
+				}, 0)
+			},
+
 			getTotalItems: () => {
-				return get().items.reduce((total, item) => total + item.quantity, 0)
+				return get().items.reduce(
+					(total, item) =>
+						typeof item.quantity !== 'undefined' ? total + item.quantity : 0,
+					0,
+				)
 			},
 
 			checkItemInCart: id => {

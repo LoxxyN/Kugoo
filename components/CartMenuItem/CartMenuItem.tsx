@@ -41,16 +41,16 @@ export const CartMenuItem: React.FC<{ product: ICartItem }> = ({ product }) => {
 			<div>
 				<div className='cart-card__buttons'>
 					<Button
-						className='cart-card__buttons-increment'
-						onClick={handleIncrementQuantity}
-					>
-						+
-					</Button>
-					<Button
 						className='cart-card__buttons-decrement'
 						onClick={handleDecrementQuantity}
 					>
 						-
+					</Button>
+					<Button
+						className='cart-card__buttons-increment'
+						onClick={handleIncrementQuantity}
+					>
+						+
 					</Button>
 				</div>
 

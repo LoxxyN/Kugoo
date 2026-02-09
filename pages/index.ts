@@ -1,3 +1,4 @@
+export { CartPage } from './CartPage/CartPage'
 export { CatalogPage } from './CatalogPage/CatalogPage'
 export { Layout } from './Layout/Layout'
 export { MainPage } from './MainPage/MainPage'
