@@ -9,6 +9,7 @@ export interface ICartStore {
 	clearCart: () => void
 	getItemQuantity: (id: string | number) => void
 	getTotalPrice: () => number
+	getTotalPriceWithoutDiscount: () => number
 	getTotalDiscount: () => number
 	getTotalItems: () => number
 	checkItemInCart: (id: string | number) => boolean

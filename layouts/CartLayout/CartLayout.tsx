@@ -3,18 +3,24 @@ import { useCartStore } from '@store/index'
 import './CartLayout.css'
 
 export const CartLayout = () => {
-	const { items, getTotalItems, getTotalPrice, getTotalDiscount } =
-		useCartStore()
+	const {
+		items,
+		getTotalItems,
+		getTotalPrice,
+		getTotalDiscount,
+		getTotalPriceWithoutDiscount,
+	} = useCartStore()
 
 	const totalItems = getTotalItems()
-	const totalPrice = getTotalPrice()
-	const totalDiscount = getTotalDiscount()
-
+	const totalPrice = getTotalPrice() //Сумма со скидками
+	const totalDiscount = getTotalDiscount() //Сумма скидки
+	const totalWithoutDiscount = getTotalPriceWithoutDiscount() //Сумма без скидок
 	if (typeof totalDiscount === 'undefined' || typeof totalPrice === 'undefined')
 		return
 
-	const discount =
-		totalDiscount - totalPrice <= 0 ? 0 : totalDiscount - totalPrice
+	// Проверка на корректность данных
+	const safeDiscount = Math.max(0, totalDiscount)
+	const safeTotalWithoutDiscount = Math.max(totalPrice, totalWithoutDiscount)
 
 	return (
 		<>
@@ -27,8 +33,8 @@ export const CartLayout = () => {
 						<CartTable />
 						<CartSummary
 							totalPrice={totalPrice}
-							discount={discount}
-							priceWithOutDiscount={totalDiscount}
+							priceWithOutDiscount={safeTotalWithoutDiscount}
+							discount={safeDiscount}
 							priceWithOutDelivery={totalPrice}
 						/>
 					</div>

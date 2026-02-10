@@ -14,7 +14,7 @@ export const useCartStore = create<ICartStore>()(
 					if (existedItem) {
 						return {
 							items: state.items.map(item =>
-								item.id === product.id ? { ...item } : { ...item },
+								item.id === product.id ? { ...item } : { ...item }
 							),
 						}
 					} else {
@@ -52,7 +52,7 @@ export const useCartStore = create<ICartStore>()(
 
 					return {
 						items: state.items.map(item =>
-							item.id === id ? { ...item, quantity: newQuantity } : item,
+							item.id === id ? { ...item, quantity: newQuantity } : item
 						),
 					}
 				}),
@@ -73,7 +73,7 @@ export const useCartStore = create<ICartStore>()(
 
 					return {
 						items: state.items.map(item =>
-							item.id === id ? { ...item, quantity: newQuantity } : item,
+							item.id === id ? { ...item, quantity: newQuantity } : item
 						),
 					}
 				}),
@@ -88,27 +88,35 @@ export const useCartStore = create<ICartStore>()(
 				return item ? item.quantity : 0
 			},
 
+			getTotalPriceWithoutDiscount: () => {
+				return get().items.reduce((total, item) => {
+					const quantity = item.quantity || 1
+					const originalPrice = item.old_price || item.price
+
+					return total + originalPrice * quantity
+				}, 0)
+			},
+
 			getTotalPrice: () => {
 				return get().items.reduce(
 					(total, item) =>
 						typeof item.quantity !== 'undefined'
 							? total + item.price * item.quantity
 							: 0,
-					0,
+					0
 				)
 			},
 
 			getTotalDiscount: () => {
 				return get().items.reduce((total, item) => {
-					const quantity = item.quantity
-					if (
-						typeof item.old_price === 'undefined' ||
-						typeof quantity === 'undefined'
-					) {
-						return total + 0
-					} else {
-						return total + item.old_price * quantity
+					const quantity = item.quantity || 1
+
+					if (item.old_price && item.old_price > item.price) {
+						const discountPerItem = item.old_price - item.price
+						return total + discountPerItem * quantity
 					}
+
+					return total
 				}, 0)
 			},
 
@@ -116,7 +124,7 @@ export const useCartStore = create<ICartStore>()(
 				return get().items.reduce(
 					(total, item) =>
 						typeof item.quantity !== 'undefined' ? total + item.quantity : 0,
-					0,
+					0
 				)
 			},
 
@@ -130,6 +138,6 @@ export const useCartStore = create<ICartStore>()(
 		}),
 		{
 			name: 'cart-storage',
-		},
-	),
+		}
+	)
 )

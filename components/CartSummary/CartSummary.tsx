@@ -3,10 +3,10 @@ import { Button, Divider } from 'antd'
 import './CartSummary.css'
 
 interface ICartSummary {
-	totalPrice?: number
-	discount?: number
-	priceWithOutDelivery?: number
-	priceWithOutDiscount?: number
+	totalPrice: number
+	discount: number
+	priceWithOutDelivery: number
+	priceWithOutDiscount: number
 }
 
 export const CartSummary = ({
@@ -15,14 +15,6 @@ export const CartSummary = ({
 	priceWithOutDelivery,
 	priceWithOutDiscount,
 }: ICartSummary) => {
-	if (
-		typeof totalPrice === 'undefined' ||
-		typeof discount === 'undefined' ||
-		typeof priceWithOutDelivery === 'undefined' ||
-		typeof priceWithOutDiscount === 'undefined'
-	)
-		return
-
 	return (
 		<div className='cart-summary__wrapper'>
 			<div className='cart-summary__amount'>
