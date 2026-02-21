@@ -30,7 +30,6 @@ export const ProductCard: React.FC<{ product: IProductCard }> = ({
 	const navigate = useNavigate()
 
 	const productInCart = checkItemInCart(product?.id)
-	const oldPrice = typeof product.old_price !== 'undefined' && product.old_price
 
 	//При клике на карточку перемещаемся на этот URL
 	const handleClick = () => {
@@ -59,6 +58,8 @@ export const ProductCard: React.FC<{ product: IProductCard }> = ({
 			favoriteMessages.delete()
 		}
 	}
+
+	const oldPrice = typeof product.old_price !== 'undefined' && product.old_price
 
 	return (
 		<Card className='card' hoverable onClick={handleClick}>

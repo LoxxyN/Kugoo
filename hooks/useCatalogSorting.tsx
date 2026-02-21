@@ -1,10 +1,13 @@
-import { IProductCard } from '@interfaces/IProductCard'
-import { PRODUCT_CARD_LIST } from '@utils/mocks/CatalogMock.data'
-import { useMemo, useState } from 'react'
+import { IProductCard } from '@interfaces/index'
+import { useEffect, useMemo, useState } from 'react'
 
-export const useCatalogSorting = (initialProducts = PRODUCT_CARD_LIST) => {
-	const [products] = useState<IProductCard[]>(initialProducts)
+export const useCatalogSorting = (initialProducts: IProductCard[]) => {
+	const [products, setProducts] = useState<IProductCard[]>(initialProducts)
 	const [sortBy, setSortBy] = useState('default')
+
+	useEffect(() => {
+		setProducts(initialProducts)
+	}, [initialProducts])
 
 	const productsCopy = [...products]
 
