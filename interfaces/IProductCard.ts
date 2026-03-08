@@ -1,7 +1,7 @@
 import type { TBadge } from '@interfaces/index'
 
 export interface IProductCard {
-	id: number | string
+	_id: number | string
 	price: number
 	old_price?: number
 	name: string

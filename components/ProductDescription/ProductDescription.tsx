@@ -28,7 +28,7 @@ export const ProductDescription: React.FC<{ product: IProductCard }> = ({
 	const { addItem, deleteItem, checkItemInCart } = useCartStore()
 	const { cartMessages, favoriteMessages } = useNotifications()
 
-	const productInCart = checkItemInCart(product?.id)
+	const productInCart = checkItemInCart(product?._id)
 	const oldPrice =
 		typeof product.old_price !== 'undefined' ? product.old_price : 0
 
@@ -42,7 +42,7 @@ export const ProductDescription: React.FC<{ product: IProductCard }> = ({
 
 	const handleAddToCart = () => {
 		if (productInCart) {
-			deleteItem(product.id)
+			deleteItem(product._id)
 			cartMessages.delete()
 		} else {
 			cartMessages.add()

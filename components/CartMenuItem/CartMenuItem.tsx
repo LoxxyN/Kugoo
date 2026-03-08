@@ -9,15 +9,15 @@ export const CartMenuItem: React.FC<{ product: ICartItem }> = ({ product }) => {
 	const { deleteItem, incrementQuantity, decrementQuantity } = useCartStore()
 
 	const handleIncrementQuantity = () => {
-		incrementQuantity(product.id)
+		incrementQuantity(product._id)
 	}
 
 	const handleDecrementQuantity = () => {
-		decrementQuantity(product.id)
+		decrementQuantity(product._id)
 	}
 
 	const deleteProduct = () => {
-		deleteItem(product.id)
+		deleteItem(product._id)
 	}
 
 	return (

@@ -1,5 +1,5 @@
 import { IProductCard } from './../interfaces/IProductCard'
-const API_URL = 'http://localhost:5171/api'
+const API_URL = 'http://localhost:5172/api'
 
 export const productService = {
 	async getAllProducts(): Promise<IProductCard[]> {

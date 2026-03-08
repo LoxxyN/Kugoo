@@ -21,7 +21,6 @@ export const CatalogPage = () => {
 			setLoading(true)
 			const data = await productService.getAllProducts()
 			setProductItems(data)
-			console.log(data)
 			setError(null)
 		} catch (err) {
 			setError('Не удалось загрузить товары')

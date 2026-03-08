@@ -20,7 +20,7 @@ export const CartTable = () => {
 				</div>
 			</div>
 			{items.map((product, index) => (
-				<div key={product.id}>
+				<div key={product._id}>
 					<CartTableItem
 						product={product}
 						handleDeleteItem={deleteItem}

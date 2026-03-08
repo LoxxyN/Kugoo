@@ -7,7 +7,7 @@ export const CartMenuList: React.FC<{ CartItems: ICartItem[] }> = ({
 	return (
 		<div>
 			{CartItems.map(item => (
-				<CartMenuItem product={item} key={item.id} />
+				<CartMenuItem product={item} key={item._id} />
 			))}
 		</div>
 	)

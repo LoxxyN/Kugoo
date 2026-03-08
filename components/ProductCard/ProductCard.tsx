@@ -29,11 +29,11 @@ export const ProductCard: React.FC<{ product: IProductCard }> = ({
 	const { cartMessages, favoriteMessages } = useNotifications()
 	const navigate = useNavigate()
 
-	const productInCart = checkItemInCart(product?.id)
+	const productInCart = checkItemInCart(product?._id)
 
 	//При клике на карточку перемещаемся на этот URL
 	const handleClick = () => {
-		navigate(`/catalog/${product.id}`, {
+		navigate(`/catalog/${product._id}`, {
 			state: { fromCatalog: true },
 		})
 	}
@@ -41,7 +41,7 @@ export const ProductCard: React.FC<{ product: IProductCard }> = ({
 	const handleAddToCart = (e: MouseEvent) => {
 		e.stopPropagation()
 		if (productInCart) {
-			deleteItem(product.id)
+			deleteItem(product._id)
 			cartMessages.delete()
 		} else {
 			cartMessages.add()

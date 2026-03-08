@@ -9,7 +9,6 @@ export const ProductCardList: React.FC<{
 }> = ({ products, isCatalogPage }) => {
 	//Проверка на наличие списка с товарами и есть ли в нем товары
 	if (!products || products.length === 0) return <h2>Товары отсутствуют</h2>
-
 	return (
 		<div
 			className={cn(
@@ -18,7 +17,7 @@ export const ProductCardList: React.FC<{
 			)}
 		>
 			{products.map(product => (
-				<ProductCard key={product.id} product={product} />
+				<ProductCard key={product._id} product={product} />
 			))}
 		</div>
 	)

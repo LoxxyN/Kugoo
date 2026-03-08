@@ -8,9 +8,9 @@ import './CartTableItem.css'
 
 export const CartTableItem: React.FC<{
 	product: ICartItem
-	handleIncrement: (id: number | string) => void
-	handleDecrement: (id: number | string) => void
-	handleDeleteItem: (id: number | string) => void
+	handleDeleteItem: (id: string | number) => void
+	handleIncrement: (id: string | number) => void
+	handleDecrement: (id: string | number) => void
 }> = ({ product, handleDeleteItem, handleIncrement, handleDecrement }) => {
 	const quantity =
 		typeof product.quantity !== 'undefined' ? product.quantity : 0
@@ -20,23 +20,23 @@ export const CartTableItem: React.FC<{
 	const handleIncrease = (e: MouseEvent) => {
 		e.stopPropagation()
 		e.preventDefault()
-		handleIncrement(product.id)
+		handleIncrement(product._id)
 	}
 
 	const handleDecrease = (e: MouseEvent) => {
 		e.stopPropagation()
 		e.preventDefault()
-		handleDecrement(product.id)
+		handleDecrement(product._id)
 	}
 
 	const handleDelete = (e: MouseEvent) => {
 		e.stopPropagation()
 		e.preventDefault()
-		handleDeleteItem(product.id)
+		handleDeleteItem(product._id)
 	}
 
 	const handleClick = () => {
-		navigate(`/catalog/${product.id}`, {
+		navigate(`/catalog/${product._id}`, {
 			state: { fromCatalog: true },
 		})
 	}

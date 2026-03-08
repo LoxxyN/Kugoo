@@ -6,10 +6,15 @@ import {
 	NotFoundPage,
 	ProductPage,
 } from '@pages/index'
+import { useCartStore } from '@store/useCartStore'
 import { ConfigProvider } from 'antd'
+import { useEffect } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router'
-
 export const AppRouter = () => {
+	useEffect(() => {
+		useCartStore.getState().loadCart()
+	}, [])
+
 	return (
 		<ConfigProvider
 			theme={{
