@@ -1,5 +1,5 @@
 import { Badge, ProductDescription } from '@components/index'
-import { IProductCard } from '@interfaces/IProductCard'
+import { IProductCard } from '@interfaces/index'
 import { useEffect, useState } from 'react'
 import { Navigate, useParams } from 'react-router'
 import { productService } from '../../services/productService'

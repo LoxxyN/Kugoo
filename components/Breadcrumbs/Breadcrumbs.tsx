@@ -1,13 +1,44 @@
 import { HomeIcon } from '@icons/index'
+import { IProductCard } from '@interfaces/index'
 import { breadcrumbNames } from '@utils/index'
-import { PRODUCT_CARD_LIST } from '@utils/mocks/CatalogMock.data'
 import { Breadcrumb } from 'antd'
+import { useEffect, useState } from 'react'
 import { Link, useLocation, useParams } from 'react-router'
+import { productService } from '../../services/productService'
 import './Breadcrumbs.css'
 
 export const Breadcrumbs = () => {
+	const [products, setProducts] = useState<IProductCard[] | null>(null)
+	const [loading, setLoading] = useState(true)
+	const [error, setError] = useState<string | null>(null)
 	const location = useLocation()
 	const { id } = useParams()
+
+	useEffect(() => {
+		loadProductById()
+	}, [])
+
+	const loadProductById = async () => {
+		try {
+			setLoading(true)
+			const data = await productService.getAllProducts()
+			setProducts(data)
+			setError(null)
+		} catch (err) {
+			setError('Не удалось загрузить товары')
+			console.error(err)
+		} finally {
+			//Перемещение экрана наверх при загрузке страницы
+			window.scrollTo(0, 0)
+			setLoading(false)
+		}
+	}
+
+	if (typeof id === 'undefined') return
+	if (loading) return <div>Загрузка товаров...</div>
+	if (error) return <div>Ошибка: {error}</div>
+	if (products === null) return
+
 	const paramsId = typeof id === 'string' && parseInt(id)
 
 	// Получаем массив путей
@@ -54,13 +85,12 @@ export const Breadcrumbs = () => {
 			const isLastSegment = index === pathsArray.length - 1
 			const breadcrumbName = getBreadcrumbName(url, segment)
 
-			const productName = PRODUCT_CARD_LIST.find(
-				item => item.id === parseInt(breadcrumbName),
-			)
+			const productName = products.find(item => item._id === breadcrumbName)
+			console.log(productName, breadcrumbName)
 
 			//Проверяем если paramsId равен id товара подставляем название товара иначе название категории
 			const breadcrumbTitle =
-				productName?.id === paramsId ? productName?.name : breadcrumbName
+				productName?._id === paramsId ? productName?.name : breadcrumbName
 
 			return {
 				title: isLastSegment ? (
