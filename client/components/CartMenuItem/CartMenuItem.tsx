@@ -24,7 +24,7 @@ export const CartMenuItem: React.FC<{ product: ICartItem }> = ({ product }) => {
 		<div className='cart-card'>
 			<div>
 				<div className='cart-card__image'>
-					<img src='/images/Cart-item.svg' alt='Cart item' />
+					<img src='/images/cart-item.svg' alt='Cart item' />
 				</div>
 
 				<div className='cart-card__description'>

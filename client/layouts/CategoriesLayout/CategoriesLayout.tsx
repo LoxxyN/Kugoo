@@ -9,7 +9,7 @@ export const CategoriesLayout = () => {
 				<div className='categories__heading'>
 					<h2>Популярные категории</h2>
 					<div className='small-tip'>
-						<img src='/images/Manager.svg' alt='Manager' />
+						<img src='/images/manager.svg' alt='Manager' />
 						<div className='small-tip__description'>
 							<p>
 								Менеджер ответит на любой <br /> ваш вопрос о продуктах Kugoo

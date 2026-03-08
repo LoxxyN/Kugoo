@@ -1,8 +1,8 @@
 import { Badge, ProductDescription } from '@components/index'
 import { IProductCard } from '@interfaces/index'
+import { productService } from '@services/index'
 import { useEffect, useState } from 'react'
 import { Navigate, useParams } from 'react-router'
-import { productService } from '../../services/productService'
 import './ProductPage.css'
 
 export const ProductPage = () => {

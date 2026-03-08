@@ -1,8 +1,8 @@
 import { AsideFilter, CatalogSorting, ProductCardList } from '@components/index'
 import { useCatalogSorting } from '@hooks/index'
 import { IProductCard } from '@interfaces/index'
+import { productService } from '@services/index'
 import { useEffect, useState } from 'react'
-import { productService } from '../../services/productService'
 import './CatalogPage.css'
 
 export const CatalogPage = () => {

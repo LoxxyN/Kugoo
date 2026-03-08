@@ -5,7 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"client": "vite",
-		"server": "cd server && npm run dev",
+		"server": "cd ../server && npm run dev",
 		"dev": "concurrently \"npm run server\" \"npm run client\"",
 		"build": "tsc -b && vite build",
 		"lint": "eslint .",

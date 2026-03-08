@@ -1,9 +1,9 @@
 import { ProductCardList } from '@components/index'
 import { ArrowRightIcon } from '@icons/index'
 import { IProductCard } from '@interfaces/IProductCard'
+import { productService } from '@services/index'
 import { Button } from 'antd'
 import { useEffect, useState } from 'react'
-import { productService } from '../../services/productService'
 import './ProductsLayout.css'
 
 export const ProductsLayout = () => {
@@ -47,7 +47,7 @@ export const ProductsLayout = () => {
 				<div className='help-cards'>
 					<div className='help-card'>
 						<img
-							src='/images/Card-left.svg'
+							src='/images/card-left.svg'
 							alt='background image'
 							width={540}
 							height={235}
@@ -68,7 +68,7 @@ export const ProductsLayout = () => {
 					</div>
 					<div className='help-card'>
 						<img
-							src='/images/Card-right.svg'
+							src='/images/card-right.svg'
 							alt='background image'
 							width={540}
 							height={235}

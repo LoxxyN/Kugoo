@@ -1,10 +1,10 @@
 import { HomeIcon } from '@icons/index'
 import { IProductCard } from '@interfaces/index'
+import { productService } from '@services/index'
 import { breadcrumbNames } from '@utils/index'
 import { Breadcrumb } from 'antd'
 import { useEffect, useState } from 'react'
 import { Link, useLocation, useParams } from 'react-router'
-import { productService } from '../../services/productService'
 import './Breadcrumbs.css'
 
 export const Breadcrumbs = () => {

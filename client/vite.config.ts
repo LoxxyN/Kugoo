@@ -16,6 +16,7 @@ export default defineConfig({
 			'@hooks': resolve(__dirname, './hooks'),
 			'@pages': resolve(__dirname, './pages'),
 			'@store': resolve(__dirname, './store'),
+			'@services': resolve(__dirname, './services'),
 		},
 	},
 })

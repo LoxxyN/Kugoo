@@ -1,4 +1,4 @@
-import { IProductCard } from './../interfaces/IProductCard'
+import { IProductCard } from '@interfaces/index'
 const API_URL = 'http://localhost:5172/api'
 
 export const productService = {

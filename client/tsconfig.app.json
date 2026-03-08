@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"target": "ES2020",
+		"target": "ES2021",
 		"useDefineForClassFields": true,
 		"lib": ["ES2021", "DOM", "DOM.Iterable"],
 		"module": "ESNext",
@@ -25,7 +25,8 @@
 			"@icons/*": ["./public/icons/*"],
 			"@hooks/*": ["./hooks/*"],
 			"@pages/*": ["./pages/*"],
-			"@store/*": ["./store/*"]
+			"@store/*": ["./store/*"],
+			"@services/*": ["./services/*"]
 		}
 	},
 	"include": [
@@ -37,7 +38,7 @@
 		"icons",
 		"hooks",
 		"pages",
-		"store"
-	],
-	"references": [{ "path": "./tsconfig.node.json" }]
+		"store",
+		"services"
+	]
 }

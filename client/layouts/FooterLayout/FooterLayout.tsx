@@ -12,10 +12,10 @@ const paymentList = [
 ]
 
 const socialList = [
-	{ name: 'Vkontakte', count: '3 300' },
-	{ name: 'Instagram', count: '10 602' },
-	{ name: 'Youtube', count: '3 603' },
-	{ name: 'Telegram', count: '432' },
+	{ name: 'vkontakte', count: '3 300' },
+	{ name: 'instagram', count: '10 602' },
+	{ name: 'youtube', count: '3 603' },
+	{ name: 'telegram', count: '432' },
 ]
 
 export const FooterLayout = () => {
@@ -101,7 +101,7 @@ export const FooterLayout = () => {
 				<hr />
 				<div className='footer__socials'>
 					<div className='footer__logo'>
-						<img src='/images/Logo.svg' alt='footer logo' />
+						<img src='/images/logo.svg' alt='footer logo' />
 					</div>
 					<div className='footer__dowloads'>
 						<a href='#'>
@@ -112,15 +112,20 @@ export const FooterLayout = () => {
 						</a>
 					</div>
 					<div className='footer__socials-list'>
-						{socialList.map((item, i) => (
-							<div key={i} className='footer__socials-list-item'>
-								<img src={`/images/${item.name}-logo.svg`} alt={item.name} />
-								<div>
-									<p>{item.name}</p>
-									<span>{item.count}</span>
+						{socialList.map((item, i) => {
+							const social = item.name.split('')
+							social[0] = social[0].toUpperCase()
+							const socialName = social.join('')
+							return (
+								<div key={i} className='footer__socials-list-item'>
+									<img src={`/images/${item.name}-logo.svg`} alt={socialName} />
+									<div>
+										<p>{socialName}</p>
+										<span>{item.count}</span>
+									</div>
 								</div>
-							</div>
-						))}
+							)
+						})}
 					</div>
 				</div>
 				<hr />
