@@ -1,11 +1,11 @@
 import { Context } from 'hono'
-import { CartModel } from '../models/Cart'
+import { CartModel } from '../models/CartModel'
 
 export const cartController = {
 	//Получить корзину пользователя
 	getCart: async (c: Context) => {
 		try {
-			const userId = c.req.param('userId')
+			const userId = c.get('userId')
 			let cart = await CartModel.findOne({ userId })
 			if (!cart) {
 				cart = new CartModel({ userId, items: [] })
@@ -21,7 +21,7 @@ export const cartController = {
 	//Добавить товар в корзину
 	addItem: async (c: Context) => {
 		try {
-			const userId = c.req.param('userId')
+			const userId = c.get('userId')
 			const item = await c.req.json()
 
 			let cart = await CartModel.findOne({ userId })
@@ -52,13 +52,16 @@ export const cartController = {
 	// Обновить количество товаров в корзине
 	updateQuantity: async (c: Context) => {
 		try {
-			const { userId, itemId } = c.req.param()
+			const { itemId } = c.req.param()
 			const { quantity } = await c.req.json()
+			const userId = c.get('userId')
 
 			const cart = await CartModel.findOne({ userId })
 			if (!cart) return c.json({ error: 'Корзина не найдена' }, 404)
 
-			const existingIndex = cart.items.findIndex(i => i._id === itemId)
+			const existingIndex = cart.items.findIndex(
+				i => i._id.toString() === itemId,
+			)
 
 			if (existingIndex === -1) {
 				return c.json({ error: 'Товар не найден' }, 404)
@@ -84,7 +87,8 @@ export const cartController = {
 	//Удалить товар из корзины
 	removeItem: async (c: Context) => {
 		try {
-			const { userId, itemId } = c.req.param()
+			const { itemId } = c.req.param()
+			const userId = c.get('userId')
 
 			await CartModel.updateOne(
 				{ userId },
@@ -103,7 +107,7 @@ export const cartController = {
 	//Очистить корзину
 	clearCart: async (c: Context) => {
 		try {
-			const userId = c.req.param('userId')
+			const userId = c.get('userId')
 
 			await CartModel.updateOne({ userId }, { $set: { items: [] } })
 

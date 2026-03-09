@@ -3,9 +3,8 @@ import dotenv from 'dotenv'
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { connectDB } from './config/database'
-import { errorHandler } from './middleware/errorHandler'
-import cartRouter from './routes/cartRouter'
-import productsRouter from './routes/productRouter'
+import { errorHandler } from './middleware/index'
+import { authRouter, cartRouter, productsRouter } from './routes/index'
 
 dotenv.config()
 connectDB()
@@ -15,6 +14,7 @@ const port = process.env.PORT
 
 // ErrorHandler
 app.use('*', errorHandler)
+
 // CORS
 app.use(
 	'/*',
@@ -26,6 +26,7 @@ app.use(
 
 app.route('/api/products', productsRouter)
 app.route('/api/carts', cartRouter)
+app.route('/api/auth', authRouter)
 
 //Health end-point
 app.get('/api/up', c => c.json({ message: 'API is worked' }))

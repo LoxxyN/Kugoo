@@ -1,5 +1,5 @@
 import { Context } from 'hono'
-import { ProductModel } from '../models/Product'
+import { ProductModel } from '../models/ProductModel'
 
 export const productController = {
 	//Получить все товары из базы

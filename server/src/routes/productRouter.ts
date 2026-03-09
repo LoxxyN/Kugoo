@@ -1,5 +1,5 @@
 import { Hono } from 'hono'
-import { productController } from '../controllers/productController'
+import { productController } from '../controllers/index'
 const productsRouter = new Hono()
 
 productsRouter.get('/', productController.getAll)
