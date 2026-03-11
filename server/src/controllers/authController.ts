@@ -9,21 +9,27 @@ import { IJWTPayload } from '../types/IJWTPayload'
 export const authController = {
 	register: async (c: Context) => {
 		const { email, password } = await c.req.json()
+		const user = await UserModel.findOne({ email })
+
+		if (user?.email === email) {
+			return c.json({ message: 'Такой аккаунт уже существует' })
+		}
+
 		const hashedPassword = await bcrypt.hash(password, 10)
 
-		const user = await UserModel.create({
+		const newUser = await UserModel.create({
 			email,
 			password: hashedPassword,
 		})
 
 		return c.json({
 			success: true,
-			userId: user._id,
+			userId: newUser._id,
 		})
 	},
 
 	login: async (c: Context) => {
-		const { email, password } = await c.req.json()
+		const { email, password } = await c.get('validateBody')
 
 		const user = await UserModel.findOne({ email })
 		if (!user) {
@@ -58,5 +64,11 @@ export const authController = {
 		deleteCookie(c, 'token')
 
 		return c.json({ success: true, message: 'Пользователь вышел из системы' })
+	},
+
+	getUser: async (c: Context) => {
+		const user = c.get('userId')
+
+		return c.json({ user })
 	},
 }
