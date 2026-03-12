@@ -5,8 +5,25 @@ export const productController = {
 	//Получить все товары из базы
 	getAll: async (c: Context) => {
 		try {
-			const products = await ProductModel.find()
-			return c.json({ success: true, data: products })
+			const page = Number(c.req.query('page')) || 1
+			const limit = Number(c.req.query('limit')) || 8
+
+			const skip = (page - 1) * limit
+
+			const products = await ProductModel.find().skip(skip).limit(limit).lean()
+			const total = await ProductModel.countDocuments()
+			const pages = Math.ceil(total / limit)
+
+			return c.json({
+				success: true,
+				data: products,
+				pagination: {
+					total: total,
+					page: page,
+					limit: limit,
+					pages: pages,
+				},
+			})
 		} catch (error) {
 			console.error('Loading error', error)
 			return c.json({ error: 'Loading error' }, 500)
