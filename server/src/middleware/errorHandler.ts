@@ -5,6 +5,6 @@ export const errorHandler = async (c: Context, next: () => Promise<void>) => {
 		await next()
 	} catch (error) {
 		console.error('Ошибка: ', error)
-		return c.json({ error: 'Внутреняя ошибка сервера' }, 500)
+		return c.json({ success: false, error: 'Внутреняя ошибка сервера' }, 500)
 	}
 }

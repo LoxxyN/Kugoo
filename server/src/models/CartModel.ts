@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
 
 const CartItemSchema = new mongoose.Schema({
-	_id: { type: String, required: true },
 	name: { type: String, required: true },
 	price: { type: Number, required: true },
 	quantity: { type: Number, required: true, default: 1 },
