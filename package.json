@@ -1,0 +1,26 @@
+{
+	"name": "kugoo",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"client": "cd client && npm run dev",
+		"server": "cd server && npm run dev",
+		"dev": "concurrently \"npm run client\" \"npm run server\""
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/LoxxyN/Kugoo.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"type": "commonjs",
+	"bugs": {
+		"url": "https://github.com/LoxxyN/Kugoo/issues"
+	},
+	"homepage": "https://github.com/LoxxyN/Kugoo#readme",
+	"devDependencies": {
+		"concurrently": "^9.2.1"
+	}
+}
