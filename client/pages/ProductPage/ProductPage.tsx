@@ -1,40 +1,45 @@
-import { Badge, ProductDescription } from '@components/index'
+import {
+	ProductDescriptionLayoutSkeleton,
+	ProductImagesLayoutSkeleton,
+} from '@components/index'
 import { IProductCard } from '@interfaces/index'
 import { productService } from '@services/index'
-import { useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { Navigate, useParams } from 'react-router'
 import './ProductPage.css'
 
+const ProductImagesLayout = lazy(
+	() => import('@layouts/ProductImagesLayout/ProductImagesLayout'),
+)
+const ProductDescriptionLayout = lazy(
+	() => import('@layouts/ProductDescriptionLayout/ProductDescriptionLayout'),
+)
+
 export const ProductPage = () => {
 	const { id } = useParams()
-	const [productItem, setProductItem] = useState<IProductCard | null>(null)
-	const [loading, setLoading] = useState(true)
+	const [product, setProduct] = useState<IProductCard | null>(null)
 	const [error, setError] = useState<string | null>(null)
 
 	useEffect(() => {
-		loadProductById()
-	}, [])
-
-	if (typeof id === 'undefined') return
-	const loadProductById = async () => {
-		try {
-			setLoading(true)
-			const data = await productService.getProductById(id)
-			setProductItem(data)
-			setError(null)
-		} catch (err) {
-			setError('Не удалось загрузить товары')
-			console.error(err)
-		} finally {
-			//Перемещение экрана наверх при загрузке страницы
-			window.scrollTo(0, 0)
-			setLoading(false)
+		if (typeof id === 'undefined') return
+		const loadProductById = async () => {
+			try {
+				const data = await productService.getProductById(id)
+				setProduct(data)
+				setError(null)
+			} catch (err) {
+				setError('Не удалось загрузить товары')
+				console.error(err)
+			} finally {
+				//Перемещение экрана наверх при загрузке страницы
+				window.scrollTo(0, 0)
+			}
 		}
-	}
+		loadProductById()
+	}, [id])
 
-	if (loading) return <div>Загрузка товаров...</div>
 	if (error) return <div>Ошибка: {error}</div>
-	if (productItem === null) return
+	if (product === null) return
 	//Проверка существует ли такой id
 	if (typeof id === 'undefined') {
 		return <Navigate to={'/not-found'} />
@@ -43,25 +48,12 @@ export const ProductPage = () => {
 	return (
 		<section className='product-wrapper'>
 			<div className='wrapper flex justify-between'>
-				<div className='product__images'>
-					<div className='product__current-image'>
-						<Badge type={productItem ? productItem.badge : ''} />
-						<img src='/images/scooter.svg' alt='product image' />
-					</div>
-					<div className='product__images-list'>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-					</div>
-				</div>
-				<ProductDescription product={productItem} />
+				<Suspense fallback={<ProductImagesLayoutSkeleton />}>
+					<ProductImagesLayout product={product} />
+				</Suspense>
+				<Suspense fallback={<ProductDescriptionLayoutSkeleton />}>
+					<ProductDescriptionLayout product={product} />
+				</Suspense>
 			</div>
 		</section>
 	)

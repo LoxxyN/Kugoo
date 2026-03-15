@@ -1,36 +1,32 @@
-import { AsideFilter, CatalogSorting, ProductCardList } from '@components/index'
+import { CatalogSorting } from '@components/index'
 import { useCatalogSorting } from '@hooks/index'
 import { IProductCard } from '@interfaces/index'
+import { CatalogProductsLayout } from '@layouts/CatalogProductsLayout/CatalogProductsLayout'
 import { productService } from '@services/index'
 import { useEffect, useState } from 'react'
 import './CatalogPage.css'
 
 export const CatalogPage = () => {
 	const [productItems, setProductItems] = useState<IProductCard[]>([])
-	const [loading, setLoading] = useState(true)
 	const [error, setError] = useState<string | null>(null)
-	const { products, sortBy, sortOptions, setSortBy } =
+	const { sortedProducts, sortBy, sortOptions, setSortBy } =
 		useCatalogSorting(productItems)
 
 	useEffect(() => {
+		const loadProducts = async () => {
+			try {
+				const data = await productService.getAllProducts()
+				setProductItems(data)
+				setError(null)
+			} catch (err) {
+				setError('Не удалось загрузить товары')
+				console.error(err)
+			}
+		}
+
 		loadProducts()
 	}, [])
 
-	const loadProducts = async () => {
-		try {
-			setLoading(true)
-			const data = await productService.getAllProducts()
-			setProductItems(data)
-			setError(null)
-		} catch (err) {
-			setError('Не удалось загрузить товары')
-			console.error(err)
-		} finally {
-			setLoading(false)
-		}
-	}
-
-	if (loading) return <div>Загрузка товаров...</div>
 	if (error) return <div>Ошибка: {error}</div>
 
 	return (
@@ -50,14 +46,7 @@ export const CatalogPage = () => {
 					</div>
 				</div>
 
-				<div className='catalog__products-wrapper'>
-					{productItems.length > 0 ? (
-						<ProductCardList isCatalogPage products={products} />
-					) : (
-						<div>Загрузка товаров...</div>
-					)}
-					<AsideFilter />
-				</div>
+				<CatalogProductsLayout products={sortedProducts} />
 			</div>
 		</section>
 	)

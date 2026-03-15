@@ -13,9 +13,9 @@ import { useCartStore } from '@store/index'
 import { splitNumber } from '@utils/index'
 import { Button, Divider, message } from 'antd'
 import { useState } from 'react'
-import './ProductDescription.css'
+import './ProductDescriptionLayout.css'
 
-export const ProductDescription: React.FC<{ product: IProductCard }> = ({
+const ProductDescriptionLayout: React.FC<{ product: IProductCard }> = ({
 	product,
 }) => {
 	const [isHeartActive, setHeartIsActive] = useState(false)
@@ -140,3 +140,5 @@ export const ProductDescription: React.FC<{ product: IProductCard }> = ({
 		</div>
 	)
 }
+
+export default ProductDescriptionLayout

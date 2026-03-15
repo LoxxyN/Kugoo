@@ -1,34 +1,33 @@
-import { ProductCardList } from '@components/index'
+import { CardListSkeleton } from '@components/index'
 import { ArrowRightIcon } from '@icons/index'
 import { IProductCard } from '@interfaces/IProductCard'
 import { productService } from '@services/index'
 import { Button } from 'antd'
-import { useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import './ProductsLayout.css'
+
+const ProductCardList = lazy(
+	() => import('@components/ProductCardList/ProductCardList'),
+)
 
 export const ProductsLayout = () => {
 	const [productItems, setProductItems] = useState<IProductCard[]>([])
-	const [loading, setLoading] = useState(true)
 	const [error, setError] = useState<string | null>(null)
+
 	useEffect(() => {
+		const loadProducts = async () => {
+			try {
+				const data = await productService.getAllProducts()
+				setProductItems(data)
+				setError(null)
+			} catch (err) {
+				setError('Не удалось загрузить товары')
+				console.error(err)
+			}
+		}
 		loadProducts()
 	}, [])
 
-	const loadProducts = async () => {
-		try {
-			setLoading(true)
-			const data = await productService.getAllProducts()
-			setProductItems(data)
-			setError(null)
-		} catch (err) {
-			setError('Не удалось загрузить товары')
-			console.error(err)
-		} finally {
-			setLoading(false)
-		}
-	}
-
-	if (loading) return <div>Загрузка товаров...</div>
 	if (error) return <div>Ошибка: {error}</div>
 
 	return (
@@ -37,7 +36,13 @@ export const ProductsLayout = () => {
 				<div className='products__heading'>
 					<h2>Электросамокаты</h2>
 				</div>
-				<ProductCardList products={productItems} />
+				<Suspense
+					fallback={
+						<CardListSkeleton className='grid grid-cols-4 grid-rows-2 gap-7.5' />
+					}
+				>
+					<ProductCardList products={productItems.slice(0, 8)} />
+				</Suspense>
 				<div className='show-all__button'>
 					<Button type='link' className='button'>
 						<a href='/catalog'>Смотреть все</a>

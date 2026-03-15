@@ -37,7 +37,7 @@ export const useCatalogSorting = (initialProducts: IProductCard[]) => {
 	}, [products, sortBy])
 
 	return {
-		products: sortedProducts,
+		sortedProducts,
 		sortBy,
 		setSortBy,
 		sortOptions,
