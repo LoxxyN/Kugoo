@@ -7,7 +7,7 @@
 .hero__carousel {
 	background: radial-gradient(#a6a9ff, #6f73ee);
 	font-family: var(--font-family);
-	padding: 39px 20px 0 163px;
+	padding: 39px 55px 0 133px;
 	height: 444px;
 }
 
@@ -16,6 +16,7 @@
 
 	.hero__heading {
 		color: #ffffff;
+		margin-left: 5px;
 		margin-bottom: 103px;
 
 		.hero__heading-badge {
