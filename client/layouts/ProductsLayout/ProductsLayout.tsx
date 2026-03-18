@@ -1,9 +1,8 @@
 import { CardListSkeleton } from '@components/index'
+import { useProductsQuery } from '@hooks/useProducts'
 import { ArrowRightIcon } from '@icons/index'
-import { IProductCard } from '@interfaces/IProductCard'
-import { productService } from '@services/index'
 import { Button } from 'antd'
-import { lazy, Suspense, useEffect, useState } from 'react'
+import { lazy, Suspense } from 'react'
 import './ProductsLayout.css'
 
 const ProductCardList = lazy(
@@ -11,24 +10,8 @@ const ProductCardList = lazy(
 )
 
 export const ProductsLayout = () => {
-	const [productItems, setProductItems] = useState<IProductCard[]>([])
-	const [error, setError] = useState<string | null>(null)
-
-	useEffect(() => {
-		const loadProducts = async () => {
-			try {
-				const data = await productService.getAllProducts()
-				setProductItems(data)
-				setError(null)
-			} catch (err) {
-				setError('Не удалось загрузить товары')
-				console.error(err)
-			}
-		}
-		loadProducts()
-	}, [])
-
-	if (error) return <div>Ошибка: {error}</div>
+	const { data: products } = useProductsQuery({ page: 1, limit: 8 })
+	if (typeof products === 'undefined') return
 
 	return (
 		<section className='products'>
@@ -41,8 +24,9 @@ export const ProductsLayout = () => {
 						<CardListSkeleton className='grid grid-cols-4 grid-rows-2 gap-7.5' />
 					}
 				>
-					<ProductCardList products={productItems.slice(0, 8)} />
+					<ProductCardList products={products?.data} />
 				</Suspense>
+
 				<div className='show-all__button'>
 					<Button type='link' className='button'>
 						<a href='/catalog'>Смотреть все</a>

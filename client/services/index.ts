@@ -1,1 +1,3 @@
-export { productService } from './productService'
+export { api } from './axios'
+export * from './cart'
+export * from './products'

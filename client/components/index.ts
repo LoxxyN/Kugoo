@@ -1,5 +1,4 @@
 export { Badge } from './Badge/Badge'
-export { Breadcrumbs } from './Breadcrumbs/Breadcrumbs'
 export { NavBar } from './NavBar/NavBar'
 
 export { AsideAds } from './AsideAds/AsideAds'
