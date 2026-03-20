@@ -1,19 +1,24 @@
 import { CatalogSorting } from '@components/index'
 import { useCatalogSorting, useProductsQuery } from '@hooks/index'
 import { CatalogProductsLayout } from '@layouts/index'
+import { Pagination } from 'antd'
 import { useSearchParams } from 'react-router'
 import './CatalogPage.css'
 
 export const CatalogPage = () => {
-	const [searchParams] = useSearchParams()
-	const page = Number(searchParams.get('page'))
+	const [searchParams, setSearchParams] = useSearchParams()
+	const page = Number(searchParams.get('page')) || 1
 	const { data: products } = useProductsQuery({
 		page: page,
 	})
 
+	const paginationData = products?.pagination
 	const { sortedProducts, sortBy, sortOptions, setSortBy } = useCatalogSorting(
 		products?.data ?? [],
 	)
+
+	const onPageChange = (page: number) => setSearchParams({ page: String(page) })
+
 	return (
 		<section>
 			<div className='wrapper'>
@@ -32,6 +37,12 @@ export const CatalogPage = () => {
 				</div>
 
 				<CatalogProductsLayout products={sortedProducts} />
+				<Pagination
+					current={page}
+					onChange={onPageChange}
+					total={paginationData?.total}
+					align='center'
+				/>
 			</div>
 		</section>
 	)
