@@ -1,3 +1,7 @@
+export { AuthForm } from './AuthForm/AuthForm'
+export { AuthModal } from './AuthModal/AuthModal'
+export { LoginButton } from './LoginButton/LoginButton'
+
 export { Badge } from './Badge/Badge'
 export { NavBar } from './NavBar/NavBar'
 

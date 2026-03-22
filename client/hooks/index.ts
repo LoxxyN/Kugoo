@@ -1,3 +1,4 @@
+export * from './useAuth'
 export * from './useCart'
 export { useCatalogSorting } from './useCatalogSorting'
 export { useNotifications } from './useNotifications'

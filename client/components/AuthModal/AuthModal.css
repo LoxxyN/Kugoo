@@ -1,0 +1,64 @@
+.auth__modal {
+	text-align: center;
+	color: var(--color-gray--text);
+	display: flex;
+	justify-content: center;
+
+	.ant-modal-container {
+		display: flex;
+		justify-content: center;
+		width: 610px;
+		height: 392px;
+		padding: 32px;
+	}
+}
+
+.auth__heading {
+	font-size: var(--fs-25);
+	font-weight: 600;
+	text-transform: uppercase;
+	text-align: center;
+	margin-bottom: 2rem;
+}
+
+.form__inputs {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
+
+.form__input-block {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	justify-content: space-between;
+
+	> label {
+		font-size: 18px;
+	}
+}
+
+.form__input {
+	width: 290px;
+	height: 40px;
+
+	&::placeholder {
+		font-size: 14px;
+	}
+}
+
+.form__change-enter {
+	color: var(--color-blue);
+	cursor: pointer;
+	font-size: 16px;
+
+	&:is(:hover, :focus) {
+		text-decoration: underline;
+	}
+}
+
+.auth__button {
+	width: 60%;
+	height: 40px;
+	font-size: 18px;
+}
