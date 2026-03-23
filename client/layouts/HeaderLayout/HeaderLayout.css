@@ -31,6 +31,22 @@
 	height: 36px;
 	transition: var(--transition);
 	padding-inline: 1.5rem;
+	gap: 8px;
+
+	&:hover {
+		background-color: #8185f9;
+	}
+}
+
+.header__logout-button {
+	display: flex;
+	align-items: center;
+	background-color: var(--color-blue);
+	color: var(--color-white);
+	height: 36px;
+	border-radius: 10px;
+	transition: var(--transition);
+	padding-inline: 0.6rem;
 
 	&:hover {
 		background-color: #8185f9;

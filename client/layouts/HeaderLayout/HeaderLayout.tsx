@@ -5,6 +5,7 @@ import {
 	LoginButton,
 	NavBar,
 } from '@components/index'
+import { LogoutButton } from '@components/LogoutButton/LogoutButton'
 import { useUserData } from '@hooks/index'
 import { HeartIcon, Logo, ScalesIcon } from '@icons/index'
 import { Button, Input } from 'antd'
@@ -54,6 +55,7 @@ export const HeaderLayout = () => {
 							/>
 							<CartMenuIcon onClick={showCart} />
 							<CartMenu isOpen={isOpen} onClose={onClose} />
+							<LogoutButton />
 						</div>
 					) : (
 						<LoginButton />
