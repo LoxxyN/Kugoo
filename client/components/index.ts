@@ -1,4 +1,5 @@
-export { AuthForm } from './AuthForm/AuthForm'
+export { LoginForm } from './AuthForms/LoginForm'
+export { RegisterForm } from './AuthForms/RegisterForm'
 export { AuthModal } from './AuthModal/AuthModal'
 export { LoginButton } from './LoginButton/LoginButton'
 export { LogoutButton } from './LogoutButton/LogoutButton'

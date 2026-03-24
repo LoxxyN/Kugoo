@@ -1,7 +1,7 @@
-import { AuthForm } from '@components/index'
-import { useLogin, useRegister } from '@hooks/useAuth'
+import { LoginForm, RegisterForm } from '@components/index'
+import { useLogin, useRegister } from '@hooks/index'
 import { Modal } from 'antd'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import './AuthModal.css'
 
 export const AuthModal = ({
@@ -15,30 +15,21 @@ export const AuthModal = ({
 
 	const loginMutation = useLogin()
 	const registerMutation = useRegister()
-	const formRef = useRef<HTMLFormElement>(null)
 
 	const handleWindowChange = () => {
 		setIsRegisterForm(!isRegisterForm)
 	}
 
-	const sendLoginForm = () => {
-		if (formRef.current) {
-			const form = new FormData(formRef.current)
-			loginMutation.mutate({
-				email: form.get('auth_email') as string,
-				password: form.get('auth_password') as string,
-			})
-		}
+	const handleLogin = (data: { email: string; password: string }) => {
+		loginMutation.mutate(data)
 	}
 
-	const sendRegisterForm = () => {
-		if (formRef.current) {
-			const form = new FormData(formRef.current)
-			registerMutation.mutate({
-				email: form.get('auth_email') as string,
-				password: form.get('auth_password') as string,
-			})
-		}
+	const handleRegister = (data: {
+		email: string
+		password: string
+		confirmPassword: string
+	}) => {
+		registerMutation.mutate(data)
 	}
 
 	return (
@@ -50,13 +41,17 @@ export const AuthModal = ({
 			okButtonProps={{ hidden: true }}
 			centered
 		>
-			<AuthForm
-				handleWindowChange={handleWindowChange}
-				sendLoginForm={sendLoginForm}
-				sendRegisterForm={sendRegisterForm}
-				isRegisterForm={isRegisterForm}
-				ref={formRef}
-			/>
+			{isRegisterForm ? (
+				<RegisterForm
+					handleWindowChange={handleWindowChange}
+					onRegister={handleRegister}
+				/>
+			) : (
+				<LoginForm
+					handleWindowChange={handleWindowChange}
+					onLogin={handleLogin}
+				/>
+			)}
 		</Modal>
 	)
 }
