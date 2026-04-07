@@ -1,37 +1,23 @@
-import { AsideFilter, CatalogSorting, ProductCardList } from '@components/index'
-import { useCatalogSorting } from '@hooks/index'
-import { IProductCard } from '@interfaces/index'
-import { productService } from '@services/index'
-import { useEffect, useState } from 'react'
+import { CatalogSorting } from '@components/index'
+import { useCatalogSorting, useProductsQuery } from '@hooks/index'
+import { CatalogProductsLayout } from '@layouts/index'
+import { Pagination } from 'antd'
+import { useSearchParams } from 'react-router'
 import './CatalogPage.css'
 
 export const CatalogPage = () => {
-	const [productItems, setProductItems] = useState<IProductCard[]>([])
-	const [loading, setLoading] = useState(true)
-	const [error, setError] = useState<string | null>(null)
-	const { products, sortBy, sortOptions, setSortBy } =
-		useCatalogSorting(productItems)
+	const [searchParams, setSearchParams] = useSearchParams()
+	const page = Number(searchParams.get('page')) || 1
+	const { data: products } = useProductsQuery({
+		page: page,
+	})
 
-	useEffect(() => {
-		loadProducts()
-	}, [])
+	const paginationData = products?.pagination
+	const { sortedProducts, sortBy, sortOptions, setSortBy } = useCatalogSorting(
+		products?.data ?? [],
+	)
 
-	const loadProducts = async () => {
-		try {
-			setLoading(true)
-			const data = await productService.getAllProducts()
-			setProductItems(data)
-			setError(null)
-		} catch (err) {
-			setError('Не удалось загрузить товары')
-			console.error(err)
-		} finally {
-			setLoading(false)
-		}
-	}
-
-	if (loading) return <div>Загрузка товаров...</div>
-	if (error) return <div>Ошибка: {error}</div>
+	const onPageChange = (page: number) => setSearchParams({ page: String(page) })
 
 	return (
 		<section>
@@ -50,14 +36,13 @@ export const CatalogPage = () => {
 					</div>
 				</div>
 
-				<div className='catalog__products-wrapper'>
-					{productItems.length > 0 ? (
-						<ProductCardList isCatalogPage products={products} />
-					) : (
-						<div>Загрузка товаров...</div>
-					)}
-					<AsideFilter />
-				</div>
+				<CatalogProductsLayout products={sortedProducts} />
+				<Pagination
+					current={page}
+					onChange={onPageChange}
+					total={paginationData?.total}
+					align='center'
+				/>
 			</div>
 		</section>
 	)

@@ -5,7 +5,7 @@
 	display: flex;
 	justify-content: center;
 
-	.ant-modal-container {
+	> .ant-modal-container {
 		width: 618px;
 		height: 392px;
 	}

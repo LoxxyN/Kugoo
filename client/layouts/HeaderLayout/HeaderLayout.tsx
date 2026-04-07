@@ -2,23 +2,20 @@ import {
 	CartMenu,
 	CartMenuIcon,
 	CatalogButton,
+	LoginButton,
+	LogoutButton,
 	NavBar,
 } from '@components/index'
+import { useUserData } from '@hooks/index'
 import { HeartIcon, Logo, ScalesIcon } from '@icons/index'
+import { useCartStore } from '@store/index'
 import { Button, Input } from 'antd'
-import { useState } from 'react'
 import './HeaderLayout.css'
 
 export const HeaderLayout = () => {
-	const [isOpen, setIsOpen] = useState(false)
-
-	const showCart = () => {
-		setIsOpen(true)
-	}
-
-	const onClose = () => {
-		setIsOpen(false)
-	}
+	const { data: userData } = useUserData()
+	const { isCartOpen, handleOpenCart, handleCloseCart } = useCartStore()
+	const isLogin = !!userData
 
 	return (
 		<header>
@@ -36,22 +33,28 @@ export const HeaderLayout = () => {
 						placeholder='Искать самокат KUGOO'
 						enterButton
 					/>
-					<div className='header__icons py-3'>
-						<Button
-							icon={<ScalesIcon size={20} />}
-							type='text'
-							shape='circle'
-						/>
-						<Button
-							icon={<HeartIcon size={20} fill='#000000' />}
-							type='text'
-							shape='circle'
-						/>
-						<CartMenuIcon onClick={showCart} />
-					</div>
+					{isLogin ? (
+						<div className='header__icons py-3'>
+							<Button
+								icon={<ScalesIcon size={20} />}
+								type='text'
+								shape='circle'
+							/>
+							<Button
+								icon={<HeartIcon size={20} fill='#000000' />}
+								type='text'
+								shape='circle'
+							/>
+							<CartMenuIcon onClick={handleOpenCart} />
+							<CartMenu isOpen={isCartOpen} onClose={handleCloseCart} />
+							<LogoutButton />
+						</div>
+					) : (
+						<LoginButton />
+					)}
 				</div>
 			</div>
-			<CartMenu isOpen={isOpen} onClose={onClose} />
+
 			<NavBar />
 		</header>
 	)

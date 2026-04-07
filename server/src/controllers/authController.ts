@@ -67,8 +67,8 @@ export const authController = {
 	},
 
 	getUser: async (c: Context) => {
-		const user = c.get('userId')
+		const userId = c.get('userId')
 
-		return c.json({ user })
+		return c.json({ userId })
 	},
 }

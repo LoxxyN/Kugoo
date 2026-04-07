@@ -23,7 +23,7 @@ export const ServiceCards = ({ itemsCards, listType }: IServiceCards) => {
 				id={6}
 				title={listType === 'shop' ? 'Больше в каталоге' : 'Больше в сервисе'}
 				description={
-					<a href='#' className='flex gap-2 items-center font-medium'>
+					<a href='/catalog' className='flex gap-2 items-center font-medium'>
 						Перейти <ArrowRightIcon fill='#6f73ee' size={14} />
 					</a>
 				}

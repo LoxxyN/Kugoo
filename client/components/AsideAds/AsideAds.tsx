@@ -1,10 +1,13 @@
-import { CallTellModal } from '@components/CallTellModal/CallTellModal'
-import { useNotifications } from '@hooks/useNotifications'
-import { modalTexts } from '@utils/modalTexts'
+import { BlockSkeleton, CallTellModal } from '@components/index'
+import { useNotifications } from '@hooks/index'
+import { modalTexts } from '@utils/index'
 import { Form } from 'antd'
-import { useState } from 'react'
+import { lazy, Suspense, useState } from 'react'
 import './AsideAds.css'
-import { AsideAdsProductOfMonth } from './AsideAdsProductOfMonth/AsideAdsProductOfMonth'
+
+const AsideAdsProductOfMonth = lazy(
+	() => import('./AsideAdsProductOfMonth/AsideAdsProductOfMonth'),
+)
 
 export const AsideAds = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false)
@@ -31,7 +34,9 @@ export const AsideAds = () => {
 
 	return (
 		<div className='side-ads'>
-			<AsideAdsProductOfMonth />
+			<Suspense fallback={<BlockSkeleton className='h-36' />}>
+				<AsideAdsProductOfMonth />
+			</Suspense>
 
 			<>
 				<div className='side-ads__call-to-manager' onClick={handleOpenModal}>

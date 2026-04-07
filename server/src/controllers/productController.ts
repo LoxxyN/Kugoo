@@ -6,7 +6,7 @@ export const productController = {
 	getAll: async (c: Context) => {
 		try {
 			const page = Number(c.req.query('page')) || 1
-			const limit = Number(c.req.query('limit')) || 8
+			const limit = Number(c.req.query('limit')) || 9
 
 			const skip = (page - 1) * limit
 

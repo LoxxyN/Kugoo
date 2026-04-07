@@ -9,8 +9,6 @@ export const useCatalogSorting = (initialProducts: IProductCard[]) => {
 		setProducts(initialProducts)
 	}, [initialProducts])
 
-	const productsCopy = [...products]
-
 	const sortOptions = [
 		{ value: 'default', label: 'По-умолчанию' },
 		{ value: 'price_asc', label: 'Дешевле' },
@@ -20,24 +18,24 @@ export const useCatalogSorting = (initialProducts: IProductCard[]) => {
 	]
 
 	const sortedProducts = useMemo(() => {
-		if (!productsCopy) return []
+		if (!products) return []
 
 		switch (sortBy) {
 			case 'price_asc':
-				return productsCopy.sort((a, b) => a.price - b.price)
+				return products.sort((a, b) => a.price - b.price)
 			case 'price_desc':
-				return productsCopy.sort((a, b) => b.price - a.price)
+				return products.sort((a, b) => b.price - a.price)
 			case 'name_asc':
-				return productsCopy.sort((a, b) => a.name.localeCompare(b.name))
+				return products.sort((a, b) => a.name.localeCompare(b.name))
 			case 'name_desc':
-				return productsCopy.sort((a, b) => b.name.localeCompare(a.name))
+				return products.sort((a, b) => b.name.localeCompare(a.name))
 			default:
-				return productsCopy
+				return products
 		}
-	}, [products, sortBy])
+	}, [sortBy, products])
 
 	return {
-		products: sortedProducts,
+		sortedProducts,
 		sortBy,
 		setSortBy,
 		sortOptions,

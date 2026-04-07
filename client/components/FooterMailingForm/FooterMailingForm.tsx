@@ -41,7 +41,11 @@ export const FooterMailingForm = () => {
 						},
 					]}
 				>
-					<Input placeholder='Введите Ваш email' id='email' type='email' />
+					<Input
+						placeholder='Введите Ваш email'
+						id='mailing_email'
+						type='email'
+					/>
 				</Form.Item>
 				<Form.Item>
 					<Button

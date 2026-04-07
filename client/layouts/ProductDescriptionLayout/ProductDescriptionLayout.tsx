@@ -1,5 +1,9 @@
 import { ProductCardButton, ProductOptions } from '@components/index'
-import { useNotifications } from '@hooks/index'
+import {
+	useAddCartItem,
+	useIsProductInCart,
+	useNotifications,
+} from '@hooks/index'
 import {
 	CircleIcon,
 	DeliveryTruckIcon,
@@ -9,15 +13,16 @@ import {
 	ShareIcon,
 } from '@icons/index'
 import { IProductCard, IProductOptions } from '@interfaces/index'
-import { useCartStore } from '@store/index'
 import { splitNumber } from '@utils/index'
 import { Button, Divider, message } from 'antd'
 import { useState } from 'react'
-import './ProductDescription.css'
+import './ProductDescriptionLayout.css'
 
-export const ProductDescription: React.FC<{ product: IProductCard }> = ({
+const ProductDescriptionLayout: React.FC<{ product: IProductCard }> = ({
 	product,
 }) => {
+	const addCartItem = useAddCartItem()
+	const { favoriteMessages, cartMessages } = useNotifications()
 	const [isHeartActive, setHeartIsActive] = useState(false)
 	const [options, setOptions] = useState<IProductOptions>({
 		complectation: 'basic',
@@ -25,10 +30,9 @@ export const ProductDescription: React.FC<{ product: IProductCard }> = ({
 		additional: 'none',
 		packaging: 'none',
 	})
-	const { addItem, deleteItem, checkItemInCart } = useCartStore()
-	const { cartMessages, favoriteMessages } = useNotifications()
 
-	const productInCart = checkItemInCart(product?._id)
+	const isProductInCart = useIsProductInCart(product._id)
+
 	const oldPrice =
 		typeof product.old_price !== 'undefined' ? product.old_price : 0
 
@@ -40,19 +44,14 @@ export const ProductDescription: React.FC<{ product: IProductCard }> = ({
 		}
 	}
 
-	const handleAddToCart = () => {
-		if (productInCart) {
-			deleteItem(product._id)
-			cartMessages.delete()
-		} else {
-			cartMessages.add()
-			addItem(product)
-		}
-	}
-
 	const handleAddToFavorite = () => {
 		setHeartIsActive(!isHeartActive)
 		callFavoriteNotification()
+	}
+
+	const handleAddToCart = () => {
+		addCartItem.mutate(product._id)
+		cartMessages.add()
 	}
 
 	const handleCopyLink = () => {
@@ -77,8 +76,17 @@ export const ProductDescription: React.FC<{ product: IProductCard }> = ({
 			</div>
 			<div className='product__description-actions'>
 				<div>
-					<CircleIcon size={9} fill='#75D14A' />
-					<span>В наличии</span>
+					{product.inStock ? (
+						<>
+							<CircleIcon size={9} fill='#75D14A' />
+							<span>В наличии</span>
+						</>
+					) : (
+						<>
+							<CircleIcon size={9} fill='#F45A5A' />
+							<span>Нет в наличии</span>
+						</>
+					)}
 				</div>
 				<div>
 					<ScalesIcon size={20} />
@@ -131,12 +139,16 @@ export const ProductDescription: React.FC<{ product: IProductCard }> = ({
 					</div>
 				</div>
 				<div className='product__description-buy__buttons'>
-					<Button type='primary'>Купить в 1 клик</Button>
+					<Button type='primary' disabled={!product.inStock}>
+						Купить в 1 клик
+					</Button>
 					<Button onClick={handleAddToCart}>
-						{productInCart ? 'Удалить из корзины' : 'Добавить в корзину'}
+						{isProductInCart ? 'В корзине' : 'Добавить в корзину'}
 					</Button>
 				</div>
 			</div>
 		</div>
 	)
 }
+
+export default ProductDescriptionLayout

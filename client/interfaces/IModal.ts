@@ -6,7 +6,7 @@ export interface IModalProps {
 }
 
 export interface IModalEvents {
-	form: any
+	form: unknown
 	onFinish: () => void
 	onFinishFailed: () => void
 }

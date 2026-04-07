@@ -1,15 +1,26 @@
 import { CartMenuList } from '@components/index'
+import { useCart, useClearCart, useGetTotalPrice } from '@hooks/index'
 import { TrashIcon } from '@icons/index'
-import { ICartMenuProps } from '@interfaces/index'
-import { useCartStore } from '@store/index'
 import { splitNumber } from '@utils/index'
 import { Button, Drawer, Empty, Tooltip } from 'antd'
 import { Link } from 'react-router'
 import './CartMenu.css'
 
+interface ICartMenuProps {
+	isOpen: boolean
+	onClose: () => void
+}
+
 export const CartMenu = ({ isOpen, onClose }: ICartMenuProps) => {
-	const { items, clearCart, getTotalPrice } = useCartStore()
-	const totalPrice = getTotalPrice()
+	const { data: cartData } = useCart()
+	const clearCart = useClearCart()
+	const totalPrice = useGetTotalPrice()
+
+	const cartItems = cartData?.data?.data?.items
+
+	const handleClearCart = () => {
+		clearCart.mutate()
+	}
 
 	return (
 		<Drawer
@@ -23,16 +34,16 @@ export const CartMenu = ({ isOpen, onClose }: ICartMenuProps) => {
 						Итого: <span>{splitNumber(totalPrice)} ₽</span>
 					</p>
 
-					{items.length > 0 && (
+					{cartItems?.length > 0 && (
 						<Link to='/catalog/cart'>Перейти к оформлению</Link>
 					)}
 				</div>
 			}
 			extra={
-				items.length > 0 ? (
+				cartItems?.length > 0 ? (
 					<Tooltip placement='leftTop' arrow={false} title='Очистить корзину'>
 						<Button
-							onClick={() => clearCart()}
+							onClick={handleClearCart}
 							type='text'
 							shape='circle'
 							className='cart-menu__delete-all'
@@ -45,8 +56,8 @@ export const CartMenu = ({ isOpen, onClose }: ICartMenuProps) => {
 				)
 			}
 		>
-			{items.length > 0 ? (
-				<CartMenuList CartItems={items} />
+			{cartItems?.length > 0 ? (
+				<CartMenuList CartItems={cartItems} />
 			) : (
 				<Empty
 					image={Empty.PRESENTED_IMAGE_SIMPLE}
