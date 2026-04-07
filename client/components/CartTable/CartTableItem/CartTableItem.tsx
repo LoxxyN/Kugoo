@@ -1,4 +1,5 @@
 import { InputCounter } from '@components/index'
+import { useRemoveCartItem, useUpdateCartItem } from '@hooks/index'
 import { CircleIcon, TrashIcon } from '@icons/index'
 import { ICartItem } from '@interfaces/index'
 import { splitNumber } from '@utils/index'
@@ -6,43 +7,51 @@ import { Button } from 'antd'
 import { useNavigate } from 'react-router'
 import './CartTableItem.css'
 
-export const CartTableItem: React.FC<{
-	product: ICartItem
-	handleDeleteItem: (id: string | number) => void
-	handleIncrement: (id: string | number) => void
-	handleDecrement: (id: string | number) => void
-}> = ({ product, handleDeleteItem, handleIncrement, handleDecrement }) => {
+export const CartTableItem: React.FC<{ product: ICartItem }> = ({
+	product,
+}) => {
+	const navigate = useNavigate()
+	const deleteItem = useRemoveCartItem()
+	const updateItem = useUpdateCartItem()
+
 	const quantity =
 		typeof product.quantity !== 'undefined' ? product.quantity : 0
-	const navigate = useNavigate()
 
-	//Функции для увеличения и уменьшения количества товаров
-	const handleIncrease = (e: MouseEvent) => {
-		e.stopPropagation()
+	const productQuantity =
+		typeof product.quantity === 'number' ? product.quantity : 1
+
+	const handleIncrementQuantity = (e: React.MouseEvent) => {
 		e.preventDefault()
-		handleIncrement(product._id)
+		e.stopPropagation()
+		updateItem.mutate({
+			productId: product._id,
+			quantity: productQuantity + 1,
+		})
 	}
 
-	const handleDecrease = (e: MouseEvent) => {
-		e.stopPropagation()
+	const handleDecrementQuantity = (e: React.MouseEvent) => {
 		e.preventDefault()
-		handleDecrement(product._id)
+		e.stopPropagation()
+		updateItem.mutate({
+			productId: product._id,
+			quantity: productQuantity - 1,
+		})
 	}
 
-	const handleDelete = (e: MouseEvent) => {
-		e.stopPropagation()
+	const handleDelete = (e: React.MouseEvent) => {
 		e.preventDefault()
-		handleDeleteItem(product._id)
+		e.stopPropagation()
+		deleteItem.mutate(product._id)
 	}
 
-	const handleClick = () => {
+	const navigateToCatalog = () => {
 		navigate(`/catalog/${product._id}`, {
 			state: { fromCatalog: true },
 		})
 	}
 
 	return (
-		<div className='table-item' onClick={handleClick} tabIndex={0}>
+		<div className='table-item' onClick={navigateToCatalog} tabIndex={0}>
 			<div className='item-info'>
 				<div className='img-wrapper'>
 					<img src='/images/scooter.svg' alt='product img' />
@@ -58,8 +67,8 @@ export const CartTableItem: React.FC<{
 
 			<div className='item__actions'>
 				<InputCounter
-					handleIncrease={handleIncrease}
-					handleDecrease={handleDecrease}
+					handleIncrease={handleIncrementQuantity}
+					handleDecrease={handleDecrementQuantity}
 					value={quantity}
 				/>
 

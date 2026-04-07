@@ -3,27 +3,19 @@ import {
 	CartMenuIcon,
 	CatalogButton,
 	LoginButton,
+	LogoutButton,
 	NavBar,
 } from '@components/index'
-import { LogoutButton } from '@components/LogoutButton/LogoutButton'
 import { useUserData } from '@hooks/index'
 import { HeartIcon, Logo, ScalesIcon } from '@icons/index'
+import { useCartStore } from '@store/index'
 import { Button, Input } from 'antd'
-import { useState } from 'react'
 import './HeaderLayout.css'
 
 export const HeaderLayout = () => {
-	const [isOpen, setIsOpen] = useState(false)
 	const { data: userData } = useUserData()
+	const { isCartOpen, handleOpenCart, handleCloseCart } = useCartStore()
 	const isLogin = !!userData
-
-	const showCart = () => {
-		setIsOpen(true)
-	}
-
-	const onClose = () => {
-		setIsOpen(false)
-	}
 
 	return (
 		<header>
@@ -53,8 +45,8 @@ export const HeaderLayout = () => {
 								type='text'
 								shape='circle'
 							/>
-							<CartMenuIcon onClick={showCart} />
-							<CartMenu isOpen={isOpen} onClose={onClose} />
+							<CartMenuIcon onClick={handleOpenCart} />
+							<CartMenu isOpen={isCartOpen} onClose={handleCloseCart} />
 							<LogoutButton />
 						</div>
 					) : (

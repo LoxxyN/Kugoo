@@ -1,6 +1,6 @@
 import { ProductCard } from '@components/index'
-import { IProductCard } from '@interfaces/IProductCard'
-import { cn } from '@utils/className'
+import { IProductCard } from '@interfaces/index'
+import { cn } from '@utils/index'
 import './ProductCardList.css'
 
 const ProductCardList: React.FC<{

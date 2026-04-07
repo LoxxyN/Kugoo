@@ -1,34 +1,34 @@
 import { CartLayoutEmpty, CartSummary, CartTable } from '@components/index'
-import { useCartStore } from '@store/index'
+import {
+	useCart,
+	useGetTotalDiscount,
+	useGetTotalItems,
+	useGetTotalPrice,
+	useGetTotalPriceWithoutDiscount,
+} from '@hooks/index'
 import './CartLayout.css'
 
 export const CartLayout = () => {
-	const {
-		items,
-		getTotalItems,
-		getTotalPrice,
-		getTotalDiscount,
-		getTotalPriceWithoutDiscount,
-	} = useCartStore()
+	const { data: cartData } = useCart()
 
-	const totalItems = getTotalItems()
-	const totalPrice = getTotalPrice() //Сумма со скидками
-	const totalDiscount = getTotalDiscount() //Сумма скидки
-	const totalWithoutDiscount = getTotalPriceWithoutDiscount() //Сумма без скидок
-	if (typeof totalDiscount === 'undefined' || typeof totalPrice === 'undefined')
-		return
+	const cartItems = cartData?.data?.items?.length
+	const totalItems = useGetTotalItems()
+	const totalPrice = useGetTotalPrice()
+	const totalDiscount = useGetTotalDiscount() //Сумма скидки
+	const totalWithoutDiscount = useGetTotalPriceWithoutDiscount() //Сумма без скидок
 
-	// Проверка на корректность данных
 	const safeDiscount = Math.max(0, totalDiscount)
 	const safeTotalWithoutDiscount = Math.max(totalPrice, totalWithoutDiscount)
 
 	return (
 		<>
-			{items.length === 0 ? (
+			{cartItems ? (
 				<CartLayoutEmpty />
 			) : (
 				<>
-					<p className='cart-layout__total-items'>{totalItems} товара</p>
+					<p className='cart-layout__total-items'>
+						{totalItems <= 0 ? '' : `${totalItems} товара`}
+					</p>
 					<div className='cart-layout'>
 						<CartTable />
 						<CartSummary

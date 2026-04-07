@@ -5,6 +5,7 @@ export interface IProductCard {
 	price: number
 	old_price?: number
 	name: string
+	inStock?: boolean
 	battery?: number
 	power?: string
 	max_speed?: number

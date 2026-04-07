@@ -1,23 +1,33 @@
+import { useRemoveCartItem, useUpdateCartItem } from '@hooks/index'
 import { TrashIcon } from '@icons/index'
 import { ICartItem } from '@interfaces/index'
-import { useCartStore } from '@store/index'
 import { splitNumber } from '@utils/index'
 import { Button } from 'antd'
 import './CartMenuItem.css'
 
 export const CartMenuItem: React.FC<{ product: ICartItem }> = ({ product }) => {
-	const { deleteItem, incrementQuantity, decrementQuantity } = useCartStore()
+	const removeItem = useRemoveCartItem()
+	const updateItem = useUpdateCartItem()
+
+	const productQuantity =
+		typeof product.quantity === 'number' ? product.quantity : 1
 
 	const handleIncrementQuantity = () => {
-		incrementQuantity(product._id)
+		updateItem.mutate({
+			productId: product._id,
+			quantity: productQuantity + 1,
+		})
 	}
 
 	const handleDecrementQuantity = () => {
-		decrementQuantity(product._id)
+		updateItem.mutate({
+			productId: product._id,
+			quantity: productQuantity - 1,
+		})
 	}
 
-	const deleteProduct = () => {
-		deleteItem(product._id)
+	const handleRemoveProduct = () => {
+		removeItem.mutate(product._id)
 	}
 
 	return (
@@ -55,7 +65,7 @@ export const CartMenuItem: React.FC<{ product: ICartItem }> = ({ product }) => {
 				</div>
 
 				<Button
-					onClick={deleteProduct}
+					onClick={handleRemoveProduct}
 					className='cart-card__delete-item'
 					shape='circle'
 					type='text'

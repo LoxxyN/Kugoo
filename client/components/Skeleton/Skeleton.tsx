@@ -29,14 +29,16 @@ const CardSkeleton = ({ className }: TSkeletonClassName) => {
 	return <div className={cn(skeletonColor, className)}></div>
 }
 
-const CardListSkeleton = ({ className }: TSkeletonClassName) => {
-	return (
-		<div className={className}>
-			{preloadCards.map(item => (
-				<CardSkeleton className='rounded-[10px] w-60 h-[450px]' key={item.id} />
-			))}
-		</div>
-	)
+const TitleSkeleton = ({ className }: TSkeletonClassName) => {
+	if (typeof className === 'undefined') return
+
+	return <div className={cn(skeletonColor, `w-full rounded-full`, className)} />
+}
+
+const BlockSkeleton = ({ className }: TSkeletonClassName) => {
+	if (typeof className === 'undefined') return
+
+	return <div className={cn(skeletonColor, `w-full rounded-xl`, className)} />
 }
 
 const ProductImageSkeleton = ({ size }: TSkeletonSize) => {
@@ -49,6 +51,16 @@ const ProductImageSkeleton = ({ size }: TSkeletonSize) => {
 					: 'w-[570px] h-[480px] rounded-[10px]',
 			)}
 		></div>
+	)
+}
+
+const CardListSkeleton = ({ className }: TSkeletonClassName) => {
+	return (
+		<div className={className}>
+			{preloadCards.map(item => (
+				<CardSkeleton className='rounded-[10px] w-60 h-[450px]' key={item.id} />
+			))}
+		</div>
 	)
 }
 
@@ -69,18 +81,6 @@ const ProductImagesLayoutSkeleton = () => {
 			<ProductImageListSkeleton />
 		</div>
 	)
-}
-
-const TitleSkeleton = ({ className }: TSkeletonClassName) => {
-	if (typeof className === 'undefined') return
-
-	return <div className={cn(skeletonColor, `w-full rounded-full`, className)} />
-}
-
-const BlockSkeleton = ({ className }: TSkeletonClassName) => {
-	if (typeof className === 'undefined') return
-
-	return <div className={cn(skeletonColor, `w-full rounded-xl`, className)} />
 }
 
 const ProductDescriptionLayoutSkeleton = () => {
