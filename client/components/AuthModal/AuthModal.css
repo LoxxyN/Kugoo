@@ -1,0 +1,14 @@
+.auth__modal {
+	text-align: center;
+	color: var(--color-gray--text);
+	display: flex;
+	justify-content: center;
+
+	.ant-modal-container {
+		display: flex;
+		justify-content: center;
+		width: 610px;
+		height: 448px;
+		padding: 32px;
+	}
+}

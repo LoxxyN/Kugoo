@@ -1,20 +1,15 @@
+import { useGetTotalItems } from '@hooks/index'
 import { CartActiveIcon, CartIcon } from '@icons/index'
-import { useCartStore } from '@store/index'
 import { Badge, Button } from 'antd'
 
-interface ButtonProp {
-	onClick: () => void
-}
-
-export const CartMenuIcon = ({ onClick }: ButtonProp) => {
-	const { getTotalItems } = useCartStore()
-
+export const CartMenuIcon = ({ onClick }: { onClick: () => void }) => {
+	const totalItems = useGetTotalItems()
 	return (
-		<Badge count={getTotalItems()} showZero={false}>
+		<Badge count={totalItems} showZero={false}>
 			<Button
 				className='text-sm font-medium'
 				icon={
-					getTotalItems() <= 0 ? (
+					totalItems <= 0 ? (
 						<CartIcon size={20} />
 					) : (
 						<CartActiveIcon size={20} />

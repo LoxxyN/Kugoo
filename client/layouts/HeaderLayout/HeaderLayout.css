@@ -10,11 +10,46 @@
 
 .header__search {
 	margin-right: 47px;
-	border: 2px solid var(--color-blue);
+	width: 503px;
+	transition: var(--transition);
 	border-radius: 8px;
+
+	&:hover {
+		background-color: #8185f9;
+	}
 }
 
 .header__icons {
 	display: flex;
 	gap: 25px;
+}
+
+.header__login-button {
+	display: flex;
+	align-items: center;
+	background-color: var(--color-blue);
+	color: var(--color-white);
+	height: 36px;
+	transition: var(--transition);
+	padding-inline: 1.5rem;
+	gap: 8px;
+
+	&:hover {
+		background-color: #8185f9;
+	}
+}
+
+.header__logout-button {
+	display: flex;
+	align-items: center;
+	background-color: var(--color-blue);
+	color: var(--color-white);
+	height: 36px;
+	border-radius: 10px;
+	transition: var(--transition);
+	padding-inline: 0.6rem;
+
+	&:hover {
+		background-color: #8185f9;
+	}
 }

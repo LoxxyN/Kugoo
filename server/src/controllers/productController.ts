@@ -2,11 +2,35 @@ import { Context } from 'hono'
 import { ProductModel } from '../models/ProductModel'
 
 export const productController = {
+	search: async (c: Context) => {
+		try {
+			const query = (c.req.query('q') || '').trim()
+			const limit = Math.min(Number(c.req.query('limit')) || 8, 20)
+
+			if (query.length < 2) {
+				return c.json({ success: true, data: [] })
+			}
+
+			const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+
+			const items = await ProductModel.find({
+				name: { $regex: escaped, $options: 'i' },
+			})
+				.select('_id name price')
+				.limit(limit)
+				.lean()
+
+			return c.json({ success: true, data: items })
+		} catch (error) {
+			console.error('Search error', error)
+			return c.json({ error: 'Loading error' }, 500)
+		}
+	},
 	//Получить все товары из базы
 	getAll: async (c: Context) => {
 		try {
 			const page = Number(c.req.query('page')) || 1
-			const limit = Number(c.req.query('limit')) || 8
+			const limit = Number(c.req.query('limit')) || 9
 
 			const skip = (page - 1) * limit
 

@@ -1,67 +1,47 @@
-import { Badge, ProductDescription } from '@components/index'
-import { IProductCard } from '@interfaces/index'
-import { productService } from '@services/index'
-import { useEffect, useState } from 'react'
+import {
+	ProductDescriptionLayoutSkeleton,
+	ProductImagesLayoutSkeleton,
+} from '@components/index'
+import { useProductByIdQuery } from '@hooks/index'
+import { lazy } from 'react'
 import { Navigate, useParams } from 'react-router'
 import './ProductPage.css'
 
+const ProductImagesLayout = lazy(
+	() => import('@layouts/ProductImagesLayout/ProductImagesLayout'),
+)
+const ProductDescriptionLayout = lazy(
+	() => import('@layouts/ProductDescriptionLayout/ProductDescriptionLayout'),
+)
+
 export const ProductPage = () => {
 	const { id } = useParams()
-	const [productItem, setProductItem] = useState<IProductCard | null>(null)
-	const [loading, setLoading] = useState(true)
-	const [error, setError] = useState<string | null>(null)
 
-	useEffect(() => {
-		loadProductById()
-	}, [])
+	const {
+		data: product,
+		isFetching,
+		isError,
+	} = useProductByIdQuery({
+		id: String(id),
+		enabled: typeof id !== 'undefined',
+	})
 
-	if (typeof id === 'undefined') return
-	const loadProductById = async () => {
-		try {
-			setLoading(true)
-			const data = await productService.getProductById(id)
-			setProductItem(data)
-			setError(null)
-		} catch (err) {
-			setError('Не удалось загрузить товары')
-			console.error(err)
-		} finally {
-			//Перемещение экрана наверх при загрузке страницы
-			window.scrollTo(0, 0)
-			setLoading(false)
-		}
-	}
-
-	if (loading) return <div>Загрузка товаров...</div>
-	if (error) return <div>Ошибка: {error}</div>
-	if (productItem === null) return
-	//Проверка существует ли такой id
-	if (typeof id === 'undefined') {
-		return <Navigate to={'/not-found'} />
-	}
+	if (isError) return <Navigate to={'/not-found'} /> //Проверка существует ли такой id
 
 	return (
 		<section className='product-wrapper'>
 			<div className='wrapper flex justify-between'>
-				<div className='product__images'>
-					<div className='product__current-image'>
-						<Badge type={productItem ? productItem.badge : ''} />
-						<img src='/images/scooter.svg' alt='product image' />
-					</div>
-					<div className='product__images-list'>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-					</div>
-				</div>
-				<ProductDescription product={productItem} />
+				{isFetching || !product ? (
+					<>
+						<ProductImagesLayoutSkeleton />
+						<ProductDescriptionLayoutSkeleton />
+					</>
+				) : (
+					<>
+						<ProductImagesLayout product={product?.data} />
+						<ProductDescriptionLayout product={product?.data} />
+					</>
+				)}
 			</div>
 		</section>
 	)

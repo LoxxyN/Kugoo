@@ -1,12 +1,13 @@
-import mongoose from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
 
 const CartItemSchema = new mongoose.Schema({
-	name: { type: String, required: true },
-	price: { type: Number, required: true },
 	quantity: { type: Number, required: true, default: 1 },
-	inStock: { type: Boolean, default: true },
+	productId: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
+	inStock: Boolean,
+	price: Number,
 	old_price: Number,
 	battery: Number,
+	name: String,
 	power: Number,
 	max_speed: Number,
 	time_of_work: Number,

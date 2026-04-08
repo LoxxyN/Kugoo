@@ -1,5 +1,5 @@
 import { Context } from 'hono'
-import { CartModel } from '../models/CartModel'
+import { CartModel, ProductModel } from '../models'
 
 export const cartController = {
 	//Получить корзину пользователя
@@ -22,21 +22,42 @@ export const cartController = {
 	addItem: async (c: Context) => {
 		try {
 			const userId = c.get('userId')
-			const item = await c.req.json()
+			const { productId, quantity } = await c.req.json()
+
+			const product = await ProductModel.findById(productId)
+			if (!product) {
+				return c.json({ success: false, message: 'Товар не найден' }, 404)
+			}
 
 			let cart = await CartModel.findOne({ userId })
 			if (!cart) {
-				cart = new CartModel({ userId, items: [item] })
+				cart = await CartModel.create({
+					userId,
+					items: [],
+				})
+			}
+
+			const existingItemIndex = cart.items.findIndex(
+				item => item.productId?.toString() === productId,
+			)
+
+			if (existingItemIndex !== -1) {
+				cart.items[existingItemIndex].quantity += quantity
 			} else {
-				const existingIndex = cart.items.findIndex(i => i._id === item._id)
-				if (existingIndex >= 0) {
-					cart.set(
-						`items.${existingIndex}.quantity`,
-						cart.items[existingIndex].quantity + 1,
-					)
-				} else {
-					cart.items.push(item)
-				}
+				cart.items.push({
+					productId: product._id,
+					name: product.name,
+					price: product.price,
+					old_price: product.old_price,
+					battery: product.battery,
+					power: product.power,
+					max_speed: product.max_speed,
+					time_of_work: product.time_of_work,
+					badge: product.badge,
+					image: product.image,
+					inStock: product.inStock,
+					quantity,
+				})
 			}
 
 			await cart.save()
@@ -52,25 +73,25 @@ export const cartController = {
 	// Обновить количество товаров в корзине
 	updateQuantity: async (c: Context) => {
 		try {
-			const { itemId } = c.req.param()
-			const { quantity } = await c.req.json()
 			const userId = c.get('userId')
+			const { productId } = c.req.param()
+			const { quantity } = await c.req.json()
 
+			const newQuantity = parseInt(quantity)
 			const cart = await CartModel.findOne({ userId })
-			if (!cart) return c.json({ error: 'Корзина не найдена' }, 404)
+			if (!cart)
+				return c.json({ success: false, message: 'Корзина не найдена' }, 404)
 
-			const existingIndex = cart.items.findIndex(
-				i => i._id.toString() === itemId,
+			const existingItemIndex = cart.items.findIndex(i =>
+				i._id.equals(productId),
 			)
+			if (existingItemIndex === -1)
+				return c.json({ success: false, message: 'Товар не найден' }, 404)
 
-			if (existingIndex === -1) {
-				return c.json({ error: 'Товар не найден' }, 404)
-			}
-
-			if (quantity <= 0) {
-				cart.items.pull({ _id: itemId })
+			if (newQuantity <= 0) {
+				cart.items.splice(existingItemIndex, 1)
 			} else {
-				cart.set(`items.${existingIndex}.quantity`, quantity)
+				cart.items[existingItemIndex].quantity = newQuantity
 			}
 
 			await cart.save()
@@ -87,12 +108,12 @@ export const cartController = {
 	//Удалить товар из корзины
 	removeItem: async (c: Context) => {
 		try {
-			const { itemId } = c.req.param()
 			const userId = c.get('userId')
+			const { productId } = c.req.param()
 
 			await CartModel.updateOne(
 				{ userId },
-				{ $pull: { items: { _id: itemId } } },
+				{ $pull: { items: { _id: productId } } },
 			)
 
 			const updatedCart = await CartModel.findOne({ userId }).lean()
