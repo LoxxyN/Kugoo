@@ -14,7 +14,7 @@ export const productController = {
 			const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 
 			const items = await ProductModel.find({
-				name: { $regex: '^' + escaped, $options: 'i' },
+				name: { $regex: escaped, $options: 'i' },
 			})
 				.select('_id name price')
 				.limit(limit)
