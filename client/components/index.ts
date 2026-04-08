@@ -6,6 +6,7 @@ export { LogoutButton } from './LogoutButton/LogoutButton'
 export { LogoutModal } from './LogoutModal/LogoutModal'
 
 export { Badge } from './Badge/Badge'
+export { HeaderSearch } from './HeaderSearch/HeaderSearch'
 export { NavBar } from './NavBar/NavBar'
 
 export { AsideAds } from './AsideAds/AsideAds'

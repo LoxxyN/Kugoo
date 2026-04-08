@@ -1,5 +1,8 @@
 export * from './useAuth'
 export * from './useCart'
-export { useCatalogSorting } from './useCatalogSorting'
-export { useNotifications } from './useNotifications'
 export * from './useProducts'
+
+export { useCatalogSorting } from './useCatalogSorting'
+export { useDebounce } from './useDebounce'
+export { useNotifications } from './useNotifications'
+export { useProductSearch } from './useProductSearch'

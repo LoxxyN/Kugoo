@@ -2,6 +2,7 @@ import {
 	CartMenu,
 	CartMenuIcon,
 	CatalogButton,
+	HeaderSearch,
 	LoginButton,
 	LogoutButton,
 	NavBar,
@@ -9,7 +10,7 @@ import {
 import { useUserData } from '@hooks/index'
 import { HeartIcon, Logo, ScalesIcon } from '@icons/index'
 import { useCartStore } from '@store/index'
-import { Button, Input } from 'antd'
+import { Button } from 'antd'
 import './HeaderLayout.css'
 
 export const HeaderLayout = () => {
@@ -27,12 +28,7 @@ export const HeaderLayout = () => {
 						</a>
 					</div>
 					<CatalogButton />
-					<Input.Search
-						width={603}
-						className='header__search'
-						placeholder='Искать самокат KUGOO'
-						enterButton
-					/>
+					<HeaderSearch />
 					{isLogin ? (
 						<div className='header__icons py-3'>
 							<Button

@@ -10,6 +10,7 @@
 
 .header__search {
 	margin-right: 47px;
+	width: 503px;
 	transition: var(--transition);
 	border-radius: 8px;
 
