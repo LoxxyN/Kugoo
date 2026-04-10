@@ -1,6 +1,20 @@
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useNotifications } from '@hooks/index'
 import { TModal } from '@interfaces/index'
-import { Button, Form, Input, Modal } from 'antd'
+import { formatPhoneNumber, phoneSchema } from '@utils/index'
+import { Button, Checkbox, Form, Input, Modal } from 'antd'
+import { Controller, useForm } from 'react-hook-form'
+import z from 'zod'
 import './CallTellModal.css'
+
+const modalFormSchema = z.object({
+	phone: phoneSchema,
+	agreeToTerms: z.boolean().refine(value => value === true, {
+		message: 'Необходимо подвердить согласие',
+	}),
+})
+
+type TModalSchema = z.infer<typeof modalFormSchema>
 
 export const CallTellModal = ({
 	title,
@@ -9,10 +23,33 @@ export const CallTellModal = ({
 	hasSocials,
 	isModalOpen,
 	handleClose,
-	onFinish,
-	onFinishFailed,
-	form,
 }: TModal) => {
+	const { modalMessages } = useNotifications()
+	const {
+		handleSubmit,
+		control,
+		reset,
+		setValue,
+		formState: { errors, isSubmitting },
+	} = useForm<TModalSchema>({
+		resolver: zodResolver(modalFormSchema),
+		defaultValues: {
+			phone: '',
+			agreeToTerms: false,
+		},
+		mode: 'onChange',
+	})
+
+	const onFinish = () => {
+		modalMessages.finishSuccess()
+		reset()
+		handleClose()
+	}
+
+	const onFinishFailed = () => {
+		modalMessages.finishFailed()
+	}
+
 	return (
 		<>
 			<Modal
@@ -45,46 +82,63 @@ export const CallTellModal = ({
 								</div>
 							</>
 						)}
+
 						<Form
-							form={form}
-							onFinish={onFinish}
+							onFinish={handleSubmit(onFinish)}
 							onFinishFailed={onFinishFailed}
 							className='modal__form'
 						>
-							<Form.Item
-								name='tel'
-								rules={[{ required: true, message: 'Заполните поле' }]}
-							>
-								<Input
-									variant='filled'
-									type='tel'
-									placeholder='+7 (___) __ - __ - __'
-									name='tel'
-									id='tel'
-								/>
-							</Form.Item>
+							<Controller
+								name='phone'
+								control={control}
+								render={({ field }) => (
+									<Form.Item
+										validateStatus={errors.phone ? 'error' : ''}
+										help={errors.phone?.message}
+										required
+									>
+										<Input
+											variant='filled'
+											value={field.value}
+											type='tel'
+											placeholder='+7 (___) __ - __ - __'
+											onChange={e => {
+												const formatted = formatPhoneNumber(e.target.value)
+												setValue('phone', formatted, {
+													shouldDirty: true,
+													shouldValidate: true,
+												})
+											}}
+										/>
+									</Form.Item>
+								)}
+							/>
 							<Form.Item>
 								<Button
 									className='modal__confirm-button'
 									htmlType='submit'
 									type='primary'
+									disabled={isSubmitting}
+									block
 								>
-									{buttonText}
+									{isSubmitting ? 'Обработка' : buttonText}
 								</Button>
 							</Form.Item>
-							<div className='check'>
-								<input
-									required
-									type='checkbox'
-									name='confirm'
-									autoComplete='true'
-									id='confirm'
-								/>
-								<label htmlFor='confirm' aria-required={true}>
-									Нажимая на кнопку, вы соглашаетесь на обработку персональных
-									данных и <a href='#'>политикой конфиденциальности</a>
-								</label>
-							</div>
+							<Controller
+								name='agreeToTerms'
+								control={control}
+								render={({ field }) => (
+									<Form.Item
+										help={errors.agreeToTerms?.message}
+										validateStatus={errors.agreeToTerms ? 'error' : ''}
+									>
+										<Checkbox {...field} checked={field.value}>
+											Я согласен на обработку персональных данных и{' '}
+											<a href='#'>политикой конфиденциальности</a>
+										</Checkbox>
+									</Form.Item>
+								)}
+							/>
 						</Form>
 					</div>
 				</div>

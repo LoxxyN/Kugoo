@@ -1,44 +1,21 @@
 import { CallTellModal } from '@components/index'
-import { useNotifications } from '@hooks/index'
+import { useModalStore } from '@store/index'
 import { modalTexts } from '@utils/modalTexts.ts'
-import { Button, Form } from 'antd'
-import { useState } from 'react'
+import { Button } from 'antd'
 
 export const FooterCallTell = () => {
-	const [isModalOpen, setIsModalOpen] = useState(false)
-	const { modalMessages } = useNotifications()
-	const [form] = Form.useForm()
-
-	const handleOpenModal = () => {
-		setIsModalOpen(!isModalOpen)
-	}
-
-	const handleCloseModal = () => {
-		setIsModalOpen(false)
-	}
-
-	const onFinish = () => {
-		form.resetFields()
-		setIsModalOpen(!isModalOpen)
-		modalMessages.finishSuccess()
-	}
-
-	const onFinishFailed = () => {
-		modalMessages.finishFailed()
-	}
+	const { handleCallModalClose, handleCallModalOpen, isCallModalOpen } =
+		useModalStore()
 
 	return (
 		<>
-			<Button onClick={handleOpenModal} type='link'>
+			<Button onClick={handleCallModalOpen} type='link'>
 				Заказать звонок
 			</Button>
 			<CallTellModal
 				{...modalTexts[0]}
-				isModalOpen={isModalOpen}
-				handleClose={handleCloseModal}
-				form={form}
-				onFinish={onFinish}
-				onFinishFailed={onFinishFailed}
+				isModalOpen={isCallModalOpen}
+				handleClose={handleCallModalClose}
 			/>
 		</>
 	)
