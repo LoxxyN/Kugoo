@@ -1,8 +1,7 @@
 import { BlockSkeleton, CallTellModal } from '@components/index'
-import { useNotifications } from '@hooks/index'
+import { useModalStore } from '@store/index'
 import { modalTexts } from '@utils/index'
-import { Form } from 'antd'
-import { lazy, Suspense, useState } from 'react'
+import { lazy, Suspense } from 'react'
 import './AsideAds.css'
 
 const AsideAdsProductOfMonth = lazy(
@@ -10,27 +9,11 @@ const AsideAdsProductOfMonth = lazy(
 )
 
 export const AsideAds = () => {
-	const [isModalOpen, setIsModalOpen] = useState(false)
-	const { modalMessages } = useNotifications()
-	const [form] = Form.useForm()
-
-	const handleOpenModal = () => {
-		setIsModalOpen(!isModalOpen)
-	}
-
-	const handleCloseModal = () => {
-		setIsModalOpen(false)
-	}
-
-	const onFinish = () => {
-		form.resetFields()
-		setIsModalOpen(!isModalOpen)
-		modalMessages.finishSuccess()
-	}
-
-	const onFinishFailed = () => {
-		modalMessages.finishFailed()
-	}
+	const {
+		handleCallManagerModalClose,
+		handleCallManagerModalOpen,
+		isCallManagerModalOpen,
+	} = useModalStore()
 
 	return (
 		<div className='side-ads'>
@@ -39,16 +22,16 @@ export const AsideAds = () => {
 			</Suspense>
 
 			<>
-				<div className='side-ads__call-to-manager' onClick={handleOpenModal}>
+				<div
+					className='side-ads__call-to-manager'
+					onClick={handleCallManagerModalOpen}
+				>
 					<p>Задать вопрос менеджеру</p>
 				</div>
 				<CallTellModal
 					{...modalTexts[1]}
-					isModalOpen={isModalOpen}
-					handleClose={handleCloseModal}
-					form={form}
-					onFinish={onFinish}
-					onFinishFailed={onFinishFailed}
+					isModalOpen={isCallManagerModalOpen}
+					handleClose={handleCallManagerModalClose}
 				/>
 			</>
 		</div>

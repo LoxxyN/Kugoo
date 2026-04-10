@@ -1,65 +1,93 @@
 import { MailingModal } from '@components/index'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useNotifications } from '@hooks/index'
+import { useModalStore } from '@store/index'
+import { emailSchema } from '@utils/index'
 import { Button, Form, Input } from 'antd'
-import { useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
+import z from 'zod'
 import './FooterMailingForm.css'
 
 export const FooterMailingForm = () => {
-	const [isModalOpen, setIsModalOpen] = useState(false)
+	const { isMailModalOpen, handleMailModalOpen, handleMailModalClose } =
+		useModalStore()
 	const { mailingMessages } = useNotifications()
-	const [form] = Form.useForm()
+
+	const emailFormSchema = z.object({
+		email: emailSchema,
+	})
+
+	type TMailingModal = z.infer<typeof emailFormSchema>
+
+	const {
+		control,
+		reset,
+		formState: { errors, isValid },
+		handleSubmit,
+	} = useForm<TMailingModal>({
+		resolver: zodResolver(emailFormSchema),
+		defaultValues: {
+			email: '',
+		},
+		mode: 'onSubmit',
+	})
 
 	const onFinish = () => {
-		if (!isModalOpen) mailingMessages.mailingComplete()
-		setIsModalOpen(!isModalOpen)
-		form.resetFields()
+		mailingMessages.mailingComplete()
+		reset()
 	}
 
 	const onFinishFailed = () => {
 		mailingMessages.mailingFailed()
 	}
 
+	const handleCallModal = () => {
+		if (isValid) {
+			handleMailModalOpen()
+		}
+	}
+
 	return (
 		<>
 			<Form
-				form={form}
-				onFinish={onFinish}
+				onFinish={handleSubmit(onFinish)}
 				onFinishFailed={onFinishFailed}
 				className='mailing-form'
 				variant='filled'
 			>
-				<Form.Item
+				<Controller
 					name='email'
-					rules={[
-						{
-							required: true,
-							message: 'Сначала введите почту',
-						},
-						{
-							type: 'email',
-							message: 'Введите корректный email',
-						},
-					]}
-				>
-					<Input
-						placeholder='Введите Ваш email'
-						id='mailing_email'
-						type='email'
-					/>
-				</Form.Item>
+					control={control}
+					render={({ field }) => (
+						<Form.Item
+							validateStatus={errors.email ? 'error' : ''}
+							help={errors.email?.message}
+							required
+						>
+							<Input
+								{...field}
+								placeholder='Введите Ваш email'
+								id='mailing_email'
+								type='email'
+							/>
+						</Form.Item>
+					)}
+				></Controller>
 				<Form.Item>
 					<Button
 						type='primary'
 						htmlType='submit'
 						className='button-white h-14'
+						onClick={handleCallModal}
 					>
 						Подписаться
 					</Button>
 				</Form.Item>
 
-				{isModalOpen && (
-					<MailingModal isModalOpen={isModalOpen} handleClose={onFinish} />
-				)}
+				<MailingModal
+					isModalOpen={isMailModalOpen}
+					handleClose={handleMailModalClose}
+				/>
 			</Form>
 		</>
 	)

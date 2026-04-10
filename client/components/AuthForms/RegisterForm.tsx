@@ -1,18 +1,14 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { cn } from '@utils/className'
+import { cn, emailSchema, passwordSchema } from '@utils/index'
 import { Button } from 'antd'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
 import './AuthForm.css'
 
-const registerSchema = z
+const registerFormSchema = z
 	.object({
-		email: z.string().email('Неверный формат email'),
-		password: z
-			.string()
-			.min(6, 'Минимум 6 символов')
-			.regex(/[A-Z]/, 'Минимум одна заглавная буква')
-			.regex(/[0-9]/, 'Минимум одна цифра'),
+		email: emailSchema,
+		password: passwordSchema,
 		confirmPassword: z.string(),
 	})
 	.refine(data => data.password === data.confirmPassword, {
@@ -20,7 +16,7 @@ const registerSchema = z
 		path: ['confirmPassword'],
 	})
 
-type RegisterFormData = z.infer<typeof registerSchema>
+type RegisterFormData = z.infer<typeof registerFormSchema>
 
 export const RegisterForm = ({
 	onRegister,
@@ -34,7 +30,7 @@ export const RegisterForm = ({
 		handleSubmit,
 		formState: { errors, isSubmitting, isSubmitted },
 	} = useForm({
-		resolver: zodResolver(registerSchema),
+		resolver: zodResolver(registerFormSchema),
 		defaultValues: {
 			email: '',
 			password: '',

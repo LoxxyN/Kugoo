@@ -30,5 +30,11 @@
 		&::placeholder {
 			color: #fff;
 		}
+
+		&:focus-within {
+			&::placeholder {
+				color: var(--color-black);
+			}
+		}
 	}
 }
