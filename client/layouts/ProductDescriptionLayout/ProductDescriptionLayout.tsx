@@ -3,6 +3,8 @@ import {
 	useAddCartItem,
 	useIsProductInCart,
 	useNotifications,
+	useRemoveCartItem,
+	useUserData,
 } from '@hooks/index'
 import {
 	CircleIcon,
@@ -22,8 +24,10 @@ const ProductDescriptionLayout: React.FC<{ product: IProductCard }> = ({
 	product,
 }) => {
 	const addCartItem = useAddCartItem()
-	const { favoriteMessages, cartMessages } = useNotifications()
+	const removeCartItem = useRemoveCartItem()
 	const [isHeartActive, setHeartIsActive] = useState(false)
+	const { favoriteMessages, cartMessages } = useNotifications()
+	const { data: userData } = useUserData()
 	const [options, setOptions] = useState<IProductOptions>({
 		complectation: 'basic',
 		warranty: 'basic',
@@ -31,6 +35,7 @@ const ProductDescriptionLayout: React.FC<{ product: IProductCard }> = ({
 		packaging: 'none',
 	})
 
+	const isLogin = !!userData
 	const isProductInCart = useIsProductInCart(product._id)
 
 	const oldPrice =
@@ -45,13 +50,35 @@ const ProductDescriptionLayout: React.FC<{ product: IProductCard }> = ({
 	}
 
 	const handleAddToFavorite = () => {
+		if (!isLogin) return notifyIfNotLogin()
+
 		setHeartIsActive(!isHeartActive)
 		callFavoriteNotification()
 	}
 
+	//Проверяет залогинен ли пользователь и возвращает уведомление в отрицательном случае
+	const notifyIfNotLogin = () => {
+		if (!isLogin) {
+			return message.warning('Чтобы совершить покупку вам необходимо войти')
+		}
+	}
+
+	const handleBuyInClick = (e: React.MouseEvent) => {
+		e.stopPropagation()
+		//Logic of buy in one click
+		if (!isLogin) return notifyIfNotLogin()
+	}
+
 	const handleAddToCart = () => {
-		addCartItem.mutate(product._id)
-		cartMessages.add()
+		if (!isLogin) return notifyIfNotLogin()
+
+		if (isProductInCart) {
+			removeCartItem.mutate(product._id)
+			cartMessages.delete()
+		} else {
+			addCartItem.mutate(product._id)
+			cartMessages.add()
+		}
 	}
 
 	const handleCopyLink = () => {
@@ -92,7 +119,7 @@ const ProductDescriptionLayout: React.FC<{ product: IProductCard }> = ({
 					<ScalesIcon size={20} />
 					<span>Сравнить</span>
 				</div>
-				<div onClick={handleCopyLink}>
+				<div role='button' tabIndex={0} onClick={handleCopyLink}>
 					<ShareIcon />
 					<span>Поделиться</span>
 				</div>
@@ -119,16 +146,13 @@ const ProductDescriptionLayout: React.FC<{ product: IProductCard }> = ({
 			<div className='product__description-buy'>
 				<div className='product__description-buy__heading'>
 					<h3>{splitNumber(product.price)} руб.</h3>
-					<ProductCardButton
-						children={
-							isHeartActive ? (
-								<HeartActiveIcon size={20} />
-							) : (
-								<HeartIcon size={20} />
-							)
-						}
-						onClick={handleAddToFavorite}
-					/>
+					<ProductCardButton onClick={handleAddToFavorite}>
+						{isHeartActive ? (
+							<HeartActiveIcon size={20} />
+						) : (
+							<HeartIcon size={20} />
+						)}
+					</ProductCardButton>
 				</div>
 				<Divider />
 				<div className='product__description-buy__delivery'>
@@ -139,7 +163,11 @@ const ProductDescriptionLayout: React.FC<{ product: IProductCard }> = ({
 					</div>
 				</div>
 				<div className='product__description-buy__buttons'>
-					<Button type='primary' disabled={!product.inStock}>
+					<Button
+						type='primary'
+						onClick={handleBuyInClick}
+						disabled={!product.inStock}
+					>
 						Купить в 1 клик
 					</Button>
 					<Button onClick={handleAddToCart}>

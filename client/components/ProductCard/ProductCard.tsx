@@ -4,6 +4,7 @@ import {
 	useIsProductInCart,
 	useNotifications,
 	useRemoveCartItem,
+	useUserData,
 } from '@hooks/index'
 import {
 	AccumulatorIcon,
@@ -18,7 +19,7 @@ import {
 } from '@icons/index'
 import { IProductCard } from '@interfaces/index'
 import { splitNumber } from '@utils/index'
-import { Button, Card } from 'antd'
+import { Button, Card, message } from 'antd'
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import './ProductCard.css'
@@ -29,28 +30,51 @@ export const ProductCard: React.FC<{ product: IProductCard }> = ({
 	const [isHeartActive, setHeartIsActive] = useState(false)
 	const [isScalesActive, setIsScalesActive] = useState(false)
 	const { cartMessages, favoriteMessages } = useNotifications()
+	const { data: userData } = useUserData()
 	const navigate = useNavigate()
 
 	const AddItemMutation = useAddCartItem()
 	const DeleteItemMutation = useRemoveCartItem()
-	const IsItemInCart = useIsProductInCart
+	const isItemInCart = useIsProductInCart(product._id)
+	const isLogin = !!userData
 
 	//При клике на карточку перемещаемся на этот URL
-	const handleClick = () => {
+	const handleNavigateToProduct = () => {
 		navigate(`/catalog/${product._id}`, {
 			state: { fromCatalog: true },
 		})
 	}
 
+	//Проверяет залогинен ли пользователь и возвращает уведомление в отрицательном случае
+	const notifyIfNotLogin = () => {
+		if (!isLogin) {
+			return message.warning('Чтобы совершить покупку вам необходимо войти')
+		}
+	}
+
+	const handleBuyInClick = (e: React.MouseEvent) => {
+		e.stopPropagation()
+		//Logic of buy in one click
+		if (!isLogin) return notifyIfNotLogin()
+	}
+
 	const handleAddToCart = (e: React.MouseEvent) => {
 		e.stopPropagation()
-		AddItemMutation.mutate(product._id)
-		cartMessages.add()
+		if (!isLogin) return notifyIfNotLogin()
+
+		if (isItemInCart) {
+			DeleteItemMutation.mutate(product._id)
+			cartMessages.delete()
+		} else {
+			AddItemMutation.mutate(product._id)
+			cartMessages.add()
+		}
 	}
 
 	const handleAddToFavorite = (e: React.MouseEvent) => {
 		e.stopPropagation()
-		DeleteItemMutation.mutate(product._id)
+		if (!isLogin) return notifyIfNotLogin()
+
 		setHeartIsActive(!isHeartActive)
 		if (!isHeartActive) {
 			favoriteMessages.add()
@@ -62,7 +86,7 @@ export const ProductCard: React.FC<{ product: IProductCard }> = ({
 	const oldPrice = typeof product.old_price !== 'undefined' && product.old_price
 
 	return (
-		<Card className='card' hoverable onClick={handleClick}>
+		<Card className='card' hoverable onClick={handleNavigateToProduct}>
 			<div className='card__top'>
 				<div className='card__top-actions'>
 					{product.badge && <Badge type={product.badge} />}
@@ -114,30 +138,28 @@ export const ProductCard: React.FC<{ product: IProductCard }> = ({
 								</p>
 							</div>
 							<div className='card__buttons'>
-								<ProductCardButton
-									children={
-										IsItemInCart(product._id) ? (
-											<CartActiveIcon size={20} />
-										) : (
-											<CartIcon size={20} />
-										)
-									}
-									onClick={handleAddToCart}
-								/>
+								<ProductCardButton onClick={handleAddToCart}>
+									{isItemInCart ? (
+										<CartActiveIcon size={20} />
+									) : (
+										<CartIcon size={20} />
+									)}
+								</ProductCardButton>
 
-								<ProductCardButton
-									children={
-										isHeartActive ? (
-											<HeartActiveIcon size={20} />
-										) : (
-											<HeartIcon size={20} />
-										)
-									}
-									onClick={handleAddToFavorite}
-								/>
+								<ProductCardButton onClick={handleAddToFavorite}>
+									{isHeartActive ? (
+										<HeartActiveIcon size={20} />
+									) : (
+										<HeartIcon size={20} />
+									)}
+								</ProductCardButton>
 							</div>
 						</div>
-						<Button type='primary' className='w-full rounded-md'>
+						<Button
+							type='primary'
+							onClick={handleBuyInClick}
+							className='w-full rounded-md'
+						>
 							Купить в 1 клик
 						</Button>
 					</div>

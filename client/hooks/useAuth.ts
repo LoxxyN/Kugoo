@@ -7,7 +7,7 @@ import {
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 const DAY = 1000 * 60 * 60 * 24
-const YEAR = DAY * 365
+const MONTH = DAY * 30
 
 export const useLogin = () => {
 	const queryClient = useQueryClient()
@@ -45,8 +45,8 @@ export const useUserData = () => {
 	return useQuery({
 		queryFn: getUserData,
 		queryKey: ['userData'],
-		staleTime: YEAR,
-		gcTime: YEAR,
+		staleTime: MONTH,
+		gcTime: MONTH,
 		retry: false,
 	})
 }

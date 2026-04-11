@@ -82,8 +82,8 @@ export const cartController = {
 			if (!cart)
 				return c.json({ success: false, message: 'Корзина не найдена' }, 404)
 
-			const existingItemIndex = cart.items.findIndex(i =>
-				i._id.equals(productId),
+			const existingItemIndex = cart.items.findIndex(
+				item => item.productId?.toString() === productId,
 			)
 			if (existingItemIndex === -1)
 				return c.json({ success: false, message: 'Товар не найден' }, 404)
@@ -113,7 +113,7 @@ export const cartController = {
 
 			await CartModel.updateOne(
 				{ userId },
-				{ $pull: { items: { _id: productId } } },
+				{ $pull: { items: { productId } } },
 			)
 
 			const updatedCart = await CartModel.findOne({ userId }).lean()

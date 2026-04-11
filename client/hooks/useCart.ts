@@ -14,6 +14,7 @@ export const useCart = () => {
 	return useQuery({
 		queryKey: CART_QUERY_KEY,
 		queryFn: getCart,
+		retry: false,
 	})
 }
 
@@ -73,7 +74,7 @@ export const useClearCart = () => {
 //Getters
 export const useIsProductInCart = (id: string) => {
 	const { isLoading, data: cartData } = useCart()
-	const cartItems: ICartItem[] = cartData?.data?.data?.items
+	const cartItems: ICartItem[] = cartData?.data?.data?.items ?? []
 
 	if (isLoading) {
 		return 0
@@ -86,7 +87,7 @@ export const useIsProductInCart = (id: string) => {
 
 export const useGetTotalItems = (): number => {
 	const { isLoading, data: cartData } = useCart()
-	const cartItems: ICartItem[] = cartData?.data?.data?.items
+	const cartItems: ICartItem[] = cartData?.data?.data?.items ?? []
 
 	if (isLoading) {
 		return 0
@@ -102,7 +103,7 @@ export const useGetTotalItems = (): number => {
 
 export const useGetTotalPrice = (): number => {
 	const { isLoading, data: cartData } = useCart()
-	const cartItems: ICartItem[] = cartData?.data?.data?.items
+	const cartItems: ICartItem[] = cartData?.data?.data?.items ?? []
 
 	if (isLoading) {
 		return 0
@@ -118,7 +119,7 @@ export const useGetTotalPrice = (): number => {
 
 export const useGetTotalPriceWithoutDiscount = (): number => {
 	const { isLoading, data: cartData } = useCart()
-	const cartItems: ICartItem[] = cartData?.data?.data?.items
+	const cartItems: ICartItem[] = cartData?.data?.data?.items ?? []
 
 	if (isLoading) {
 		return 0
@@ -135,7 +136,7 @@ export const useGetTotalPriceWithoutDiscount = (): number => {
 
 export const useGetTotalDiscount = (): number => {
 	const { isLoading, data: cartData } = useCart()
-	const cartItems: ICartItem[] = cartData?.data?.data?.items
+	const cartItems: ICartItem[] = cartData?.data?.data?.items ?? []
 
 	if (isLoading) {
 		return 0
@@ -151,5 +152,3 @@ export const useGetTotalDiscount = (): number => {
 
 	return totalDiscount
 }
-
-//can't access property "reduce", cartItems is undefined
