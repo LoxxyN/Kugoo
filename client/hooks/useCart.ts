@@ -77,10 +77,10 @@ export const useIsProductInCart = (id: string) => {
 	const cartItems: ICartItem[] = cartData?.data?.data?.items ?? []
 
 	if (isLoading) {
-		return 0
+		return false
 	}
 
-	const isProductInCart = cartItems?.some(item => item?.productId === id)
+	const isProductInCart = cartItems.some(item => item?.productId === id)
 
 	return isProductInCart
 }

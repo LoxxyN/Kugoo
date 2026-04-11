@@ -1,5 +1,5 @@
 import { CatalogSorting } from '@components/index'
-import { useCatalogSorting, useProductsQuery } from '@hooks/index'
+import { useProductsQuery } from '@hooks/index'
 import { CatalogProductsLayout } from '@layouts/index'
 import { Pagination } from 'antd'
 import { useSearchParams } from 'react-router'
@@ -8,16 +8,35 @@ import './CatalogPage.css'
 export const CatalogPage = () => {
 	const [searchParams, setSearchParams] = useSearchParams()
 	const page = Number(searchParams.get('page')) || 1
+	const sortBy = searchParams.get('sortBy') ?? 'name'
+	const sortDir = searchParams.get('sortDir') ?? 'asc'
+
 	const { data: products } = useProductsQuery({
-		page: page,
+		page,
+		sortBy,
+		sortDir,
 	})
 
 	const paginationData = products?.pagination
-	const { sortedProducts, sortBy, sortOptions, setSortBy } = useCatalogSorting(
-		products?.data ?? [],
-	)
 
-	const onPageChange = (page: number) => setSearchParams({ page: String(page) })
+	const sortOptions = [
+		{ label: 'Цена', value: 'price' },
+		{ label: 'Название', value: 'name' },
+		{ label: 'Емкость', value: 'battery' },
+		{ label: 'Мощность', value: 'power' },
+	]
+
+	const updateSearchParam = (key: string, value: string) => {
+		const params = new URLSearchParams(searchParams)
+		params.set(key, value)
+		setSearchParams(params)
+	}
+
+	const onPageChange = (page: number) => updateSearchParam('page', String(page))
+	const onSortByChange = (sortBy: string) => updateSearchParam('sortBy', sortBy)
+	const onSortDirChange = (sortDir: string) => {
+		updateSearchParam('sortDir', sortDir)
+	}
 
 	return (
 		<section>
@@ -25,18 +44,20 @@ export const CatalogPage = () => {
 				<div className='catalog__filter'>
 					<h2>Фильтр</h2>
 					<div className='catalog__sorting'>
-						<span>Сортировать:</span>
-						<div className='catalog__sorting-filters'>
+						<div className='catalog__sorting-filters flex items-center'>
+							<span>Сортировать:</span>
 							<CatalogSorting
-								onSortChange={setSortBy}
 								sortBy={sortBy}
+								sortDir={sortDir}
 								sortOptions={sortOptions}
+								onSortByChange={onSortByChange}
+								onSortDirChange={onSortDirChange}
 							/>
 						</div>
 					</div>
 				</div>
 
-				<CatalogProductsLayout products={sortedProducts} />
+				<CatalogProductsLayout products={products?.data ?? []} />
 				<Pagination
 					current={page}
 					onChange={onPageChange}

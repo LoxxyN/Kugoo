@@ -31,10 +31,22 @@ export const productController = {
 		try {
 			const page = Number(c.req.query('page')) || 1
 			const limit = Number(c.req.query('limit')) || 9
+			const sortByRaw = (c.req.query('sortBy') || '').trim()
+			const sortDirRaw = (c.req.query('sortDir') || '').toLowerCase()
+
+			//Доступные поля для сортировки
+			const allowedSort = new Set(['price', 'name', 'battery', 'power'])
+
+			const sortBy = allowedSort.has(sortByRaw) ? sortByRaw : 'name'
+			const sortDir = sortDirRaw === 'asc' ? 1 : -1
 
 			const skip = (page - 1) * limit
 
-			const products = await ProductModel.find().skip(skip).limit(limit).lean()
+			const products = await ProductModel.find()
+				.sort({ [sortBy]: sortDir })
+				.skip(skip)
+				.limit(limit)
+				.lean()
 			const total = await ProductModel.countDocuments()
 			const pages = Math.ceil(total / limit)
 

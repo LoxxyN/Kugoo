@@ -19,9 +19,14 @@ interface IProductResponse {
 	data: IProductCard
 }
 
-export const getAllProducts = async (page: number, limit: number) => {
+export const getAllProducts = async (
+	page: number,
+	limit: number,
+	sortBy: string,
+	sortDir: string,
+) => {
 	const response = await api.get<IProductsResponse>('/products', {
-		params: { page, limit },
+		params: { page, limit, sortBy, sortDir },
 	})
 
 	return response.data
