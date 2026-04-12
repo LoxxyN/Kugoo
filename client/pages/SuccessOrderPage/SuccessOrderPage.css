@@ -1,0 +1,45 @@
+section {
+	margin-bottom: 32px;
+}
+
+.content__background {
+	border-radius: 10px;
+	background: #76d14a;
+	background: radial-gradient(at left top, #76d14a, #9ef475);
+
+	color: #ffffff;
+}
+
+.wrapper__content {
+	padding-top: 32px;
+	display: flex;
+
+	justify-content: space-evenly;
+}
+
+.content__left {
+	width: 35%;
+
+	h2 {
+		margin-bottom: 16px;
+	}
+
+	p:first-child {
+		margin-bottom: 16px;
+	}
+
+	.content__left-to_instagram_button {
+		margin-top: 32px;
+
+		transition: var(--transition);
+		background-color: #fff;
+		color: #76d14a;
+		width: 192px;
+		height: 52px;
+
+		&:is(:hover, :focus) {
+			color: #fff;
+			background-color: #76d14a;
+		}
+	}
+}
