@@ -9,6 +9,12 @@ h3 {
 	.ant-slider-track {
 		background: var(--color-blue);
 	}
+
+	.ant-slider-handle::after {
+		background-color: #ffffff;
+		border: 3px solid var(--color-blue);
+		box-shadow: none;
+	}
 }
 
 .inputs {
