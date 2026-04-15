@@ -1,0 +1,32 @@
+.order-card {
+	width: 240px;
+	min-height: 160px;
+	padding: 16px 16px 16px 16px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+
+	background-color: var(--color-gray--block);
+	color: #000;
+	border-radius: 5px;
+}
+
+.order-card__title {
+	font-size: 16px;
+}
+
+.order-card__body {
+	margin-bottom: 17px;
+	font-size: var(--fs-12);
+
+	padding-left: 26px;
+
+	ul {
+		list-style-type: disc;
+	}
+}
+
+.order-card__footer {
+	font-size: var(--fs-12);
+	padding-left: 26px;
+}

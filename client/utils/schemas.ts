@@ -20,3 +20,15 @@ export const phoneSchema = z
 	.transform(value =>
 		value.startsWith('8') ? '+7' + value.slice(1) : '+' + value,
 	)
+
+export const deliverySchema = z.object({
+	city: z.string().min(1, 'Обязательное поле').max(35, 'Максимум 35 символов'),
+	street: z
+		.string()
+		.min(1, 'Обязательное поле')
+		.max(35, 'Максимум 35 символов'),
+	houseNumber: z.coerce.number().min(1, 'Обязательное поле'),
+	houseCorps: z.coerce.number().optional(),
+	appartmentNumber: z.coerce.number().optional(),
+	cityIndex: z.coerce.number().optional(),
+})

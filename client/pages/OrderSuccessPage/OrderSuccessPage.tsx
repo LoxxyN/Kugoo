@@ -1,8 +1,8 @@
-import { ArrowRightIcon } from '@icons/ArrowRightIcon'
+import { ArrowRightIcon } from '@icons/index'
 import { useNavigate } from 'react-router'
-import './SuccessOrderPage.css'
+import './OrderSuccessPage.css'
 
-export const SuccessOrderPage = () => {
+export const OrderSuccessPage = () => {
 	const navigate = useNavigate()
 
 	return (

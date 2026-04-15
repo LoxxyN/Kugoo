@@ -1,0 +1,47 @@
+.delivery-inputs-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: repeat(2, 1fr);
+	grid-column-gap: 20px;
+	grid-row-gap: 20px;
+}
+
+.delivery-input {
+	padding: 18px 14px;
+
+	font-family: var(--font-family);
+	font-size: 16px;
+
+	&::placeholder {
+		font-size: 16px;
+	}
+}
+
+.ant-otp {
+	padding: 9px 0;
+	gap: 4px;
+}
+
+.ant-otp-input {
+	height: 42px;
+	font-size: 20px;
+}
+
+.input-area--big__1 {
+	grid-area: 1 / 1 / 2 / 3;
+}
+.input-area--big__2 {
+	grid-area: 1 / 3 / 2 / 5;
+}
+.input-area--big__3 {
+	grid-area: 2 / 1 / 3 / 2;
+}
+.input-area--big__4 {
+	grid-area: 2 / 2 / 3 / 3;
+}
+.input-area--big__5 {
+	grid-area: 2 / 3 / 3 / 4;
+}
+.input-area--big__6 {
+	grid-area: 2 / 4 / 3 / 5;
+}

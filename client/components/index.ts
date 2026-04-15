@@ -33,6 +33,9 @@ export { FooterCallTell } from './FooterCallTell/FooterCallTell'
 export { FooterMailingForm } from './FooterMailingForm/FooterMailingForm'
 export { MailingModal } from './MailingModal/MailingModal'
 
+export { OrderChangeCards } from './OrderChangeCards/OrderChangeCards'
+export { OrderDeliveryAddress } from './OrderDeliveryAddress/OrderDeliveryAddress'
+
 export { ProductCard } from './ProductCard/ProductCard'
 export { ProductCardButton } from './ProductCardButton/ProductCardButton'
 export { ProductOptions } from './ProductOptions/ProductOptions'
