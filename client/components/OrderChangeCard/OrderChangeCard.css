@@ -1,10 +1,10 @@
 .order-card {
 	width: 240px;
 	min-height: 160px;
-	padding: 16px 16px 16px 16px;
+	padding: 16px;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
+	gap: 12px;
 
 	background-color: var(--color-gray--block);
 	color: #000;
@@ -13,13 +13,17 @@
 
 .order-card__title {
 	font-size: 16px;
+	line-height: 18px;
 }
 
 .order-card__body {
 	margin-bottom: 17px;
+	padding-left: 26px;
 	font-size: var(--fs-12);
 
-	padding-left: 26px;
+	&:is(:last-child) {
+		gap: 8px;
+	}
 
 	ul {
 		list-style-type: disc;

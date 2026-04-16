@@ -33,15 +33,15 @@
 .input-area--big__2 {
 	grid-area: 1 / 3 / 2 / 5;
 }
-.input-area--big__3 {
+.input-area--small__1 {
 	grid-area: 2 / 1 / 3 / 2;
 }
-.input-area--big__4 {
+.input-area--small__2 {
 	grid-area: 2 / 2 / 3 / 3;
 }
-.input-area--big__5 {
+.input-area--small__3 {
 	grid-area: 2 / 3 / 3 / 4;
 }
-.input-area--big__6 {
+.input-area--small__4 {
 	grid-area: 2 / 4 / 3 / 5;
 }

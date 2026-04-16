@@ -1,0 +1,49 @@
+.recipient-inputs-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(3, 1fr);
+	grid-column-gap: 30px;
+	grid-row-gap: 20px;
+}
+
+.recipient-input__area {
+	padding: 18px 14px 18px 0;
+
+	> .ant-form-item {
+		margin: 0;
+	}
+}
+
+.recipient-input {
+	font-family: var(--font-family);
+	font-size: 16px;
+	padding: 10px;
+	height: 64px;
+
+	&::placeholder {
+		font-size: 16px;
+	}
+}
+
+.input-area--1 {
+	grid-area: 1 / 1 / 2 / 2;
+}
+
+.input-area--2 {
+	grid-area: 1 / 2 / 2 / 3;
+}
+
+.input-area--3 {
+	grid-area: 2 / 1 / 3 / 2;
+}
+
+.input-area--4 {
+	grid-area: 2 / 2 / 3 / 3;
+}
+
+.input-area--5 {
+	grid-column-start: 1;
+	grid-column-end: 3;
+	grid-row-start: 3;
+	grid-row-end: 4;
+}

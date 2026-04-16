@@ -28,7 +28,15 @@ export const deliverySchema = z.object({
 		.min(1, 'Обязательное поле')
 		.max(35, 'Максимум 35 символов'),
 	houseNumber: z.coerce.number().min(1, 'Обязательное поле'),
-	houseCorps: z.coerce.number().optional(),
-	appartmentNumber: z.coerce.number().optional(),
+	houseCorps: z.coerce.number('Поле не должно содержать букв').optional(),
+	appartmentNumber: z.coerce.number('Поле не должно содержать букв').optional(),
 	cityIndex: z.coerce.number().optional(),
+})
+
+export const orderRecipientForm = z.object({
+	name: z.string().min(2, 'Обязательное поле'),
+	surname: z.string().min(2, 'Обязательное поле'),
+	email: emailSchema,
+	phoneNumber: phoneSchema,
+	comment: z.string().max(150, 'Максимальная длина 150 символов').optional(),
 })

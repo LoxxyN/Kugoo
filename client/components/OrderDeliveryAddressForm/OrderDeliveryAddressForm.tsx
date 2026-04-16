@@ -3,13 +3,13 @@ import { deliverySchema } from '@utils/index'
 import { Form, Input } from 'antd'
 import { Controller, useForm } from 'react-hook-form'
 import z from 'zod'
-import './OrderDeliveryAddress.css'
+import './OrderDeliveryAddressForm.css'
 
 const deliveryFormSchema = deliverySchema
 type TDeliveryFormInput = z.input<typeof deliverySchema>
 type TDeliveryFormOutput = z.infer<typeof deliverySchema>
 
-export const OrderDeliveryAddress = () => {
+export const OrderDeliveryAddressForm = () => {
 	const {
 		control,
 		formState: { errors },

@@ -9,5 +9,6 @@ export type { IProductOptions } from './IProductOptions'
 export type { IServiceCard } from './IServiceCard'
 
 export type * from './IModal'
+export type * from './IOrderCardOptions'
 export type * from './TBadge'
 export type * from './TSkeleton'

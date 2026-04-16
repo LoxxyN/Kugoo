@@ -33,8 +33,11 @@ export { FooterCallTell } from './FooterCallTell/FooterCallTell'
 export { FooterMailingForm } from './FooterMailingForm/FooterMailingForm'
 export { MailingModal } from './MailingModal/MailingModal'
 
+export { OrderChangeCard } from './OrderChangeCard/OrderChangeCard'
 export { OrderChangeCards } from './OrderChangeCards/OrderChangeCards'
-export { OrderDeliveryAddress } from './OrderDeliveryAddress/OrderDeliveryAddress'
+export { OrderChangePayments } from './OrderChangePayments/OrderChangePayments'
+export { OrderDeliveryAddressForm } from './OrderDeliveryAddressForm/OrderDeliveryAddressForm'
+export { OrderRecipientForm } from './OrderRecipientForm/OrderRecipientForm'
 
 export { ProductCard } from './ProductCard/ProductCard'
 export { ProductCardButton } from './ProductCardButton/ProductCardButton'

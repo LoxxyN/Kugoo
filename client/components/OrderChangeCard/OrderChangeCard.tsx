@@ -1,5 +1,4 @@
 import { IOrderCardOptions } from '@interfaces/index'
-import { cn } from '@utils/className'
 import { Radio } from 'antd'
 import './OrderChangeCard.css'
 
@@ -10,14 +9,14 @@ export const OrderChangeCard = ({
 	footer,
 }: IOrderCardOptions) => {
 	return (
-		<div className={cn('order-card')}>
+		<div className='order-card'>
 			<div className='flex items-center'>
 				<Radio value={value}>
 					<h3 className='order-card__title'>{title}</h3>
 				</Radio>
 			</div>
-			{body}
-			{footer && <div>{footer}</div>}
+			<div className='order-card__body'>{body}</div>
+			{footer && <div className='order-card__footer'>{footer}</div>}
 		</div>
 	)
 }

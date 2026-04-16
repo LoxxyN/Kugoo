@@ -1,4 +1,9 @@
-import { OrderChangeCards, OrderDeliveryAddress } from '@components/index'
+import {
+	OrderChangeCards,
+	OrderChangePayments,
+	OrderDeliveryAddressForm,
+	OrderRecipientForm,
+} from '@components/index'
 
 export const OrderStepsLayout = () => {
 	return (
@@ -6,8 +11,9 @@ export const OrderStepsLayout = () => {
 			<div className='w-[760px]'>
 				<div className='order-steps'>
 					<OrderChangeCards />
-
-					<OrderDeliveryAddress />
+					<OrderDeliveryAddressForm />
+					<OrderRecipientForm />
+					<OrderChangePayments />
 				</div>
 			</div>
 		</div>
