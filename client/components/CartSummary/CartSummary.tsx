@@ -1,6 +1,5 @@
-import { useUserData } from '@hooks/index'
 import { splitNumber } from '@utils/index'
-import { Button, Divider, message } from 'antd'
+import { Button, Divider } from 'antd'
 import './CartSummary.css'
 
 interface ICartSummary {
@@ -8,6 +7,8 @@ interface ICartSummary {
 	discount: number
 	priceWithOutDelivery: number
 	priceWithOutDiscount: number
+	onClick: () => void
+	buttonText: string
 }
 
 export const CartSummary = ({
@@ -15,16 +16,9 @@ export const CartSummary = ({
 	discount,
 	priceWithOutDelivery,
 	priceWithOutDiscount,
+	onClick,
+	buttonText,
 }: ICartSummary) => {
-	const { data: userData } = useUserData()
-	const isLogin = !!userData
-
-	const handleBuyInClick = () => {
-		if (!isLogin) {
-			return message.warning('Чтобы совершить покупку вам необходимо войти')
-		}
-	}
-
 	return (
 		<div className='cart-summary__wrapper'>
 			<div className='cart-summary__amount'>
@@ -47,15 +41,9 @@ export const CartSummary = ({
 				</div>
 			</div>
 			<Divider />
-			<div>
-				<Button
-					onClick={handleBuyInClick}
-					className='cart-summary__button'
-					type='primary'
-				>
-					Оформить заказ
-				</Button>
-			</div>
+			<Button onClick={onClick} className='cart-summary__button' type='primary'>
+				{buttonText}
+			</Button>
 		</div>
 	)
 }

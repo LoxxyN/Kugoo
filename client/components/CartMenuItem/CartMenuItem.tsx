@@ -14,20 +14,20 @@ export const CartMenuItem: React.FC<{ product: ICartItem }> = ({ product }) => {
 
 	const handleIncrementQuantity = () => {
 		updateItem.mutate({
-			productId: product._id,
+			productId: product.productId,
 			quantity: productQuantity + 1,
 		})
 	}
 
 	const handleDecrementQuantity = () => {
 		updateItem.mutate({
-			productId: product._id,
+			productId: product.productId,
 			quantity: productQuantity - 1,
 		})
 	}
 
 	const handleRemoveProduct = () => {
-		removeItem.mutate(product._id)
+		removeItem.mutate(product.productId)
 	}
 
 	return (

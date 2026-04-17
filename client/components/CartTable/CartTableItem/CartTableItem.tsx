@@ -24,7 +24,7 @@ export const CartTableItem: React.FC<{ product: ICartItem }> = ({
 		e.preventDefault()
 		e.stopPropagation()
 		updateItem.mutate({
-			productId: product._id,
+			productId: product.productId,
 			quantity: productQuantity + 1,
 		})
 	}
@@ -33,7 +33,7 @@ export const CartTableItem: React.FC<{ product: ICartItem }> = ({
 		e.preventDefault()
 		e.stopPropagation()
 		updateItem.mutate({
-			productId: product._id,
+			productId: product.productId,
 			quantity: productQuantity - 1,
 		})
 	}
@@ -41,11 +41,11 @@ export const CartTableItem: React.FC<{ product: ICartItem }> = ({
 	const handleDelete = (e: React.MouseEvent) => {
 		e.preventDefault()
 		e.stopPropagation()
-		deleteItem.mutate(product._id)
+		deleteItem.mutate(product.productId)
 	}
 
 	const navigateToCatalog = () => {
-		navigate(`/catalog/${product._id}`, {
+		navigate(`/catalog/${product.productId}`, {
 			state: { fromCatalog: true },
 		})
 	}

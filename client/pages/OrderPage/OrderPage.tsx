@@ -1,3 +1,4 @@
+import { useGetTotalItems } from '@hooks/useCart'
 import { ArrowRightIcon } from '@icons/index'
 import { OrderStepsLayout } from '@layouts/index'
 import { useNavigate } from 'react-router'
@@ -5,9 +6,10 @@ import './OrderPage.css'
 
 export const OrderPage = () => {
 	const navigate = useNavigate()
+	const totalItems = useGetTotalItems()
 
 	return (
-		<section>
+		<section className='mb-8'>
 			<div className='wrapper pt-5'>
 				<button onClick={() => navigate('/catalog')}>
 					<div className='flex items-center gap-2'>
@@ -22,7 +24,7 @@ export const OrderPage = () => {
 
 				<div className='order-page__heading'>
 					<h2>Моя корзина</h2>
-					<p>2 товара</p>
+					<p>{totalItems} товара</p>
 				</div>
 			</div>
 			<OrderStepsLayout />

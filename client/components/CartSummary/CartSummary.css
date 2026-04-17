@@ -2,6 +2,10 @@
 	background-color: var(--color-gray--block);
 	padding: 20px 28px 25px;
 	border-radius: 5px;
+	height: fit-content;
+
+	top: 25px;
+	position: sticky;
 }
 
 .cart-summary__prices {
