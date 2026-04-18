@@ -12,6 +12,8 @@ export { NavBar } from './NavBar/NavBar'
 export { AsideAds } from './AsideAds/AsideAds'
 export { AsideFilter } from './AsideFilter/AsideFilter'
 export { FilterPriceSlider } from './FilterPriceSlider/FilterPriceSlider'
+export { FilterGroup } from './FilterGroup/FilterGroup'
+export { FilterCheckboxes } from './FilterCheckboxes/FilterCheckboxes'
 
 export { CatalogButton } from './CatalogButton/CatalogButton'
 export { CatalogSorting } from './CatalogSorting/CatalogSorting'

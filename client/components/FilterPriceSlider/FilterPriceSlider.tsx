@@ -1,26 +1,28 @@
-import type { InputNumberProps } from 'antd'
 import { Slider } from 'antd'
-import { useState } from 'react'
+import { useState, memo } from 'react'
 import './FilterPriceSlider.css'
 
-export const FilterPriceSlider = () => {
+
+export const FilterPriceSlider = memo(() => {
 	const [sliderValue, setSliderValue] = useState<[number, number]>([
 		10000, 90000,
 	])
 
-	const onChange = (newValue: [number, number]) => {
-		setSliderValue(newValue)
+	const onChange = (newValue: number[]) => {
+		setSliderValue([newValue[0], newValue[1]])
 	}
 
-	const handleMinInputValue: InputNumberProps['onChange'] = newValue => {
-		if (newValue !== null && newValue <= sliderValue[1]) {
-			setSliderValue([newValue as number, sliderValue[1]])
+	const handleMinInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const newValue = Number(e.target.value)
+		if (!isNaN(newValue) && newValue <= sliderValue[1]) {
+			setSliderValue([newValue, sliderValue[1]])
 		}
 	}
 
-	const handleMaxInputValue: InputNumberProps['onChange'] = newValue => {
-		if (newValue !== null && newValue >= sliderValue[0]) {
-			setSliderValue([sliderValue[0], newValue as number])
+	const handleMaxInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const newValue = Number(e.target.value)
+		if (!isNaN(newValue) && newValue >= sliderValue[0]) {
+			setSliderValue([sliderValue[0], newValue])
 		}
 	}
 
@@ -29,7 +31,7 @@ export const FilterPriceSlider = () => {
 			<h3>Цена</h3>
 			<Slider
 				className='slider'
-				range
+				range={true}
 				defaultValue={sliderValue}
 				min={10000}
 				max={90000}
@@ -66,4 +68,4 @@ export const FilterPriceSlider = () => {
 			</div>
 		</div>
 	)
-}
+})
