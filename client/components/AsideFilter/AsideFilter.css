@@ -5,4 +5,22 @@
 	border-radius: 10px;
 	margin-bottom: 20px;
 	padding: 20px;
+
+	display: flex;
+	flex-direction: column;
+	gap: 25px;
 }
+
+.ant-checkbox-group-item {
+	> .ant-checkbox-label {
+		font-size: var(--fs-18);
+	}
+}
+
+.filter-group__title {
+	margin-block: 12px;
+	text-transform: none !important;
+	font-size: var(--fs-20) !important;
+}
+
+
