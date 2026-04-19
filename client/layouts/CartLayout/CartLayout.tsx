@@ -1,6 +1,7 @@
 import { CartLayoutEmpty, CartSummary, CartTable } from '@components/index'
 import {
 	useCart,
+	useGetCartItems,
 	useGetTotalDiscount,
 	useGetTotalItems,
 	useGetTotalPrice,
@@ -17,12 +18,12 @@ export const CartLayout = () => {
 	const navigate = useNavigate()
 	const isLogin = !!userData
 
-	const cartItems = cartData?.data?.items?.length
+	const cartItems = useGetCartItems(cartData)
 	const totalItems = useGetTotalItems()
 	const totalPrice = useGetTotalPrice()
 	const totalDiscount = useGetTotalDiscount() //Сумма скидки
 	const totalWithoutDiscount = useGetTotalPriceWithoutDiscount() //Сумма без скидок
-	const isCartEmpty = cartItems == false ? true : false
+	const isCartEmpty = cartItems.length === 0 ? false : true
 
 	const safeDiscount = Math.max(0, totalDiscount)
 	const safeTotalWithoutDiscount = Math.max(totalPrice, totalWithoutDiscount)

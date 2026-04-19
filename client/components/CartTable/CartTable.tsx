@@ -1,4 +1,4 @@
-import { useCart, useClearCart } from '@hooks/index'
+import { useCart, useClearCart, useGetCartItems } from '@hooks/index'
 import { ICartItem } from '@interfaces/index'
 import { Divider } from 'antd'
 import { CartTableItem } from './CartTableItem/CartTableItem'
@@ -7,7 +7,7 @@ import './CartTable.css'
 
 export const CartTable = () => {
 	const { data: cartData } = useCart()
-	const cartItems = cartData?.data?.data?.items
+	const cartItems = useGetCartItems(cartData)
 	const clearCart = useClearCart()
 
 	const handleClearCart = () => {
@@ -21,14 +21,18 @@ export const CartTable = () => {
 				<div>
 					<span>Количество</span>
 					<span>Сумма</span>
-					<span tabIndex={0} onClick={handleClearCart}>
+					<button
+						className='cart-layout__table-delete__all'
+						tabIndex={0}
+						onClick={handleClearCart}
+					>
 						Удалить все
-					</span>
+					</button>
 				</div>
 			</div>
 			{cartItems?.length > 0 ? (
 				cartItems.map((product: ICartItem, index: number) => (
-					<div key={product._id || index}>
+					<div key={product._id}>
 						<CartTableItem product={product} />
 						{/* Ставим разделитель после товара кроме последнего */}
 						{index !== cartItems.length - 1 && <Divider />}

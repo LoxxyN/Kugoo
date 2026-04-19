@@ -40,3 +40,19 @@ export const orderRecipientForm = z.object({
 	phoneNumber: phoneSchema,
 	comment: z.string().max(150, 'Максимальная длина 150 символов').optional(),
 })
+
+export const registerFormSchema = z
+	.object({
+		email: emailSchema,
+		password: passwordSchema,
+		confirmPassword: z.string(),
+	})
+	.refine(data => data.password === data.confirmPassword, {
+		message: 'Пароли не совпадают',
+		path: ['confirmPassword'],
+	})
+
+export const loginFormSchema = z.object({
+	email: emailSchema,
+	password: z.string().min(1, 'Введите пароль'),
+})

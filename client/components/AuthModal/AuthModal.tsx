@@ -1,7 +1,7 @@
 import { LoginForm, RegisterForm } from '@components/index'
-import { useLogin, useRegister } from '@hooks/index'
+import { useLogin, useNotifications, useRegister } from '@hooks/index'
 import { Modal } from 'antd'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import './AuthModal.css'
 
 export const AuthModal = ({
@@ -12,24 +12,35 @@ export const AuthModal = ({
 	handleCloseModal: () => void
 }) => {
 	const [isRegisterForm, setIsRegisterForm] = useState(false)
-
+	const { modalMessages } = useNotifications()
 	const loginMutation = useLogin()
 	const registerMutation = useRegister()
 
-	const handleWindowChange = () => {
-		setIsRegisterForm(!isRegisterForm)
-	}
+	const handleWindowChange = useCallback(() => {
+		setIsRegisterForm(prev => !prev)
+	}, [])
 
 	const handleLogin = (data: { email: string; password: string }) => {
 		loginMutation.mutate(data)
 	}
+
+	const onRegisterSuccess = useCallback(() => {
+		handleWindowChange()
+		modalMessages.successRegistration()
+	}, [handleWindowChange, modalMessages])
 
 	const handleRegister = (data: {
 		email: string
 		password: string
 		confirmPassword: string
 	}) => {
-		registerMutation.mutate(data)
+		registerMutation.mutate(data, {
+			onSuccess: onRegisterSuccess,
+			onError: error => {
+				console.error(error)
+				modalMessages.errorRegistration()
+			},
+		})
 	}
 
 	return (

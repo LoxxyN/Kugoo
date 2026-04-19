@@ -26,6 +26,11 @@ export const useRegister = () => {
 	return useMutation({
 		mutationFn: ({ email, password }: { email: string; password: string }) =>
 			registerUser(email, password),
+
+		onError(error) {
+			console.error(error)
+			throw error
+		},
 	})
 }
 

@@ -1,4 +1,5 @@
 import { useProductSearch } from '@hooks/index'
+import { IProductCard } from '@interfaces/IProductCard'
 import { AutoComplete, Input, Spin } from 'antd'
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router'
@@ -15,7 +16,7 @@ export const HeaderSearch = () => {
 
 	const options = useMemo(
 		() =>
-			(data?.data ?? []).map(product => ({
+			(data?.data ?? []).map(({ product }: { product: IProductCard }) => ({
 				value: product._id,
 				label: (
 					<div className='flex justify-between gap-x-3'>

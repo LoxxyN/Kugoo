@@ -14,6 +14,7 @@ export const InputCounter = ({
 	return (
 		<div className='counter__wrapper'>
 			<button
+				aria-label='decrease'
 				onClick={handleDecrease}
 				className='counter__button counter__button-minus'
 			>
@@ -27,6 +28,7 @@ export const InputCounter = ({
 				readOnly
 			/>
 			<button
+				aria-label='increase'
 				onClick={handleIncrease}
 				className='counter__button counter__button-plus'
 			>

@@ -1,3 +1,4 @@
+import { useGetTotalItems } from '@hooks/index'
 import { splitNumber } from '@utils/index'
 import { Button, Divider } from 'antd'
 import './CartSummary.css'
@@ -19,6 +20,8 @@ export const CartSummary = ({
 	onClick,
 	buttonText,
 }: ICartSummary) => {
+	const totalItems = useGetTotalItems()
+
 	return (
 		<div className='cart-summary__wrapper'>
 			<div className='cart-summary__amount'>
@@ -41,7 +44,12 @@ export const CartSummary = ({
 				</div>
 			</div>
 			<Divider />
-			<Button onClick={onClick} className='cart-summary__button' type='primary'>
+			<Button
+				onClick={onClick}
+				className='cart-summary__button'
+				type='primary'
+				disabled={!totalItems}
+			>
 				{buttonText}
 			</Button>
 		</div>

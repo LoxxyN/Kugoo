@@ -1,4 +1,4 @@
-import { ICartItem } from '@interfaces/index'
+import { ICartItem, TCartApiResponse } from '@interfaces/index'
 import {
 	addToCart,
 	clearCart,
@@ -11,12 +11,16 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 const CART_QUERY_KEY = ['cart'] as const
 
 export const useCart = () => {
-	return useQuery({
+	return useQuery<TCartApiResponse>({
 		queryKey: CART_QUERY_KEY,
 		queryFn: getCart,
 		retry: false,
 	})
 }
+
+export const useGetCartItems = (
+	cart: TCartApiResponse | undefined,
+): ICartItem[] => cart?.data.items ?? []
 
 export const useAddCartItem = () => {
 	const queryClient = useQueryClient()
@@ -74,7 +78,7 @@ export const useClearCart = () => {
 //Getters
 export const useIsProductInCart = (id: string) => {
 	const { isLoading, data: cartData } = useCart()
-	const cartItems: ICartItem[] = cartData?.data?.data?.items ?? []
+	const cartItems = useGetCartItems(cartData)
 
 	if (isLoading) {
 		return false
@@ -87,7 +91,7 @@ export const useIsProductInCart = (id: string) => {
 
 export const useGetTotalItems = (): number => {
 	const { isLoading, data: cartData } = useCart()
-	const cartItems: ICartItem[] = cartData?.data?.data?.items ?? []
+	const cartItems = useGetCartItems(cartData)
 
 	if (isLoading) {
 		return 0
@@ -103,7 +107,7 @@ export const useGetTotalItems = (): number => {
 
 export const useGetTotalPrice = (): number => {
 	const { isLoading, data: cartData } = useCart()
-	const cartItems: ICartItem[] = cartData?.data?.data?.items ?? []
+	const cartItems = useGetCartItems(cartData)
 
 	if (isLoading) {
 		return 0
@@ -119,7 +123,7 @@ export const useGetTotalPrice = (): number => {
 
 export const useGetTotalPriceWithoutDiscount = (): number => {
 	const { isLoading, data: cartData } = useCart()
-	const cartItems: ICartItem[] = cartData?.data?.data?.items ?? []
+	const cartItems = useGetCartItems(cartData)
 
 	if (isLoading) {
 		return 0
@@ -136,7 +140,7 @@ export const useGetTotalPriceWithoutDiscount = (): number => {
 
 export const useGetTotalDiscount = (): number => {
 	const { isLoading, data: cartData } = useCart()
-	const cartItems: ICartItem[] = cartData?.data?.data?.items ?? []
+	const cartItems = useGetCartItems(cartData)
 
 	if (isLoading) {
 		return 0

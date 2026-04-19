@@ -1,10 +1,12 @@
+import { TCartApiResponse } from '@interfaces/index'
 import { api } from './axios'
 
-export const getCart = async () => {
+export const getCart = async (): Promise<TCartApiResponse> => {
 	try {
-		const response = await api.get('/carts')
+		const response = await api.get<TCartApiResponse>('/carts')
 
-		return response
+		console.log(response.data)
+		return response.data
 	} catch (error) {
 		console.error('getCart error:', error)
 		throw error
@@ -13,7 +15,7 @@ export const getCart = async () => {
 
 export const addToCart = async (productId: string) => {
 	try {
-		const response = await api.post(`/carts/add`, {
+		const response = await api.post('/carts/add', {
 			productId,
 			quantity: 1,
 		})
@@ -21,6 +23,7 @@ export const addToCart = async (productId: string) => {
 		return response.data
 	} catch (error) {
 		console.error(error)
+		throw error
 	}
 }
 
@@ -33,6 +36,7 @@ export const updateCartItem = async (productId: string, quantity: number) => {
 		return response.data
 	} catch (error) {
 		console.error(error)
+		throw error
 	}
 }
 
@@ -43,6 +47,7 @@ export const removeCartItem = async (productId: string) => {
 		return response.data
 	} catch (error) {
 		console.error(error)
+		throw error
 	}
 }
 
@@ -53,5 +58,6 @@ export const clearCart = async () => {
 		return response.data
 	} catch (error) {
 		console.error(error)
+		throw error
 	}
 }

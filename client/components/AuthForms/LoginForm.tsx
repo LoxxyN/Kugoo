@@ -1,16 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { cn } from '@utils/className'
-import { Button } from 'antd'
-import { useForm } from 'react-hook-form'
+import { loginFormSchema } from '@utils/index'
+import { Button, Form, Input } from 'antd'
+import { Controller, useForm } from 'react-hook-form'
 import z from 'zod'
 import './AuthForm.css'
 
-const loginSchema = z.object({
-	email: z.string().email('Неверный формат email'),
-	password: z.string().min(1, 'Введите пароль'),
-})
-
-type LoginFormData = z.infer<typeof loginSchema>
+type LoginFormData = z.infer<typeof loginFormSchema>
 
 export const LoginForm = ({
 	handleWindowChange,
@@ -20,80 +15,81 @@ export const LoginForm = ({
 	onLogin: (data: LoginFormData) => void
 }) => {
 	const {
-		register,
+		control,
 		handleSubmit,
 		formState: { errors, isSubmitting },
 	} = useForm<LoginFormData>({
-		resolver: zodResolver(loginSchema),
+		resolver: zodResolver(loginFormSchema),
 		defaultValues: {
 			email: '',
 			password: '',
 		},
 	})
 
-	const onSubmit = (data: LoginFormData) => {
-		onLogin(data)
-	}
+	const onSubmit = (data: LoginFormData) => onLogin(data)
 
 	return (
 		<div className='auth__window'>
 			<h2 className='auth__heading'>Вход</h2>
-			<form
+			<Form
 				id='auth__form'
-				className='auth__form'
 				autoComplete='off'
-				onSubmit={handleSubmit(onSubmit)}
+				onFinish={handleSubmit(onSubmit)}
 			>
 				<div className='form__inputs'>
-					<div className='form__input-block'>
-						<label htmlFor='email'>Почта</label>
-						<div className='form__input'>
-							<input
-								{...register('email')}
-								className={cn(
-									'form__input-field',
-									errors.email ? 'form__input-field--error' : '',
-								)}
-								id='email'
-								type='text'
-								placeholder='Введите email'
-							/>
-							{errors.email && (
-								<span className='form__input-error'>
-									{errors.email.message}
-								</span>
-							)}
-						</div>
-					</div>
+					<Controller
+						control={control}
+						name='email'
+						render={({ field }) => (
+							<Form.Item
+								className='form__input-block'
+								label='Почта'
+								layout='vertical'
+								validateStatus={errors.email ? 'error' : ''}
+								help={errors.email?.message}
+							>
+								<Input
+									{...field}
+									className='form__input-field'
+									placeholder='Введите email'
+								/>
+							</Form.Item>
+						)}
+					/>
 
-					<div className='form__input-block'>
-						<label htmlFor='password'>Пароль</label>
-						<div className='form__input'>
-							<input
-								{...register('password')}
-								className={cn(
-									'form__input-field',
-									errors.password ? 'form__input-field--error' : '',
-								)}
-								id='password'
-								placeholder='Введите пароль'
-								type='password'
-							/>
-							{errors.password && (
-								<span className='form__input-error'>
-									{errors.password.message}
-								</span>
-							)}
-						</div>
-					</div>
+					<Controller
+						control={control}
+						name='password'
+						render={({ field }) => (
+							<Form.Item
+								className='form__input-block'
+								label='Пароль'
+								layout='vertical'
+								validateStatus={errors.password ? 'error' : ''}
+								help={errors.password?.message}
+							>
+								<Input
+									{...field}
+									className='form__input-field'
+									id='password'
+									placeholder='Введите пароль'
+									type='password'
+								/>
+							</Form.Item>
+						)}
+					/>
 				</div>
 
 				<div className='mt-2 text-center'>
-					<span onClick={handleWindowChange} className='form__change-enter'>
-						Уже есть аккаунт?
+					<span
+						tabIndex={0}
+						onClick={handleWindowChange}
+						className='form__change-enter'
+					>
+						Зарегистрироваться
 					</span>
 				</div>
-			</form>
+			</Form>
 
 			<div className='flex mt-8 justify-center'>
 				<Button

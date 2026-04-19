@@ -1,5 +1,10 @@
 import { CartMenuList } from '@components/index'
-import { useCart, useClearCart, useGetTotalPrice } from '@hooks/index'
+import {
+	useCart,
+	useClearCart,
+	useGetCartItems,
+	useGetTotalPrice,
+} from '@hooks/index'
 import { TrashIcon } from '@icons/index'
 import { splitNumber } from '@utils/index'
 import { Button, Drawer, Empty, Tooltip } from 'antd'
@@ -15,8 +20,7 @@ export const CartMenu = ({ isOpen, onClose }: ICartMenuProps) => {
 	const { data: cartData } = useCart()
 	const clearCart = useClearCart()
 	const totalPrice = useGetTotalPrice()
-
-	const cartItems = cartData?.data?.data?.items
+	const cartItems = useGetCartItems(cartData)
 
 	const handleClearCart = () => {
 		clearCart.mutate()

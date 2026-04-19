@@ -1,20 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { cn, emailSchema, passwordSchema } from '@utils/index'
-import { Button } from 'antd'
-import { useForm } from 'react-hook-form'
+import { registerFormSchema } from '@utils/index'
+import { Button, Form, Input } from 'antd'
+import { Controller, useForm } from 'react-hook-form'
 import z from 'zod'
 import './AuthForm.css'
-
-const registerFormSchema = z
-	.object({
-		email: emailSchema,
-		password: passwordSchema,
-		confirmPassword: z.string(),
-	})
-	.refine(data => data.password === data.confirmPassword, {
-		message: 'Пароли не совпадают',
-		path: ['confirmPassword'],
-	})
 
 type RegisterFormData = z.infer<typeof registerFormSchema>
 
@@ -26,10 +15,11 @@ export const RegisterForm = ({
 	handleWindowChange: () => void
 }) => {
 	const {
-		register,
+		control,
 		handleSubmit,
-		formState: { errors, isSubmitting, isSubmitted },
+		formState: { errors, isSubmitting, isValid },
 	} = useForm({
+		mode: 'onChange',
 		resolver: zodResolver(registerFormSchema),
 		defaultValues: {
 			email: '',
@@ -38,86 +28,80 @@ export const RegisterForm = ({
 		},
 	})
 
-	const onSubmit = (data: RegisterFormData) => {
-		onRegister(data)
-		//Переброс после регистрации на окно входа
-		if (isSubmitted === true) {
-			handleWindowChange()
-		}
-	}
+	const onSubmit = (data: RegisterFormData) => onRegister(data)
 
 	return (
 		<div className='auth__window'>
 			<h2 className='auth__heading'>Регистрация</h2>
-			<form
+			<Form
 				id='auth__form'
-				className='auth__form'
 				autoComplete='off'
-				onSubmit={handleSubmit(onSubmit)}
+				onFinish={handleSubmit(onSubmit)}
 			>
 				<div className='form__inputs'>
-					<div className='form__input-block'>
-						<label htmlFor='email'>Почта</label>
-						<div className='form__input'>
-							<input
-								{...register('email')}
-								className={cn(
-									'form__input-field',
-									errors.email ? 'form__input-field--error' : '',
-								)}
-								id='email'
-								type='text'
-								placeholder='Введите email'
-							/>
-							{errors.email && (
-								<span className='form__input-error'>
-									{errors.email.message}
-								</span>
-							)}
-						</div>
-					</div>
+					<Controller
+						control={control}
+						name='email'
+						render={({ field }) => (
+							<Form.Item
+								className='form__input-block'
+								label='Почта'
+								layout='vertical'
+								validateStatus={errors.email ? 'error' : ''}
+								help={errors.email?.message}
+							>
+								<Input
+									{...field}
+									className='form__input-field'
+									placeholder='Введите email'
+								/>
+							</Form.Item>
+						)}
+					/>
 
-					<div className='form__input-block'>
-						<label htmlFor='password'>Пароль</label>
-						<div className='form__input'>
-							<input
-								{...register('password')}
-								className={cn(
-									'form__input-field',
-									errors.password ? 'form__input-field--error' : '',
-								)}
-								id='password'
-								placeholder='Введите пароль'
-								type='password'
-							/>
-							{errors.password && (
-								<span className='form__input-error'>
-									{errors.password.message}
-								</span>
-							)}
-						</div>
-					</div>
+					<Controller
+						control={control}
+						name='password'
+						render={({ field }) => (
+							<Form.Item
+								className='form__input-block'
+								label='Пароль'
+								layout='vertical'
+								validateStatus={errors.password ? 'error' : ''}
+								help={errors.password?.message}
+							>
+								<Input
+									{...field}
+									className='form__input-field'
+									id='password'
+									placeholder='Введите пароль'
+									type='password'
+								/>
+							</Form.Item>
+						)}
+					/>
 
-					<div className='form__input-block'>
-						<label htmlFor='confirmPassword'>Повторите пароль</label>
-						<div className='form__input'>
-							<input
-								{...register('confirmPassword')}
-								className={cn(
-									'form__input-field',
-									errors.confirmPassword ? 'form__input-field--error' : '',
-								)}
-								id='confirmPassword'
-								placeholder='Повторите пароль'
-								type='password'
-							/>
-							{errors.confirmPassword && (
-								<span className='form__input-error'>
-									{errors.confirmPassword.message}
-								</span>
-							)}
-						</div>
-					</div>
+					<Controller
+						control={control}
+						name='confirmPassword'
+						render={({ field }) => (
+							<Form.Item
+								className='form__input-block'
+								label='Повторите пароль'
+								layout='vertical'
+								validateStatus={errors.confirmPassword ? 'error' : ''}
+								help={errors.confirmPassword?.message}
+							>
+								<Input
+									{...field}
+									className='form__input-field'
+									id='confirmPassword'
+									placeholder='Повторите пароль'
+									type='password'
+								/>
+							</Form.Item>
+						)}
+					/>
 				</div>
 
 				<div className='mt-2 text-center'>
@@ -129,14 +113,14 @@ export const RegisterForm = ({
 						Уже есть аккаунт?
 					</span>
 				</div>
-			</form>
+			</Form>
 
 			<div className='flex mt-8 justify-center'>
 				<Button
 					tabIndex={0}
 					form='auth__form'
-					htmlType='submit'
 					type='primary'
+					disabled={!isValid}
 					className='auth__button'
 					loading={isSubmitting}
 				>
