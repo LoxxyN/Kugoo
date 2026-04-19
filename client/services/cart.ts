@@ -5,7 +5,6 @@ export const getCart = async (): Promise<TCartApiResponse> => {
 	try {
 		const response = await api.get<TCartApiResponse>('/carts')
 
-		console.log(response.data)
 		return response.data
 	} catch (error) {
 		console.error('getCart error:', error)

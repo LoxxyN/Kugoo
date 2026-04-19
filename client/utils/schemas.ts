@@ -21,26 +21,6 @@ export const phoneSchema = z
 		value.startsWith('8') ? '+7' + value.slice(1) : '+' + value,
 	)
 
-export const deliverySchema = z.object({
-	city: z.string().min(1, 'Обязательное поле').max(35, 'Максимум 35 символов'),
-	street: z
-		.string()
-		.min(1, 'Обязательное поле')
-		.max(35, 'Максимум 35 символов'),
-	houseNumber: z.coerce.number().min(1, 'Обязательное поле'),
-	houseCorps: z.coerce.number('Поле не должно содержать букв').optional(),
-	appartmentNumber: z.coerce.number('Поле не должно содержать букв').optional(),
-	cityIndex: z.coerce.number().optional(),
-})
-
-export const orderRecipientForm = z.object({
-	name: z.string().min(2, 'Обязательное поле'),
-	surname: z.string().min(2, 'Обязательное поле'),
-	email: emailSchema,
-	phoneNumber: phoneSchema,
-	comment: z.string().max(150, 'Максимальная длина 150 символов').optional(),
-})
-
 export const registerFormSchema = z
 	.object({
 		email: emailSchema,
@@ -56,3 +36,54 @@ export const loginFormSchema = z.object({
 	email: emailSchema,
 	password: z.string().min(1, 'Введите пароль'),
 })
+
+export const deliveryMethodSchema = z.enum(['pickup', 'courier', 'cdek'])
+
+export const deliveryAddressSchema = z.object({
+	city: z.string().min(1, 'Обязательное поле').max(35, 'Максимум 35 символов'),
+	street: z
+		.string()
+		.min(1, 'Обязательное поле')
+		.max(35, 'Максимум 35 символов'),
+	houseNumber: z.string('').min(1, 'Обязательное поле'),
+	houseCorps: z.string().optional(),
+	appartmentNumber: z.string().optional(),
+	cityIndex: z.string().optional(),
+})
+
+export const orderRecipientForm = z.object({
+	name: z.string().min(2, 'Обязательное поле'),
+	surname: z.string().min(2, 'Обязательное поле'),
+	email: emailSchema,
+	phoneNumber: phoneSchema,
+	comment: z.string().max(150, 'Максимальная длина 150 символов').optional(),
+})
+
+export const paymentMethodSchema = z.enum([
+	'banking',
+	'card',
+	'cash',
+	'online',
+	'installment',
+	'credit',
+])
+
+const commonField = {
+	paymentMethods: paymentMethodSchema,
+	...orderRecipientForm.shape,
+}
+
+export const orderFormSchema = z.discriminatedUnion('deliveryMethod', [
+	z.object({
+		deliveryMethod: z.literal('pickup'),
+		...commonField,
+	}),
+
+	z.object({
+		deliveryMethod: z.enum(['courier', 'cdek']),
+		...commonField,
+		...deliveryAddressSchema.shape,
+	}),
+])
+
+export type IOrderForm = z.infer<typeof orderFormSchema>

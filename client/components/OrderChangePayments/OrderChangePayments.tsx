@@ -1,7 +1,8 @@
 import { OrderChangeCard } from '@components/index'
-import { IOrderCardOptions, TPayments } from '@interfaces/index'
+import { IOrderCardOptions } from '@interfaces/index'
+import { IOrderForm } from '@utils/schemas'
 import { Radio, RadioChangeEvent } from 'antd'
-import { useState } from 'react'
+import { useFormContext } from 'react-hook-form'
 
 const paymentCardsOptions: IOrderCardOptions[] = [
 	{
@@ -44,10 +45,15 @@ const paymentCardsOptions: IOrderCardOptions[] = [
 ]
 
 export const OrderChangePayments = () => {
-	const [value, setValue] = useState<TPayments>('card')
+	const {
+		watch,
+		setValue,
+		formState: { errors },
+	} = useFormContext<IOrderForm>()
+	const paymentMethod = watch('paymentMethods')
 
 	const onChange = (e: RadioChangeEvent) => {
-		setValue(e.target.value)
+		setValue('paymentMethods', e.target.value)
 	}
 
 	return (
@@ -56,13 +62,16 @@ export const OrderChangePayments = () => {
 				<span>Шаг {4}.</span>Выберите способ оплаты
 			</h3>
 
-			<Radio.Group value={value} onChange={onChange}>
+			<Radio.Group value={paymentMethod} onChange={onChange}>
 				<div className='grid grid-cols-3 grid-rows-2 gap-5'>
 					{paymentCardsOptions.map((item, i) => (
 						<OrderChangeCard key={i} {...item} />
 					))}
 				</div>
 			</Radio.Group>
+			{errors.paymentMethods?.message && (
+				<div className='text-red-500'>{errors.paymentMethods?.message}</div>
+			)}
 		</>
 	)
 }

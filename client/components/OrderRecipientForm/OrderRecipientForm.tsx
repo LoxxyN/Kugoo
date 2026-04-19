@@ -1,31 +1,16 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import { formatPhoneNumber, orderRecipientForm } from '@utils/index'
+import { formatPhoneNumber, IOrderForm } from '@utils/index'
 import { Form, Input } from 'antd'
-import { Controller, useForm } from 'react-hook-form'
-import z from 'zod'
+import { Controller, useFormContext } from 'react-hook-form'
 import './OrderRecipientForm.css'
-
-type TRecipientForm = z.infer<typeof orderRecipientForm>
 
 export const OrderRecipientForm = () => {
 	const {
 		control,
-		setValue,
 		formState: { errors },
-	} = useForm<TRecipientForm>({
-		resolver: zodResolver(orderRecipientForm),
-		defaultValues: {
-			name: '',
-			surname: '',
-			email: '',
-			phoneNumber: '',
-			comment: '',
-		},
-		mode: 'onChange',
-	})
+	} = useFormContext<IOrderForm>()
 
 	return (
-		<Form>
+		<>
 			<h3 className='py-8'>
 				<span>Шаг 3.</span>Укажите данные получателя
 			</h3>
@@ -89,10 +74,7 @@ export const OrderRecipientForm = () => {
 									placeholder='+7 (___) __ - __ - __'
 									onChange={e => {
 										const formatted = formatPhoneNumber(e.target.value)
-										setValue('phoneNumber', formatted, {
-											shouldDirty: true,
-											shouldValidate: true,
-										})
+										field.onChange(formatted)
 									}}
 								/>
 							</Form.Item>
@@ -150,6 +132,6 @@ export const OrderRecipientForm = () => {
 					)}
 				/>
 			</div>
-		</Form>
+		</>
 	)
 }

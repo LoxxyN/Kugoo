@@ -23,7 +23,7 @@ export const CartLayout = () => {
 	const totalPrice = useGetTotalPrice()
 	const totalDiscount = useGetTotalDiscount() //Сумма скидки
 	const totalWithoutDiscount = useGetTotalPriceWithoutDiscount() //Сумма без скидок
-	const isCartEmpty = cartItems.length === 0 ? false : true
+	const isCartEmpty = cartItems.length === 0 ? true : false
 
 	const safeDiscount = Math.max(0, totalDiscount)
 	const safeTotalWithoutDiscount = Math.max(totalPrice, totalWithoutDiscount)
@@ -62,6 +62,7 @@ export const CartLayout = () => {
 							priceWithOutDelivery={totalPrice}
 							onClick={navigateToOrderPage}
 							buttonText='Оформить заказ'
+							disabled={isCartEmpty}
 						/>
 					</div>
 				</>

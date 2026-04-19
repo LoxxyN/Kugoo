@@ -1,33 +1,21 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import { deliverySchema } from '@utils/index'
+import { IOrderForm } from '@utils/index'
 import { Form, Input } from 'antd'
-import { Controller, useForm } from 'react-hook-form'
-import z from 'zod'
+import { Controller, useFormContext } from 'react-hook-form'
 import './OrderDeliveryAddressForm.css'
 
-const deliveryFormSchema = deliverySchema
-type TDeliveryFormInput = z.input<typeof deliverySchema>
-type TDeliveryFormOutput = z.infer<typeof deliverySchema>
+type IOrderFormWithAddress = Extract<
+	IOrderForm,
+	{ deliveryMethod: 'courier' | 'cdek' }
+>
 
 export const OrderDeliveryAddressForm = () => {
 	const {
 		control,
 		formState: { errors },
-	} = useForm<TDeliveryFormInput, unknown, TDeliveryFormOutput>({
-		resolver: zodResolver(deliveryFormSchema),
-		defaultValues: {
-			city: '',
-			street: '',
-			houseNumber: '',
-			houseCorps: '',
-			appartmentNumber: '',
-			cityIndex: '',
-		},
-		mode: 'onChange',
-	})
+	} = useFormContext<IOrderFormWithAddress>()
 
 	return (
-		<Form>
+		<>
 			<h3 className='py-8'>
 				<span>Шаг 2.</span>Укажите адрес доставки
 			</h3>
@@ -178,6 +166,6 @@ export const OrderDeliveryAddressForm = () => {
 					)}
 				/>
 			</div>
-		</Form>
+		</>
 	)
 }

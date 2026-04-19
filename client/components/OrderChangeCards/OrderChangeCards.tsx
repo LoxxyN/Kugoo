@@ -1,7 +1,8 @@
 import { Badge, OrderChangeCard } from '@components/index'
-import { IOrderCardOptions, TDelivery } from '@interfaces/index'
+import { IOrderCardOptions } from '@interfaces/index'
+import { IOrderForm } from '@utils/index'
 import { Radio, RadioChangeEvent, Select } from 'antd'
-import { useState } from 'react'
+import { useFormContext } from 'react-hook-form'
 
 const cities: Record<string, string>[] = [
 	{ value: 'moscow', label: 'Москва' },
@@ -37,10 +38,25 @@ const orderCardOptions: IOrderCardOptions[] = [
 ]
 
 export const OrderChangeCards = () => {
-	const [value, setValue] = useState<TDelivery>('pickup')
+	const {
+		watch,
+		resetField,
+		setValue,
+		formState: { errors },
+	} = useFormContext<IOrderForm>()
+	const deliveryMethod = watch('deliveryMethod')
 
 	const onChange = (e: RadioChangeEvent) => {
-		setValue(e.target.value)
+		const newValue = e.target.value
+		setValue('deliveryMethod', newValue)
+		if (newValue === 'pickup') {
+			resetField('city')
+			resetField('street')
+			resetField('houseNumber')
+			resetField('houseCorps')
+			resetField('appartmentNumber')
+			resetField('cityIndex')
+		}
 	}
 
 	return (
@@ -49,13 +65,16 @@ export const OrderChangeCards = () => {
 				<span>Шаг {1}.</span>Выберите способ доставки
 			</h3>
 
-			<Radio.Group value={value} onChange={onChange}>
+			<Radio.Group value={deliveryMethod} onChange={onChange}>
 				<div className='grid grid-cols-3 grid-rows-1 gap-5'>
 					{orderCardOptions.map((item, i) => (
 						<OrderChangeCard key={i} {...item} />
 					))}
 				</div>
 			</Radio.Group>
+			{errors.deliveryMethod?.message && (
+				<div className='text-red-500'>{errors.deliveryMethod?.message}</div>
+			)}
 		</>
 	)
 }
