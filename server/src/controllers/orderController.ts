@@ -106,8 +106,6 @@ export const orderController = {
 				address,
 			})
 
-			console.log(order)
-
 			await CartModel.updateOne({ userId }, { $set: { items: [] } })
 
 			return c.json({ success: true, data: { orderId: order._id } }, 201)
