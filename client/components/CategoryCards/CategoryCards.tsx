@@ -1,11 +1,15 @@
 import { CategoryCard } from '@components/index'
-import { CATEGORY_CARDS_DATA } from '@utils/mocks/CategoryCards.data'
+import { ICategoryCard } from '@interfaces/ICategoryCard'
 import './CategoryCards.css'
 
-export const CategoryCards = () => {
+export const CategoryCards = ({
+	category_cards,
+}: {
+	category_cards: ICategoryCard[]
+}) => {
 	return (
 		<div className='category-cards'>
-			{CATEGORY_CARDS_DATA.map(card => (
+			{category_cards.map(card => (
 				<CategoryCard
 					key={card.id}
 					title={card.title}

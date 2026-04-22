@@ -8,11 +8,11 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import {
-	useClearCart,
 	useGetTotalDiscount,
 	useGetTotalPrice,
 	useGetTotalPriceWithoutDiscount,
 } from '@hooks/index'
+import { useCreateOrder } from '@hooks/useOrder'
 import { IOrderForm, orderFormSchema } from '@utils/index'
 import { Form } from 'antd'
 import { FormProvider, useForm } from 'react-hook-form'
@@ -20,6 +20,7 @@ import { useNavigate } from 'react-router'
 
 export const OrderStepsLayout = () => {
 	const navigate = useNavigate()
+	const createOrder = useCreateOrder()
 
 	const totalPrice = useGetTotalPrice()
 	const totalDiscount = useGetTotalDiscount() //Сумма скидки
@@ -44,14 +45,17 @@ export const OrderStepsLayout = () => {
 	const { watch, handleSubmit, reset } = methods
 	const deliveryMethod = watch('deliveryMethod')
 	const showAddress = deliveryMethod !== 'pickup'
-	const clearCart = useClearCart()
 
-	const onSubmit = (data: IOrderForm) => {
-		reset()
-		clearCart.mutate()
-
+	const onSubmit = async (data: IOrderForm) => {
 		try {
-			navigate('/order/success', { state: { fromOrder: true } })
+			const response = await createOrder.mutateAsync(data)
+			if (!response.success)
+				throw new Error(response.error || 'Create order failed')
+
+			reset()
+			navigate('/order/success', {
+				state: { fromOrder: true, orderId: response.data?.orderId },
+			})
 		} catch (error) {
 			console.error('Ошибка:', error)
 		}
