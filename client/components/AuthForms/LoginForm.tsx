@@ -93,6 +93,7 @@ export const LoginForm = ({
 
 			<div className='flex mt-8 justify-center'>
 				<Button
+					tabIndex={0}
 					form='auth__form'
 					htmlType='submit'
 					type='primary'

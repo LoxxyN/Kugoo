@@ -16,12 +16,12 @@ export const HeaderSearch = () => {
 
 	const options = useMemo(
 		() =>
-			(data?.data ?? []).map(({ product }: { product: IProductCard }) => ({
-				value: product._id,
+			(data?.data ?? []).map((product: IProductCard) => ({
+				value: product?._id,
 				label: (
 					<div className='flex justify-between gap-x-3'>
-						<span>{product.name}</span>
-						<span>{product.price} ₽</span>
+						<span>{product?.name}</span>
+						<span>{product?.price} ₽</span>
 					</div>
 				),
 			})),

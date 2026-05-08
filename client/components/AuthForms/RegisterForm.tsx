@@ -118,6 +118,7 @@ export const RegisterForm = ({
 			<div className='flex mt-8 justify-center'>
 				<Button
 					tabIndex={0}
+					htmlType='submit'
 					form='auth__form'
 					type='primary'
 					disabled={!isValid}

@@ -34,6 +34,7 @@ export const getAllProducts = async (
 
 export const getProductById = async (id: string | number) => {
 	const response = await api.get<IProductResponse>(`/products/${id}`)
+
 	return response.data
 }
 
@@ -41,5 +42,6 @@ export const getProductSearch = async (q: string, limit = 9) => {
 	const response = await api.get('/products/search', {
 		params: { q, limit },
 	})
+
 	return response.data
 }
