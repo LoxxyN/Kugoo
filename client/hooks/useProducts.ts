@@ -4,12 +4,12 @@ import { useQuery } from '@tanstack/react-query'
 export const useProductsQuery = ({
 	page = 1,
 	limit = 9,
-	sortBy,
-	sortDir,
+	sortBy = 'price',
+	sortDir = 'asc',
 }: {
 	page: number
-	sortBy: string
-	sortDir: string
+	sortDir?: string
+	sortBy?: string
 	limit?: number
 }) => {
 	return useQuery({

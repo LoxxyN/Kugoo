@@ -143,7 +143,7 @@ export const CallTellModal = ({
 					</div>
 				</div>
 				<div className='modal__right'>
-					<img src='/images/call-tell-woman-image.png' alt='woman' />
+					<img src='/images/call-tell-woman-image.webp' alt='woman' />
 				</div>
 			</Modal>
 		</>

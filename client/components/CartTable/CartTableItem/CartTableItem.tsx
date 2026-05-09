@@ -67,8 +67,8 @@ export const CartTableItem: React.FC<{ product: ICartItem }> = ({
 
 			<div className='item__actions'>
 				<InputCounter
-					handleIncrease={handleIncrementQuantity}
-					handleDecrease={handleDecrementQuantity}
+					handleIncrease={() => handleIncrementQuantity}
+					handleDecrease={() => handleDecrementQuantity}
 					value={quantity}
 				/>
 

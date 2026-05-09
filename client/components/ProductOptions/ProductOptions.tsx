@@ -9,7 +9,7 @@ import './ProductOptions.css'
 
 interface IOptionsEvents {
 	initialOptions: IProductOptions
-	onOptionsChange: (newOptions: IProductOptions) => void
+	onOptionsChange: (newOptions: Partial<IProductOptions>) => void
 }
 
 export const ProductOptions = ({

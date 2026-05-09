@@ -138,7 +138,7 @@ export const ProductCard: React.FC<{ product: IProductCard }> = ({
 								</p>
 							</div>
 							<div className='card__buttons'>
-								<ProductCardButton onClick={handleAddToCart}>
+								<ProductCardButton onClick={() => handleAddToCart}>
 									{isItemInCart ? (
 										<CartActiveIcon size={20} />
 									) : (
@@ -146,7 +146,7 @@ export const ProductCard: React.FC<{ product: IProductCard }> = ({
 									)}
 								</ProductCardButton>
 
-								<ProductCardButton onClick={handleAddToFavorite}>
+								<ProductCardButton onClick={() => handleAddToFavorite}>
 									{isHeartActive ? (
 										<HeartActiveIcon size={20} />
 									) : (

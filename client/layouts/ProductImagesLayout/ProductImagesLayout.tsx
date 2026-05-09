@@ -7,7 +7,7 @@ const ProductImagesLayout: React.FC<{
 	return (
 		<div className='product__images'>
 			<div className='product__current-image'>
-				<Badge type={product ? product.badge : ''} />
+				<Badge type={product && product.badge} />
 				<img src='/images/scooter.svg' alt='product image' />
 			</div>
 

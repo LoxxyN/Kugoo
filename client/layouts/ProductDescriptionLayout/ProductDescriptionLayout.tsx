@@ -130,7 +130,7 @@ const ProductDescriptionLayout: React.FC<{ product: IProductCard }> = ({
 					<p>{splitNumber(product.price)}₽</p>
 				</div>
 				<div className='product__description-installment'>
-					<img src='/images/installment.png' alt='installment' />
+					<img src='/images/installment.webp' alt='installment' />
 					<div>
 						<span>Рассрочка:</span>
 						<p>{splitNumber(1760)}₽ в месяц / 24 месяца</p>
@@ -140,7 +140,7 @@ const ProductDescriptionLayout: React.FC<{ product: IProductCard }> = ({
 
 			<ProductOptions
 				initialOptions={options}
-				onOptionsChange={handleOptionsChange}
+				onOptionsChange={() => handleOptionsChange}
 			/>
 
 			<div className='product__description-buy'>

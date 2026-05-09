@@ -1,3 +1,4 @@
+import { serve } from '@hono/node-server'
 import dotenv from 'dotenv'
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
@@ -38,4 +39,7 @@ app.route('/api/order', orderRouter)
 //Health end-point
 app.get('/api/up', c => c.json({ message: 'API is worked' }))
 
-export default app
+serve({
+	fetch: app.fetch,
+	port: Number(port),
+})
